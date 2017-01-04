@@ -17,8 +17,8 @@
 		    <div id="flip2"></div>
 		</a>
 		<ul id="nav">
-			{% for post in site.posts %}	
-			<li><a href="{{ post.url }}">{{ post.title }}</a></li>
+			{% for node in site.posts %}
+			<li class="{% if page.url == node.url %}active{% endif %}"><a href="{{node.url}}">{{node.title}}</a></li>
 			{% endfor %}
 		</ul>
 	</div>
