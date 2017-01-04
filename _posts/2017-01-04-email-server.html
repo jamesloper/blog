@@ -1,0 +1,165 @@
+---
+layout: post
+title:  "Email Newsletter Server"
+date:   2017-01-04 12:28:18 -0500
+categories: linux
+---
+
+Make the leanest possible newsletter server <kbd>newsletter.com</kbd> in minutes.
+<ul>
+	<li>Allow whitelisted IP's to login and send mail from a list of usernames.
+	<li>Allow incoming mail to be read using usernames and passwords for authentication. 
+</ul>
+	
+<h4>Initial Setup</h4>
+Complete the Initial Setup, Remote Access, and Specify Your Hostname sections specified in the <a href="/digital-ocean-guide">Digital Ocean Guide</a>.
+
+<h4>Install Postfix</h4>
+<ul>
+	<li class="command">apt-get install postfix postfix-pcre opendkim opendkim-tools mailutils
+	<li>Choose the Internet Site configuration
+</ul>
+
+<h4>Configure Postfix</h4>
+Configure Postfix to allow SMTP connections from only the IP of specific servers, then make milters sign every message with DKIM before sending.
+<ul>
+	<li class="command">cd /etc/postfix
+	<li class="command">nano main.cf
+<pre>
+smtpd_banner = $myhostname ESMTP $mail_name (Ubuntu)
+biff = no
+append_dot_mydomain = no
+readme_directory = no
+smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
+alias_maps = hash:/etc/aliases
+alias_database = hash:/etc/aliases
+myorigin = /etc/mailname
+mydestination = <b>newsletter.com</b>, localhost.com, , localhost
+relayhost =
+mynetworks = <b>12.34.56.78</b> 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+mailbox_size_limit = 0
+recipient_delimiter = +
+inet_interfaces = all
+milter_default_action = accept
+milter_protocol = 2
+smtpd_milters = inet:localhost:8891
+non_smtpd_milters = inet:localhost:8891
+header_checks = pcre:/etc/postfix/header_checks
+</pre>
+	<li class="command">mkdir dkim
+	<li class="command">nano dkim/hosts
+<pre>newsletter.com</pre>
+	<li class="command">nano /etc/default/opendkim
+<pre>
+SOCKET="inet:8891@localhost"
+</pre>
+
+	<li class="command">opendkim-genkey -t -s mail -d newsletter.com
+	<li class="command">cp mail.private /etc/postfix/dkim.key
+	<li class="command">cat mail.txt
+	<li>Use the output to update your DNS but remove t=y parameter
+	<li class="command">service opendkim start
+	<li class="command">nano /etc/opendkim.conf
+<pre>
+Syslog                  yes
+UMask                   002
+OversignHeaders         From
+Domain                  <b>newsletter.com</b>
+KeyFile                 /etc/postfix/dkim.key
+Selector                mail
+SOCKET                  inet:8891@localhost
+ExternalIgnoreList      /etc/postfix/dkim/hosts
+InternalHosts           /etc/postfix/dkim/hosts
+</pre>
+</ul>
+
+<h4>Remove Relay Info</h4>
+By default, Postfix puts metadata in the header that reveals the origin server. This can be undesirable in some cases. The following was taken from <a href="https://we.riseup.net/debian/mail#getting-your-postfix-anonymized" target="_blank">this article</a>.
+
+<ul>
+	<li class="command">nano /etc/postfix/header_checks
+<pre>/^\s*(Received: from)[^\n]*(.*)/ REPLACE $1 <b>newsletter.com</b> (<b>newsletter.com</b> [<b>123.45.67.89</b>])$2</pre>
+</ul>
+
+<h4>Install Dovecot</h4>
+The Dovecot service listens for IMAP connections, reads and returns data from user's mail boxes. When you run this command, do not allow the installer to create a self signed certificate.
+<ul>
+	<li class="command">apt-get install dovecot-imapd 
+</ul>
+
+<h4>Configure Dovecot</h4>
+In this configuration Dovecot will allow remote connections and use the system's local users and passwords to authenticate.
+<ul>
+	<li class="command">cd /etc/dovecot
+	<li class="command">nano dovecot.conf
+<pre>
+ssl = no
+disable_plaintext_auth = no
+mail_privileged_group = mail
+mail_location = mbox:~/mail:INBOX=/var/mail/%u
+userdb {
+	driver = passwd
+}
+passdb {
+	args = %s
+	driver = pam
+}
+protocols = " imap"
+</pre>
+
+	<li class="command">nano /etc/pam.d/dovecot
+<pre>
+#%PAM-1.0
+@include common-auth
+@include common-account
+@include common-session
+auth    required        pam_unix.so
+account required        pam_unix.so
+</pre>
+
+</ul>
+
+<h4>Reboot</h4>
+<ul>
+	<li class="command">reboot
+</ul>
+
+<h4>Add Users</h4>
+These users and passwords will work for both Postfix and Dovecot.
+<ul>
+	<li class="command">adduser marketing
+</ul>
+
+<h4>Dovecot Debug</h4>
+<ul>
+	<li class="command">doveadm log find
+</ul>
+
+<h4>Enable Forwarding</h4>
+<ul>
+	<li>
+		Open <kbd>/etc/postfix/main.cf</kbd> and append.
+<pre>
+virtual_alias_domains = mydomain.com myanotherdomain.com
+virtual_alias_maps = hash:/etc/postfix/virtual
+</pre>
+	</li>
+	<li>
+		Create <kbd>/etc/postfix/virtual</kbd> and configure.
+<pre>
+contact@mydomain.com myself@gmail.com
+sales@mydomain.com myself@gmail.com
+</pre>
+	</li>
+	<li>
+		To catch and forward emails to any address for a given domain.
+<pre>
+@mydomain.com myself@gmail.com
+</pre>
+	</li>
+	<li class="command">postmap /etc/postfix/virtual</li>
+	<li class="command">service postfix reload</li>
+</ul>
+
+<h4>Connect</h4>
+Connect to your server programmatically and shoot off some emails!</article>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, minimum-scale=1, maximum-scale=1" />
+    <title>James Loper</title>
+    <meta name="description" content="James Loper" />
+    <link rel="stylesheet" type="text/css" href="/assets/styles.css" />
+</head>
+
+<body>
+
+<header id="header">
+	<div id="header-inner">
+		<a id="logo" href="/">
+		    <div id="flip1"></div>
+		    <div id="flip2"></div>
+		</a>
+		<ul id="nav">
+			{% for post in site.posts %}	
+			<li><a href="{{ post.url }}">{{ post.title }}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+</header>
+
+<div id="blog">
+{{ content }}
+</div>
+
+<script src="/assets/flip.js"></script>
+</body>
+</html>

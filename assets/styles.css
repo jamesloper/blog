@@ -1,0 +1,91 @@
+* {box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box;}
+
+body {
+    font-family:sans-serif;
+    font-size:12px;
+    color:#222;
+    margin:0 auto;
+    line-height:1.4;
+    max-width:960px;
+    position:relative;
+    padding:0 10px;
+    padding-left:220px;
+}
+
+a {color:blue;}
+h1 {font-size:34px; margin:0; color:#333;}
+h4 {margin-bottom:0;}
+td {padding:0;}
+table {border:0;}
+ul {margin-top:0;}
+pre {margin:10px 0; color:#fff; background:#000; padding:3px 7px; overflow:auto; font-size:12px;}
+pre c {color:purple; font-weight:bold;}
+blockquote {border-left:1px solid #f00; padding-left:10px; margin:10px 0; font-style:italic;}
+.hidden {display:none;}
+.fright {float:right;}
+
+/* HEADER */
+#header {position:absolute; top:0; left:10px;}
+#header-inner {width:200px; padding:20px 0 0 0; position:fixed;}
+
+/* FLIP CUBE */
+#logo {-webkit-user-select:none; display:inline-block; -moz-user-select:none; -ms-user-select:none; user-select:none; height:65px; width:166px;}
+#flip1 {margin-bottom:5px}
+.flip-cube > div {width:100%; height:100%; position:absolute; text-align:center; background-color:rgba(0,0,0,.9); color:#fff; line-height:1.5;}
+.flip-cube {
+	-webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+	display:inline-block; position:relative;
+	-webkit-transform-style:preserve-3d;
+	-moz-transform-style:preserve-3d;
+	-o-transform-style:preserve-3d;
+	-ms-transform-style:preserve-3d;
+	transform-style:preserve-3d;
+	-webkit-transition:-webkit-transform 0.4s;
+	-moz-transition:-moz-transform 0.4s;
+	-o-transition:-o-transform 0.4s;
+	-ms-transition:-ms-transform 0.4s;
+	transition:transform 0.4s;
+}
+
+/* NAV */
+#nav {list-style:none; padding:0; margin-top:40px;}
+#nav li {padding:4px 0;}
+#nav a {display:block; color:black; text-decoration:none;}
+#nav .active a {font-weight:bold;}
+
+/* COLUMN SIZES */
+#blog {padding:0 0; max-width:512px;}
+#blog img {max-width:100%;}
+#blog .banner {margin-bottom:1em;}
+@media (min-width:512px) {
+    #blog .banner {width:512px; height:256px;}
+}
+#thin {max-width:400px; margin:120px auto; position:relative; z-index:2;}
+
+/* CODE BLOCKS */
+li.command {list-style-type:square;}
+li.command, .code, pre, kbd, code {font-family:"Courier New", monospace;}
+
+kbd {padding:0 3px; color:#790000; font-weight:bold;}
+kbd:before {content:'['; color:#666; font-weight:normal;}
+kbd:after {content:']'; color:#666; font-weight:normal;}
+
+/* PAYMENT FORMS */
+.text {-webkit-appearance:none; border-radius:0; border:1px solid #ccc; padding:5px 7px; outline:none; width:100%; box-sizing:border-box; margin-top:10px; -webkit-transition:.5s all;}
+.text:focus {border-color:#999; position:relative; z-index:1;}
+.button {float:right; margin-top:10px; text-align:right; background-color:transparent; border:none; color:#666;}
+.button:hover {cursor:pointer; text-decoration:underline;}
+.center {text-align:center;}
+.toppad {padding-top:44px;}
+.chode {width:120px; position:relative; top:4px;}
+#card {width:310px;}
+#cvc {width:90px; margin-left:-4px;}
+#month {width:90px;}
+#year {width:90px; margin-left:-4px;}
+.message {float:left; margin-top:10px; }
+
+@media (max-width:600px) {
+    body {padding-left:10px;}
+    #header {position:static;}
+    #header-inner {position:relative; margin:0 auto; text-align:center;}
+}

@@ -1,0 +1,38 @@
+---
+layout: post
+title:  "Meteor Shared MongoDB"
+date:   2017-01-04 12:28:18 -0500
+categories: meteor
+---
+
+When I needed to share a database between app #1 and app #2, the solution was astonishingly hard to accomplish. Please let me know if there's a better way to do this.<br>
+
+<img src="/assets/docker.png"><br>
+
+<br>
+Since I need to share a DB, the very first thing I did was install the latest Mongo. My idea was that I'd turn off MUP's mongo autoinstall and manually set both <kbd>MONGO_URL</kbd>'s to the same URL and instantly have both meteor sites connect to that same DB.<br>
+<br>
+Simple, enough, except now that we use Docker, our apps live in separate containers! After a day of searching I found out Docker's default network mode is <kbd>BRIDGE</kbd> which puts each container on its own IP. That's wonderful for many reasons! But I can't access the host mongo, plus that's extra router virtualization for no reason. To be clear, the problem is when <kbd>MONGO_URL</kbd> is localhost, it tries to connect to the container's localhost and <i>not</i> the host's localhost.<br>
+<br>
+I ended up changing how mup deploy works.<br>
+<br>
+First modification was in <b>/lib/modules/meteor/assets/templates/start.sh</b> I knew I didn't much care for the virtual networking, so...<br>
+<br>
+On line 22 I added <kbd>--net="host"</kbd> and removed <kbd>--hostname</kbd> and <kbd>--publish</kbd>
+Now it's practically done! Just fails the post deploy check. A wonderful hint appeared that made it clear what it was doing. It was checking for the app to be running at localhost:80. Now, that would work in a bridge configuration but I want port 3000 (specified in the deploy config file). So I did a search for the string "80" went and modified <b>/lib/modules/meteor/index.js</b><br>
+<br>
+Thank god Arounda put in this comment on line 127.<br>
+<br>
+<pre>
+// sending PORT to the docker container is useless.
+// It'll run on PORT 80 and we can't override it
+// Changing the port is done via the start.sh script
+</pre>
+You are my hero for commenting your code well.<br>
+<br>
+On line 130 I simply removed <kbd>delete env.PORT</kbd> so mup would know where to check (localhost:3000 in my case).<br>
+And that did the trick. app #1 is set to run on 3000 and app #2 is set to run on 4000<br>
+<br>
+All that's left is setting up NGINX so that they can be nice pretty domain names instead of port numbers and I can throw in some A+ grade SSL too.<br>
+<br>
+Unfortunately although I like my solution, today was my first day dealing with Docker. Editing this script means I have to maintain this code forever and I daresay I want to maintain more than I have to.
