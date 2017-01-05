@@ -21,6 +21,11 @@
 			<li class="{% if page.url == node.url %}active{% endif %}"><a href="{{node.url}}">{{node.title}}</a></li>
 			{% endfor %}
 		</ul>
+
+	{% for category in site.categories %}
+	<a href="/{{category | first}}/">{{ category | first }}</a>
+	{% endfor %}
+
 	</div>
 </header>
 

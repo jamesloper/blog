@@ -1,7 +1,9 @@
 ---
 layout: page
 title: About
-permalink: /about/
+permalink: /about
 ---
 
-Sup
+### About
+
+This website is super cool. James is the co-founder of hux.com

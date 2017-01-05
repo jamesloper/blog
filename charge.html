@@ -4,16 +4,7 @@ title: Charge
 permalink: /charge
 ---
 
-<form action="/your-server-side-code" method="POST">
-<script
-	src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-	data-key="pk_test_IEiCez6jgwTt2biJenikhoCb"
-	data-amount="2000"
-	data-name="Hux"
-	data-description="2 widgets"
-	data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-	data-locale="auto"
-	data-zip-code="true"
-	data-bitcoin="true">
+<input type="number" placeholder="Amount" class="text">
+<br><br>
+<script id="stripe" src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_IEiCez6jgwTt2biJenikhoCb" data-amount="2000" data-locale="auto" data-zip-code="true" data-bitcoin="true" data-label="Pay Me">
 </script>
-</form>

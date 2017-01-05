@@ -12,7 +12,7 @@ body {
     padding-left:220px;
 }
 
-a {color:blue;}
+a {color:blue; text-decoration:none;}
 h1 {font-size:34px; margin:0; color:#333;}
 h4 {margin-bottom:0;}
 td {padding:0;}
@@ -23,6 +23,8 @@ pre c {color:purple; font-weight:bold;}
 blockquote {border-left:1px solid #f00; padding-left:10px; margin:10px 0; font-style:italic;}
 .hidden {display:none;}
 .fright {float:right;}
+
+article {margin-bottom:70px;}
 
 /* HEADER */
 #header {position:absolute; top:0; left:10px;}
@@ -76,16 +78,11 @@ kbd:after {content:']'; color:#666; font-weight:normal;}
 .button {float:right; margin-top:10px; text-align:right; background-color:transparent; border:none; color:#666;}
 .button:hover {cursor:pointer; text-decoration:underline;}
 .center {text-align:center;}
-.toppad {padding-top:44px;}
-.chode {width:120px; position:relative; top:4px;}
-#card {width:310px;}
-#cvc {width:90px; margin-left:-4px;}
-#month {width:90px;}
-#year {width:90px; margin-left:-4px;}
-.message {float:left; margin-top:10px; }
 
 @media (max-width:600px) {
     body {padding-left:10px;}
     #header {position:static;}
     #header-inner {position:relative; margin:0 auto; text-align:center;}
 }
+
+.meta {color:#999; font-size:10px; margin-top:10px;}
