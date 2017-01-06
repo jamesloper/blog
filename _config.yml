@@ -18,3 +18,4 @@ exclude:
 
 permalink: /:categories/:title
 include: [".well-known"]
+highlighter: rouge

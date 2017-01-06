@@ -1,7 +1,6 @@
 ---
 layout: post
 title:  "Perfect Modals"
-date:   2017-01-04 12:28:18 -0500
 categories: javascript
 ---
 
@@ -37,25 +36,24 @@ I created a container <kbd>div</kbd> for the modal. A div will naturally have th
 When the modal is called, I wait until it's rendered, then apply a class that overrides <kbd>translateY</kbd> to 0. The modal slides down.
 
 <style>
-@keyframes example {
-    from {transform:translateY(-100%);}
-    to {transform:translateY(0);}
-}
-@-webkit-keyframes example {
-    from {-webkit-transform:translateY(-100%);}
-    to {-webkit-transform:translateY(0);}
-}
+@keyframes example {from {transform:translateY(-100%);} to {transform:translateY(0);}}
+@-webkit-keyframes example {from {-webkit-transform:translateY(-100%);} to {-webkit-transform:translateY(0);}}
+@keyframes changeheight {from {height:50px;} to {height:70px;}}
+@-webkit-keyframes changeheight {from {height:50px;} to {height:80px;}}
+
+.label {position:absolute; left:100%; padding:0 5px;}
 .updown {
     top:0;
-    animation: example 2s infinite alternate;
-    -webkit-animation: example 2s infinite alternate;
+    animation: example 2s infinite alternate, changeheight .5s infinite;
+    -webkit-animation: example 2s infinite alternate, changeheight .5s infinite;
 }
-.label {position:absolute; left:100%; padding:0 5px;}
 </style>
 <div style="background:rgba(0,0,0,.1); height:130px; width:200px; position:relative; margin:75px auto;">
     <div class="label" style="bottom:0;">Viewport</div>
     <div style="position:absolute; top:0; left:0; width:100%; background:rgba(0,0,0,.1); ">
         <div class="label" style="top:0;">Container</div>
-        <div style="height:75px; margin:0 auto; width:100px; background:#eee;" class="updown"></div>
+        <div style="height:75px; margin:0 auto; width:100px; padding-top:5px; text-align:center; background:#eee;" class="updown">
+	        Variable Height
+        </div>
     </div>
 </div>

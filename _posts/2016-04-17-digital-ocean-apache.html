@@ -1,13 +1,12 @@
 ---
 layout: post
 title:  "Digital Ocean Apache"
-date:   2017-01-04 12:28:18 -0500
 categories: linux
 ---
 
 <img src="/assets/digital-ocean.png" title="Digital Ocean Guide" class="banner">
 
-Follow this massive guide to run a world-class server on the cheap. If you've never even set up a server before, don't fret as it takes about 30 mins to follow this crash course. Take it from <a href="https://jamesloper.com/about" target="_blank">this video</a>, the server will impress. I recommend to follow the steps down to the popular modules and skim the rest if you're curious. Google if you get stuck. Good luck!
+Follow this massive guide to run a world-class server on the cheap. If you've never even set up a server before, don't fret as it takes about 30 mins to follow this crash course. I recommend to follow the steps down to the popular modules and skim the rest if you're curious. Google if you get stuck. Good luck!
 
 <h4>Quick Reference</h4>
 <table width="100%">
@@ -113,7 +112,7 @@ ServerName  example.com/
 Redirect / https://example.com/
 </pre>
 	<li>Add the following to /etc/apache2/sites-available/default-ssl<br>
-<pre>
+<pre> 
 SSLEngine on
 SSLCertificateFile /etc/apache2/ssl/example/example.crt
 SSLCertificateKeyFile /etc/apache2/ssl/example/server.key

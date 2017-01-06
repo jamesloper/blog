@@ -1,13 +1,12 @@
 ---
 layout: post
-title:  "Custom Reset Password Handler"
-date:   2017-01-04 12:28:18 -0500
+title:  "Custom Reset Password"
 categories: meteor
 ---
 
-I figured out how to override the default action and send the password reset email via CustomerIO.
+I figured out how to override the default reset password handler and send the password reset email via CustomerIO.
 
-<pre>
+``` javascript
 Accounts.sendResetPasswordEmail = function(userId) {
 	var token = Random.secret();
 	Meteor.users.update(userId, {$set: {
@@ -18,9 +17,9 @@ Accounts.sendResetPasswordEmail = function(userId) {
 		}
 	}});
 	
-	CustomerIO.defer('event', userId, {
+	CustomerIO.event(userId, {
 		'name': 'reset_password',
 		'data': {'reset_link': Accounts.urls.resetPassword(token)},
 	});
 };
-</pre>
+```
