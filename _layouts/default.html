@@ -1,46 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ⚡ lang="en">
 <head>
-    <meta charset="UTF-8" />
+	<meta charset="UTF-8" />
+	<script async src="https://cdn.ampproject.org/v0.js"></script>
+	<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+	<link rel="canonical" href="{{page.url}}" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, minimum-scale=1, maximum-scale=1" />
-    <title>James Loper</title>
-    <meta name="description" content="James Loper" />
-    <link rel="stylesheet" type="text/css" href="/assets/styles.css" />
+	<title>James Loper</title>
+	{% include amp-boilerplate.html %}
+	<style amp-custom>{% include styles.css %}</style>
 </head>
 
 <body>
+	
+<div class="body">
 
-<header id="header">
-	<div id="header-inner">
-		<a id="logo" href="/">
-		    <div id="flip1"></div>
-		    <div id="flip2"></div>
-		</a>
-		<ul id="nav">
-			{% for node in site.posts %}
-			<li class="{% if page.url == node.url %}active{% endif %}"><a href="{{node.url}}">{{node.title}}</a></li>
-			{% endfor %}
-		</ul>
-
-	{% for category in site.categories %}
-	<a href="/{{category | first}}/">{{ category | first }}</a>
-	{% endfor %}
-
+	<header id="header">
+		<div id="header-inner">
+			<a id="logo" href="/">
+				{% include cube.html %}
+			</a>
+			<ul id="nav">
+				{% for node in site.posts %}
+				<li class="{% if page.url == node.url %}active{% endif %}"><a href="{{node.url}}">{{node.title}}</a></li>
+				{% endfor %}
+			</ul>
+			
+			<div class="categories">
+				{% for category in site.categories %}
+				<a href="/{{category | first}}/">{{ category | first }}</a>
+				{% endfor %}
+			</div>
+		</div>
+	</header>
+	
+	<div id="blog">
+	{{ content }}
 	</div>
-</header>
-
-<div id="blog">
-{{ content }}
 </div>
 
-<script src="/assets/flip.js"></script>
-
-<script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-9604239-2', 'auto');
-ga('send', 'pageview');
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
+{% include analytics.html %}
 </body>
 </html>
