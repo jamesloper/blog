@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "Replace jQuery"
+title:  "Serve jQuery from CDN"
 categories: meteor
 ---
 
-All projects have a quite gigantic payload of backward compatible jQuery.
-To switch to jQuery 3.0 reference the CDN version in your head tag:
+All projects have a gigantic payload of backward compatible jQuery. Every site should be serving this from a CDN, rather than embedding it.
+To switch to jQuery 3.1.1, first place the CDN reference in your head tag. Most visitors should have this file in their local cache, makiing loading it instant.
 
 ``` javascript
 <script src="ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -16,7 +16,7 @@ At this point you now have 2 versions of jQuery, which is even worse. You need t
 - Create a folder in your project directory called packages. If you use local packages (you should if you haven't adopted the modules system yet) then you'll already have this folder.
 - Create a dir named jquery and place a file named package.js in it and paste in the following contents: 
 ``` javascript
-Package.describe({name:'jquery', version:'1.11.9'});
+Package.describe({name:'jquery', version:'1.11.10'});
 ```
 
 Boom, you just removed 100 Kb off your payload.
