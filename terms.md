@@ -1,7 +1,7 @@
 ---
 layout: page
 title: World's Greatest Privacy Policy
-permalink: /about
+permalink: /terms
 ---
 
 ### World’s Greatest Privacy Policy
