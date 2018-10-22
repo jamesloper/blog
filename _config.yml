@@ -3,7 +3,7 @@ email: james@hux.com
 description: > # this means to ignore newlines until "baseurl:"
   Personal site of James Loper
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://jamesloper.com" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://www.jamesloper.com" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jamesloper
 github_username:  jamesloper
 
