@@ -16,6 +16,6 @@ exclude:
   - Gemfile
   - Gemfile.lock
 
-permalink: /:categories/:title
+permalink: /:title
 include: [".well-known"]
 highlighter: rouge
