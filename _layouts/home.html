@@ -2,4 +2,11 @@
 layout: default
 ---
 
-
+<article>
+    <h3>Index</h3>
+    <ul id="nav">
+        {% for node in site.posts %}
+        <li><a href="{{node.url}}">{{node.title}}</a></li>
+        {% endfor %}
+    </ul>
+</article>
