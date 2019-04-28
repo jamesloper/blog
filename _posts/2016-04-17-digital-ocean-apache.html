@@ -4,100 +4,113 @@ title:  "Digital Ocean Apache"
 categories: linux
 ---
 
-<amp-img src="/assets/digital-ocean.png" title="Digital Ocean Guide" class="banner" layout="responsive" height="512" width="1024"></amp-img>
+<img src="/assets/digital-ocean.png" title="Digital Ocean Guide" class="banner"/>
 
-Follow this massive guide to run a world-class server on the cheap. If you've never even set up a server before, don't fret as it takes about 30 mins to follow this crash course. I recommend to follow the steps down to the popular modules and skim the rest if you're curious. Google if you get stuck. Good luck!
+<p>
+    Follow this massive guide to run a world-class server on the cheap. If you've never even set up a server before,
+    don't fret as it takes about 30 mins to follow this crash course. I recommend to follow the steps down to the
+    popular modules and skim the rest if you're curious. Google if you get stuck. Good luck!
+</p>
+<!--more-->
 
 <h4>Quick Reference</h4>
 <table width="100%">
-	<tr>
-		<td>Restart Apache</td>
-		<td class="code">service apache2 restart</td>
-	</tr>
-	<tr>
-		<td>Digital Ocean Reboot</td>
-		<td class="code">reboot</td>
-	</tr>
-	<tr>
-		<td>Digital Ocean MX records</td>
-		<td>See <i>Email</i></td>
-	</tr>
-	<tr>
-		<td>Digital Ocean Install Curl</td>
-		<td>See <i>Enable Popular Apache2 Modules</i></td>
-	</tr>
-	<tr>
-		<td>Digital Ocean Remote MySQL Access</td>
-		<td>See <i>Install PhpMyAdmin</i></td>
-	</tr>
-	<tr>
-		<td>Digital Ocean Install PhpMyAdmin</td>
-		<td>See <i>Install PhpMyAdmin</i></td>
-	</tr>
-	<tr>
-		<td>Digital Ocean vhosts</td>
-		<td>See <i>Running Multiple Websites</i></td>
-	</tr>
+    <tr>
+        <td>Restart Apache</td>
+        <td class="code">service apache2 restart</td>
+    </tr>
+    <tr>
+        <td>Digital Ocean Reboot</td>
+        <td class="code">reboot</td>
+    </tr>
+    <tr>
+        <td>Digital Ocean MX records</td>
+        <td>See <i>Email</i></td>
+    </tr>
+    <tr>
+        <td>Digital Ocean Install Curl</td>
+        <td>See <i>Enable Popular Apache2 Modules</i></td>
+    </tr>
+    <tr>
+        <td>Digital Ocean Remote MySQL Access</td>
+        <td>See <i>Install PhpMyAdmin</i></td>
+    </tr>
+    <tr>
+        <td>Digital Ocean Install PhpMyAdmin</td>
+        <td>See <i>Install PhpMyAdmin</i></td>
+    </tr>
+    <tr>
+        <td>Digital Ocean vhosts</td>
+        <td>See <i>Running Multiple Websites</i></td>
+    </tr>
 </table>
 
 <h4>Initial Setup</h4>
 <ul>
-	<li><a href="https://www.namecheap.com/" target="_blank">Register</a> a domain and set its nameservers to <span class="code">ns1.digitalocean.com</span> and <span class="code">ns2.digitalocean.com</span>.
-	<li>Create a <a href="https://www.digitalocean.com/" target="_blank">droplet</a>. The 1 GB option will do nicely. 
-	<li>Go to the DNS manager in Digital Ocean.
-	<li>Click Add Domain, type <span class="code">your-domain.com</span> in and select your droplet from the dropdown.
-	<li>Add a cname record, with <span class="code">*</span> and <span class="code">@</span> for the name and hostname, respectively.
+    <li><a href="https://www.namecheap.com/" target="_blank">Register</a> a domain and set its nameservers to <span
+            class="code">ns1.digitalocean.com</span> and <span class="code">ns2.digitalocean.com</span>.
+    <li>Create a <a href="https://www.digitalocean.com/" target="_blank">droplet</a>. The 1 GB option will do nicely.
+    <li>Go to the DNS manager in Digital Ocean.
+    <li>Click Add Domain, type <span class="code">your-domain.com</span> in and select your droplet from the dropdown.
+    <li>Add a cname record, with <span class="code">*</span> and <span class="code">@</span> for the name and hostname,
+        respectively.
 </ul>
 
 <h4>Remote Access</h4>
-Mac users can enter the following command into Terminal to login to their Droplets. Once logged in, the commands you enter will be executed on the Droplet:
+<p>
+    Mac users can enter the following command into Terminal to login to their Droplets. Once logged in, the commands you
+    enter will be executed on the Droplet:
+</p>
 <ul>
-	<li class="command">ssh root@your-domain.com</li>
-	<li>Your password is in an email from DigitalOcean.</li>
-	<li><kbd>root</kbd> is the username if you need to use it again.</li>
+    <li class="command">ssh root@your-domain.com</li>
+    <li>Your password is in an email from DigitalOcean.</li>
+    <li><kbd>root</kbd> is the username if you need to use it again.</li>
 </ul>
-Windows users can download <a href="http://the.earth.li/~sgtatham/putty/latest/x86/putty.exe">Putty</a> and do the same thing. If you're having trouble with this step, it is most likely your ISP needs to be told to unblock port 22. Run these two commands to make sure the server has the most up to date information.
+Windows users can download <a
+        href="http://the.earth.li/~sgtatham/putty/latest/x86/putty.exe">Putty</a> and do the same thing. If you're having trouble with this step, it is most likely your ISP needs to be told to unblock port 22. Run these two commands to make sure the server has the most up to date information.
 <ul>
-	<li class="command">apt-get update
-	<li class="command">apt-get upgrade
+    <li class="command">apt-get update
+    <li class="command">apt-get upgrade
 </ul>
 
 <h4>Specify Your Hostname</h4>
 <ul>
-	<li class="command">nano /etc/hostname
-	<li>Replace the contents of the file with <span class="code">your-domain.com</span>
+    <li class="command">nano /etc/hostname
+    <li>Replace the contents of the file with <span class="code">your-domain.com</span>
 </ul>
 
 <h4>Install Apache</h4>
 Apache plays the defining role of a server; to reply to requests coming from the web.
 <ul>
-	<li class="command">apt-get install apache2
+    <li class="command">apt-get install apache2
 </ul>
-Now you can navigate to <span class="code">your-domain.com</span> and see the default website. To upload your actual site, use a good SFTP client like Coda (Mac) or FileZilla (Windows) to login using the credentials from step two. The default folder is <span class="code">/var/www</span>.
+Now you can navigate to <span
+        class="code">your-domain.com</span> and see the default website. To upload your actual site, use a good SFTP client like Coda (Mac) or FileZilla (Windows) to login using the credentials from step two. The default folder is
+<span class="code">/var/www</span>.
 
 <h4>Install PHP & MySQL</h4>
 PHP adds the ability to create web pages programmatically, and MySQL is used to store larger data sets where a file wouldn't necessarily be the best option.
 <ul>
-	<li class="command">apt-get install php5 libapache2-mod-php5
-	<li class="command">apt-get install mysql-server
+    <li class="command">apt-get install php5 libapache2-mod-php5
+    <li class="command">apt-get install mysql-server
 </ul>
 
 <h4>Install PhpMyAdmin</h4>
 After this is installed you will be able to administrate your MySQL database by navigating to <span class="code">your-domain.com/phpmyadmin</span>.
 <ul>
-	<li class="command">apt-get install phpmyadmin
-	<li>Open /etc/apache2/apache2.conf and add the following line:
-	<pre>Include /etc/phpmyadmin/apache.conf</pre>
-	<li class="command">service apache2 restart
+    <li class="command">apt-get install phpmyadmin
+    <li>Open /etc/apache2/apache2.conf and add the following line:
+        <pre>Include /etc/phpmyadmin/apache.conf</pre>
+    <li class="command">service apache2 restart
 </ul>
 
 <h4>Enable Popular Apache2 Modules</h4>
 Rewrite lets you make vanity URLS and countless websites depends heavily on it. Headers lets PHP modify webpage headers, and CURL lets you pull in data from external websites.
 <ul>
-	<li class="command">a2enmod rewrite
-	<li class="command">a2enmod headers 
-	<li class="command">apt-get install curl libcurl3 libcurl3-dev php5-curl
-	<li class="command">service apache2 restart
+    <li class="command">a2enmod rewrite
+    <li class="command">a2enmod headers
+    <li class="command">apt-get install curl libcurl3 libcurl3-dev php5-curl
+    <li class="command">service apache2 restart
 </ul>
 
 <h4>Email</h4>
@@ -105,25 +118,27 @@ This section now has its <a href="/email-server">own guide</a>!
 
 <h4>Enable SSL</h4>
 <ul>
-	<li>Upload the SSL certificates to /etc/apache2/ssl/
-	<li>Add the following to /etc/apache2/sites-available/default<br>
-	<pre>
+    <li>Upload the SSL certificates to /etc/apache2/ssl/
+    <li>Add the following to /etc/apache2/sites-available/default<br>
+        <pre>
 ServerName  example.com/
 Redirect / https://example.com/
 </pre>
-	<li>Add the following to /etc/apache2/sites-available/default-ssl<br>
-<pre> 
+    <li>Add the following to /etc/apache2/sites-available/default-ssl<br>
+        <pre>
 SSLEngine on
 SSLCertificateFile /etc/apache2/ssl/example/example.crt
 SSLCertificateKeyFile /etc/apache2/ssl/example/server.key
 SSLCertificateChainFile /etc/apache2/ssl/example/AddTrustExternalCARoot.crt
 SSLCertificateChainFile /etc/apache2/ssl/example/PositiveSSLCA2.crt
 </pre>
-	<li class="command">service apache2 restart
+    <li class="command">service apache2 restart
 </ul>
 
 <h4>Running Multiple Websites</h4>
-To run multiple websites, open the <b>vhosts</b> file in /etc/apache2/sites-available/000-default.conf. Assuming you pointed the domain example.com at your Digital Ocean account, you can add the following code to serve files in <b>/var/www/example</b> to <b>example.com</b> and <b>www.example.com</b>
+To run multiple websites, open the
+<b>vhosts</b> file in /etc/apache2/sites-available/000-default.conf. Assuming you pointed the domain example.com at your Digital Ocean account, you can add the following code to serve files in
+<b>/var/www/example</b> to <b>example.com</b> and <b>www.example.com</b>
 <pre>
 &lt;VirtualHost *:80&gt;
 	DocumentRoot /var/www/example
@@ -134,16 +149,18 @@ To run multiple websites, open the <b>vhosts</b> file in /etc/apache2/sites-avai
 
 If you would like each user's code to run as the user and not a privileged user like www-data, you'll need to install MPM-ITK.
 <ul>
-	<li class="command">apt-get install apache2-mpm-itk
+    <li class="command">apt-get install apache2-mpm-itk
 </ul>
 
-Then create a user for each website. Each user will not be able to access the other user's files and thus your server is more secure. The <b>Adduser</b> command will create a new home folder, sftp user and password. Use <b>mkdir</b> to create a <b>www</b> folder in the home directory.
+Then create a user for each website. Each user will not be able to access the other user's files and thus your server is more secure. The
+<b>Adduser</b> command will create a new home folder, sftp user and password. Use <b>mkdir</b> to create a
+<b>www</b> folder in the home directory.
 <ul>
-	<li class="command">adduser user_name
-	<li class="command">mkdir /home/user_name/www
-	<li class="command">chown -R user_name:user_name /home/user_name/www
-	<li>Alter the vhost configuration's <b>DocumentRoot</b> and add the <b>AssignUserId</b> line as well.
-<pre>
+    <li class="command">adduser user_name
+    <li class="command">mkdir /home/user_name/www
+    <li class="command">chown -R user_name:user_name /home/user_name/www
+    <li>Alter the vhost configuration's <b>DocumentRoot</b> and add the <b>AssignUserId</b> line as well.
+        <pre>
 DocumentRoot /var/user_name/www
 AssignUserId user_name user_name
 </pre>

@@ -4,12 +4,14 @@ title:  "Email Newsletter Server"
 categories: linux
 ---
 
-Make the leanest possible newsletter server <kbd>newsletter.com</kbd> in minutes.
+<p>Make the leanest possible newsletter server <kbd>newsletter.com</kbd> in minutes.</p>
+
+<!--more-->
 <ul>
 	<li>Allow whitelisted IP's to login and send mail from a list of usernames.
-	<li>Allow incoming mail to be read using usernames and passwords for authentication. 
+	<li>Allow incoming mail to be read using usernames and passwords for authentication.
 </ul>
-	
+
 <h4>Initial Setup</h4>
 Complete the Initial Setup, Remote Access, and Specify Your Hostname sections specified in the <a href="/linux/digital-ocean-apache">Digital Ocean Guide</a>.
 
@@ -83,7 +85,7 @@ By default, Postfix puts metadata in the header that reveals the origin server. 
 <h4>Install Dovecot</h4>
 The Dovecot service listens for IMAP connections, reads and returns data from user's mail boxes. When you run this command, do not allow the installer to create a self signed certificate.
 <ul>
-	<li class="command">apt-get install dovecot-imapd 
+	<li class="command">apt-get install dovecot-imapd
 </ul>
 
 <h4>Configure Dovecot</h4>

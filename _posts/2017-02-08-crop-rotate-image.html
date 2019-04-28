@@ -4,7 +4,8 @@ title:  "Crop & Reorient Image"
 categories: javascript
 ---
 
-Center crop to a square, reorient, and resize, callback as base64. Don't think I can make this any smaller.
+<p>Center crop to a square, reorient, and resize, callback as base64. Don't think I can make this any smaller.</p>
+<!--more-->
 
 {% highlight javascript %}
 function getOrientation(file, callback) {
@@ -37,14 +38,14 @@ function getOrientation(file, callback) {
 function cropSquare(file, size, orient, callback) {
 	var reader = new FileReader(), img = new Image();
 	reader.onload = () => {img.src = reader.result};
-	img.onload = function() {		
+	img.onload = function() {
 		var x=0, y=0, w=img.width, h=img.height;
 		var scale = size / Math.min(w,h);
 		if (w > h) {x = (w - h) / 2} else {y = (h - w) / 2}
 		var canvas = document.createElement('canvas');
 		canvas.width = size; canvas.height = size;
 		var ctx = canvas.getContext('2d');
-		
+
 		var rotate = {6:90, 3:180, 8:-90};
 		if (rotate[orient]) {
 			var offset = size/2;
@@ -52,14 +53,14 @@ function cropSquare(file, size, orient, callback) {
 			ctx.rotate(Math.PI / 180 * rotate[orient]);
 			ctx.translate(-offset, -offset);
 		}
-		
+
 		ctx.drawImage(img, -x*scale, -y*scale, w*scale, h*scale);
 		callback(canvas.toDataURL('image/jpeg'));
 	}
 	reader.readAsDataURL(file);
 }
 
-var Crop = {	
+var Crop = {
 	square(file, size, callback) {
 		getOrientation(file, function(orient) {
 			cropSquare(file, size, orient, callback);

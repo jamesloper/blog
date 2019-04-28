@@ -5,6 +5,7 @@ categories: meteor
 ---
 
 I figured out how to override the default reset password handler and send the password reset email via CustomerIO.
+<!--more-->
 
 ``` javascript
 Accounts.sendResetPasswordEmail = function(userId) {

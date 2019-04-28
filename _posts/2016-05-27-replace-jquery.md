@@ -1,14 +1,15 @@
 ---
 layout: post
-title:  "Serve jQuery from CDN"
+title:  "Serve jQuery from CDN Using Meteor"
 categories: meteor
 ---
 
-All projects have a gigantic payload of backward compatible jQuery. Every site should be serving this from a CDN, rather than embedding it.
-To switch to jQuery 3.1.1, first place the CDN reference in your head tag. Most visitors should have this file in their local cache, makiing loading it instant.
+Meteor projects using Blaze have a gigantic payload of backward compatible jQuery. Every site should be serving this from a CDN, rather than embedding it.
+To switch to jQuery 3.4.0, first place the CDN reference in your head tag. Most visitors should have this file in their local cache, makiing loading it instant.
+<!--more-->
 
 ``` javascript
-<script src="ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 ````
 
 At this point you now have 2 versions of jQuery, which is even worse. You need to replace the built in jQuery payload with a stub because other packages have jQuery as a dependency and they don't acknowledge the jQuery in the head tag:

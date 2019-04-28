@@ -8,13 +8,13 @@ h1 {font-size:34px; margin:0; color:#333;}
 h4 {margin-bottom:0;}
 ul {margin-top:0;}
 article {margin-bottom:70px;}
+p, .highlight {margin:0 0 20px 0;}
 pre {margin:10px 0; font-family:Menlo, monospace; color:#fff; background:#192535; padding:5px 7px; overflow:auto; font-size:12px; border-radius:1px;}
 li.command {list-style-type:square;}
 li.command, .code, pre, kbd, code {font-family:Menlo, "Courier New", monospace; font-size:11px;}
 kbd {padding:0 3px; font-weight:bold;}
 kbd:before {content:'['; font-weight:normal;}
 kbd:after {content:']'; font-weight:normal;}
-.highlight {margin:0;}
 .c1 {color:#999;}
 .k, .kd {color:#e9534e;}
 .s1, .s2 {color:#f5cd6b;}
@@ -52,8 +52,13 @@ kbd:after {content:']'; font-weight:normal;}
 }
 
 #nav {list-style:none; padding:0;}
+#nav p {margin-bottom:0;}
+#nav img {padding:0 0; max-width:640px;}
+#nav li::after {content: ""; clear:both; display:table;}
 
-#blog {padding:0 0; max-width:640px;}
-#blog img {max-width:100%;}
+
+
+#blog {width:100%;}
+#blog img {max-width:25%; float:left; margin-right:20px;}
 #blog .banner {margin-bottom:1em;}
 #blog .meta {margin-top:10px;}

@@ -4,7 +4,12 @@ title:  "Perfect Modals"
 categories: javascript
 ---
 
-Well I searched long and hard for great cross-device modals, but came up short. I decided to whip up my own, and I have a good solution. But first let's go over what makes a perfect modal.<br>
+<p>
+    Well I searched long and hard for great cross-device modals, but came up short. I decided to whip up my own, and I
+    have a good solution. But first let's go over what makes a perfect modal.
+</p>
+
+<!--more-->
 
 <ol>
     <li>Large modals need to scroll</li>
@@ -13,47 +18,100 @@ Well I searched long and hard for great cross-device modals, but came up short. 
 </ol>
 
 <h4>Scrolling</h4>
-As for #1, you may think this is not an issue, but it is the largest when combined with the #2 requirement. If we want to do fixed positioning, we can use <kbd>position:fixed</kbd> &mdash; they'll be firmly anchored according to x and y coordinates on the physical display.<br>
-<br>
-As for the problem this creates on every laptop, tablet, and phone except the iPhone, if the modal has a form, the keyboard will be up, and the fixed positioning means that the modal won't scroll! Only the rest of the page will. You can't see anything scrolling but you can see the scrollbar moving. This is what happens on the vast majority of websites.<br>
-<br>
-For iPhones, Apple took it upon themselves to 'fix' the issue. When the keyboard is up it temporarily unfixes the fixed elements. Not a terrible solution, however it's highly nonstandard and causes issues for things that aren't modals. So many websites use fixed positioning for modals that Apple decided that's the only use case to support.<br>
-<br>
-I actually decided to scrap <kbd>fixed</kbd> positioning on mobile and go for <kbd>absolute</kbd> instead. This mimics iPhones but is cross platform.
+
+<p>
+    As for #1, you may think this is not an issue, but it is the largest when combined with the #2 requirement. If we
+    want to do fixed positioning, we can use
+    <kbd>position:fixed</kbd> &mdash; they'll be firmly anchored according to x and y coordinates on the physical
+    display.
+</p>
+<p>
+    As for the problem this creates on every laptop, tablet, and phone except the iPhone, if the modal has a form, the
+    keyboard will be up, and the fixed positioning means that the modal won't scroll! Only the rest of the page will.
+    You can't see anything scrolling but you can see the scrollbar moving. This is what happens on the vast majority of
+    websites.
+</p>
+<p>
+    For iPhones, Apple took it upon themselves to 'fix' the issue. When the keyboard is up it temporarily unfixes the
+    fixed elements. Not a terrible solution, however it's highly nonstandard and causes issues for things that aren't
+    modals. So many websites use fixed positioning for modals that Apple decided that's the only use case to support.
+</p>
+<p>
+    I actually decided to scrap <kbd>fixed</kbd> positioning on mobile and go for
+    <kbd>absolute</kbd> instead. This mimics iPhones but is cross platform.
+</p>
 
 <h4>Backdrop</h4>
-Next, the "backdrop" has long since been solved by the same method. There's always a 100% height, 100% width element with <kbd>position:fixed</kbd> that is slightly transparent, with a high z-index. The problem lies within the 100% height part. On a mobile browser, the control bars and address bars can go away, changing the height. When this happens, the height of the backdrop is <i>not recalculated in real time</i>. This leads to parts of the web page not being covered by the backdrop. This can be recreated in all mobile operating systems.<br>
-<br>
+<p>
+    Next, the "backdrop" has long since been solved by the same method. There's always a 100% height, 100% width element
+    with <kbd>position:fixed</kbd> that is slightly transparent, with a high z-index. The problem lies within the 100%
+    height part. On a mobile browser, the control bars and address bars can go away, changing the height. When this
+    happens, the height of the backdrop is <i>not recalculated in real time</i>. This leads to parts of the web page not
+    being covered by the backdrop. This can be recreated in all mobile operating systems.
+</p>
 
 <h4>Solution</h4>
-This was a blast to come up with. First, the backdrop since it's easiest to explain. Starting over, I decided to wrap the header and body in a container called <kbd>#page</kbd> which will be the page content minus the modal. When the modal is called, I immediately give the body a black background, but it doesn't show through just yet. Then I transition the opacity of <kbd>#page</kbd> down to 3%. This has the effect of a backdrop, but it's guaranteed to not produce any artifacts. You're not <i>covering</i> the page any more, you're fading the entire contents!<br>
-<br>
-As for the positioning of the modal, CSS animation can be tricky, but with the right markup it can be done. The requirement that the modal comes from the top is the problem. Setting the original position of the the bottom of the modal just above the browser viewport is <i>always</i> skirted around. In all or most existing solutions the modal simultaneously fades in and slides down from a position a fixed point above the target coordinate. This is a poor approximation of the designer's intent. The solution is not hard, once you wrap your head around it.<br>
-<br>
+<p>
+    This was a blast to come up with. First, the backdrop since it's easiest to explain. Starting over, I decided to
+    wrap the header and body in a container called
+    <kbd>#page</kbd> which will be the page content minus the modal. When the modal is called, I immediately give the
+    body a black background, but it doesn't show through just yet. Then I transition the opacity of
+    <kbd>#page</kbd> down to 3%. This has the effect of a backdrop, but it's guaranteed to not produce any artifacts.
+    You're not <i>covering</i> the page any more, you're fading the entire contents!
+</p>
 
-I created a container <kbd>div</kbd> for the modal. A div will naturally have the same height as its closest descendant with zero extra code. Then, in CSS I target the modal, setting it's initial <kbd>translateY</kbd> to -100%. The negative 100% will position the modal just above the container div because the percent is in terms of the parent's height, which is calculated from the child's height.<br>
-<br>
-When the modal is called, I wait until it's rendered, then apply a class that overrides <kbd>translateY</kbd> to 0. The modal slides down.
+<p>
+    As for the positioning of the modal, CSS animation can be tricky, but with the right markup it can be done. The
+    requirement that the modal comes from the top is the problem. Setting the original position of the the bottom of the
+    modal just above the browser viewport is <i>always</i> skirted around. In all or most existing solutions the modal
+    simultaneously fades in and slides down from a position a fixed point above the target coordinate. This is a poor
+    approximation of the designer's intent. The solution is not hard, once you wrap your head around it.
+</p>
+
+<p>
+    I created a container <kbd>div</kbd> for the modal. A div will naturally have the same height as its closest
+    descendant with zero extra code. Then, in CSS I target the modal, setting it's initial
+    <kbd>translateY</kbd> to -100%. The negative 100% will position the modal just above the container div because the
+    percent is in terms of the parent's height, which is calculated from the child's height.
+</p>
+
+<p>
+    When the modal is called, I wait until it's rendered, then apply a class that overrides
+    <kbd>translateY</kbd> to 0. The modal slides down.
+</p>
 
 <style>
-@keyframes example {from {transform:translateY(-100%);} to {transform:translateY(0);}}
-@-webkit-keyframes example {from {-webkit-transform:translateY(-100%);} to {-webkit-transform:translateY(0);}}
-@keyframes changeheight {from {height:50px;} to {height:70px;}}
-@-webkit-keyframes changeheight {from {height:50px;} to {height:80px;}}
+    @keyframes example {
+        from {transform:translateY(-100%);}
+        to {transform:translateY(0);}
+    }
+    @-webkit-keyframes example {
+        from {-webkit-transform:translateY(-100%);}
+        to {-webkit-transform:translateY(0);}
+    }
+    @keyframes changeheight {
+        from {height:50px;}
+        to {height:70px;}
+    }
+    @-webkit-keyframes changeheight {
+        from {height:50px;}
+        to {height:80px;}
+    }
 
-.label {position:absolute; left:100%; padding:0 5px;}
-.updown {
-    top:0;
-    animation: example 2s infinite alternate, changeheight .5s infinite;
-    -webkit-animation: example 2s infinite alternate, changeheight .5s infinite;
-}
+    .label {position:absolute; left:100%; padding:0 5px;}
+    .updown {
+        top:0;
+        animation:example 2s infinite alternate, changeheight .5s infinite;
+        -webkit-animation:example 2s infinite alternate, changeheight .5s infinite;
+    }
 </style>
 <div style="background:rgba(0,0,0,.1); height:130px; width:200px; position:relative; margin:75px auto;">
     <div class="label" style="bottom:0;">Viewport</div>
     <div style="position:absolute; top:0; left:0; width:100%; background:rgba(0,0,0,.1); ">
         <div class="label" style="top:0;">Container</div>
-        <div style="height:75px; margin:0 auto; width:100px; padding-top:5px; text-align:center; background:#eee;" class="updown">
-	        Variable Height
+        <div style="height:75px; margin:0 auto; width:100px; padding-top:5px; text-align:center; background:#eee;"
+             class="updown">
+            Variable Height
         </div>
     </div>
 </div>

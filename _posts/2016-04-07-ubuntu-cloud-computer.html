@@ -4,41 +4,47 @@ title:  "Ubuntu Cloud Computer"
 categories: linux
 ---
 
-<amp-img src="/assets/ubuntu-xfce.png" title="Ubuntu Cloud Computer" class="banner" layout="responsive" height="640" width="1152"></amp-img>
+<img alt="Ubuntu Cloud Computer" src="/assets/ubuntu-xfce.png" title="Ubuntu Cloud Computer" class="banner"/>
 
-An always-online server running a full Ubuntu Desktop can be useful for many reasons. I usually use DigitalOcean but the <a href="http://ovh.com/" target="_blank">France-based host OVH</a> seems perfect for this scenario &mdash; They're probably not amazing enough for mission-critical operations but the price is too low to pass up.<br>
-<br>
+<p>
+    An always-online server running a full Ubuntu Desktop can be useful for many reasons. I usually use DigitalOcean but
+    the <a href="http://ovh.com/" target="_blank">France-based host OVH</a> seems perfect for this scenario &mdash;
+    They're probably not amazing enough for mission-critical operations but the price is too low to pass up.
+</p>
+<!--more-->
 
 <h4>Initial Setup</h4>
 You should now be running a server with Ubuntu Server 14.04. Once you're remotely logged in, you can execute these commands to prep the server.
 <ul>
-	<li><kbd>apt-get update && apt-get upgrade</kbd></li>
-	<li><kbd>apt-get install nano</kbd>
-	<li><kbd>reboot</kbd>
+    <li><kbd>apt-get update && apt-get upgrade</kbd></li>
+    <li><kbd>apt-get install nano</kbd>
+    <li><kbd>reboot</kbd>
 </ul>
 
 <h4>Install Desktop</h4>
 The familiar desktops Unity and Gnome don't work without a display plugged in so the next best choice is Xfce which is like the Raspberry Pi desktop.
 <ul>
-	<li><kbd>apt-get install xfce4 xfce4-goodies tightvncserver</kbd></li>
+    <li><kbd>apt-get install xfce4 xfce4-goodies tightvncserver</kbd></li>
 </ul>
 
 <h4>Configure Accounts</h4>
-For each user you want to add, run <kbd>adduser <b>username</b></kbd>. Each will have it's own desktop environment. If you'd like the user to be a full admin run <kbd>usermod -a -G sudo <b>username</b></kbd>.
+For each user you want to add, run <kbd>adduser
+    <b>username</b></kbd>. Each will have it's own desktop environment. If you'd like the user to be a full admin run
+<kbd>usermod -a -G sudo <b>username</b></kbd>.
 
 
 <h4>Configure VNC</h4>
-Repeat this process until all users are configured. Each user will have its own configuration. 
+Repeat this process until all users are configured. Each user will have its own configuration.
 <ul>
-	<li>Run <kbd>su <b>username</b></kbd> to change to the test user.
-	<li>Run <kbd>vncserver -geometry <b>1440x900</b></kbd> and choose a password.</li>
-	<li>Run <kbd>nano ~/.vnc/xstartup</kbd> and replace with this:
-<pre>
+    <li>Run <kbd>su <b>username</b></kbd> to change to the test user.
+    <li>Run <kbd>vncserver -geometry <b>1440x900</b></kbd> and choose a password.</li>
+    <li>Run <kbd>nano ~/.vnc/xstartup</kbd> and replace with this:
+        <pre>
 xrdb $HOME/.Xresources
 startxfce4 &
 </pre>
-	</li>
-	<li><kbd>chmod +x ~/.vnc/xstartup</kbd>
+    </li>
+    <li><kbd>chmod +x ~/.vnc/xstartup</kbd>
 </ul>
 
 <h4>Connect</h4>
