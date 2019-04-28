@@ -53,12 +53,8 @@ kbd:after {content:']'; font-weight:normal;}
 
 #nav {list-style:none; padding:0;}
 #nav p {margin-bottom:0;}
-#nav img {padding:0 0; max-width:640px;}
+#nav img {width:25%; float:left; margin-right:20px;}
 #nav li::after {content: ""; clear:both; display:table;}
 
-
-
-#blog {width:100%;}
-#blog img {max-width:25%; float:left; margin-right:20px;}
-#blog .banner {margin-bottom:1em;}
-#blog .meta {margin-top:10px;}
+article img {width:100%;}
+article .meta {margin-top:10px;}

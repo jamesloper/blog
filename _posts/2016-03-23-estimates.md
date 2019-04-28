@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Estimates"
+title:  "How much value do software estimates provide?"
 categories: life
 ---
 

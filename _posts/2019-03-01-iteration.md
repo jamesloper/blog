@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Iteration & Ruthless Prioritization"
+title:  "How iteration and ruthless prioritization can not co-exist"
 categories: life
 ---
 

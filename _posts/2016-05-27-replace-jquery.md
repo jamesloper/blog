@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Serve jQuery from CDN Using Meteor"
+title:  "How to serve jQuery from CDN in Meteor"
 categories: meteor
 ---
 

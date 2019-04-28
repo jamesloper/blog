@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Custom Reset Password"
+title:  "How to set a custom reset password handler in Meteor"
 categories: meteor
 ---
 
