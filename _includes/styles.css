@@ -53,4 +53,4 @@ kbd {padding:0 3px; font-weight:bold;}
 #nav li::after {content: ""; clear:both; display:table;}
 
 article img {width:100%;}
-article .meta {margin-top:10px; opacity:.5;}
+article .meta {margin-top:10px;}
