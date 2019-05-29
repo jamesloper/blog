@@ -8,13 +8,13 @@ categories: linux
 
 <p>
     An always-online server running a full Ubuntu Desktop can be useful for many reasons. I usually use DigitalOcean but
-    the <a href="http://ovh.com/" target="_blank">France-based host OVH</a> seems perfect for this scenario &mdash;
+    the <a href="https://www.ovh.com/world/vps/" target="_blank">France-based host OVH</a> seems perfect for this scenario &mdash;
     They're probably not amazing enough for mission-critical operations but the price is too low to pass up.
 </p>
 <!--more-->
 
 <h4>Initial Setup</h4>
-You should now be running a server with Ubuntu Server 14.04. Once you're remotely logged in, you can execute these commands to prep the server.
+<p>You should now be running a server with Ubuntu Server. Once you're remotely logged in, you can execute these commands to prep the server.</p>
 <ul>
     <li><kbd>apt-get update && apt-get upgrade</kbd></li>
     <li><kbd>apt-get install nano</kbd>
@@ -22,19 +22,22 @@ You should now be running a server with Ubuntu Server 14.04. Once you're remotel
 </ul>
 
 <h4>Install Desktop</h4>
-The familiar desktops Unity and Gnome don't work without a display plugged in so the next best choice is Xfce which is like the Raspberry Pi desktop.
+<p>The familiar desktops Unity and Gnome don't work without a display plugged in so the next best choice is Xfce which is like the Raspberry Pi desktop.</p>
 <ul>
     <li><kbd>apt-get install xfce4 xfce4-goodies tightvncserver</kbd></li>
 </ul>
 
 <h4>Configure Accounts</h4>
-For each user you want to add, run <kbd>adduser
-    <b>username</b></kbd>. Each will have it's own desktop environment. If you'd like the user to be a full admin run
-<kbd>usermod -a -G sudo <b>username</b></kbd>.
+<p>
+	For each user you want to add, run <kbd>adduser <b>username</b></kbd>. 
+	Each will have it's own desktop environment. 
+	If you'd like the user to be a full admin run
+	<kbd>usermod -a -G sudo <b>username</b></kbd>.
+</p>
 
 
 <h4>Configure VNC</h4>
-Repeat this process until all users are configured. Each user will have its own configuration.
+<p>Repeat this process until all users are configured. Each user will have its own configuration.</p>
 <ul>
     <li>Run <kbd>su <b>username</b></kbd> to change to the test user.
     <li>Run <kbd>vncserver -geometry <b>1440x900</b></kbd> and choose a password.</li>
