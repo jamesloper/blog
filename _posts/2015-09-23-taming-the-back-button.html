@@ -46,8 +46,11 @@ categories: javascript
     </div>
 </figure>
 
-When you use the back button you see the browser has some sort of history that it can traverse one level at a time. If you click the back button twice, the mark moved back by two and the browser shows you the home page. The stack hasn't changed, but the marker has moved to a different item.
-<br>
+<p>
+    When you use the back button you see the browser has some sort of history that it can traverse one level at a time.
+    If you click the back button twice, the mark moved back by two and the browser shows you the home page. The stack
+    hasn't changed, but the marker has moved to a different item.
+</p>
 
 <figure>
     <div class="history">
@@ -64,8 +67,11 @@ When you use the back button you see the browser has some sort of history that i
     </div>
 </figure>
 
-If the user strays off this linear path to a page that wasn't on the stack already by clicking
-<b>About</b>, the browser rebuilds the stack. It keeps the states before the current state and replaces the rest with a state whose active page is the new page, and places the marker on that new state.
+<p>
+    If the user strays off this linear path to a page that wasn't on the stack already by clicking
+    <b>About</b>, the browser rebuilds the stack. It keeps the states before the current state and replaces the rest
+    with a state whose active page is the new page, and places the marker on that new state.
+</p>
 
 <figure>
     <div class="history">
@@ -78,15 +84,25 @@ If the user strays off this linear path to a page that wasn't on the stack alrea
     </div>
 </figure>
 
-This kind of navigation causes the marked state to be the state with the highest index, and thus the forward button is disabled.
+<p>
+    This kind of navigation causes the marked state to be the state with the highest index, and thus the forward button
+    is disabled.
+</p>
 
 <h4>Modifying the Stack</h4>
-The amount of caveats we have to deal with is shocking. Check it out. You can access the stack length, but it's calculated by counting all the states that were added since the
-<i>opening of the
-    window</i>. You also can't find your bearings within the stack because you can't access the index of the current state. Information about past and previous states is just not accessible. And to top it all off, when the browser moves back
-<i>or</i> forward, it does not even tell you which direction!<br>
-<br>
-But with two humble functions, we can look past that and gain all the functionality we need to enable history in our app.
+<p>
+    The amount of caveats we have to deal with is shocking. Check it out. You can access the stack length, but it's
+    calculated by counting all the states that were added since the
+    <i>opening of the tab</i>. You also can't find your bearings within the stack because you can't access the index of
+    the current state. Information about past and previous states is just not accessible. And to top it all off, when
+    the browser moves back
+    <i>or</i> forward, it does not even tell you which direction!
+</p>
+
+<p>
+    But with two humble functions, we can look past that and gain all the functionality we need to enable history in our
+    app.
+</p>
 
 <ol>
     <li><b>history.pushState()</b> is a method to add history entries without the page reloading. You can pass it
@@ -97,14 +113,17 @@ But with two humble functions, we can look past that and gain all the functional
     </li>
 </ol>
 
-If you're wondering, calling history.pushState() won't trigger a popstate event.
+<p>If you're wondering, calling history.pushState() won't trigger a popstate event.</p>
 
 <h4>History Example</h4>
-The following code sets an event handler for popstate events and causes a navigation event with a "Hello World" state and pushes it onto the history stack. It then simulates a back, then a forward. Console logs "Hello World".
+<p>
+    The following code sets an event handler for popstate events and causes a navigation event with a "Hello World"
+    state and pushes it onto the history stack. It then simulates a back, then a forward. Console logs "Hello World".
+</p>
 
 {% highlight javascript %}
 window.onpopstate = function(event) {
-if (event.state) console.log(event.state);
+    if (event.state) console.log(event.state);
 }
 history.pushState("Hello World");
 history.back();
@@ -113,17 +132,29 @@ history.forward();
 
 
 <h4>The Solution</h4>
-Let's say you've already built an app, but you need to add back and forward functionality. You've basically already built an app within an app, so finish the job &mdash; kill the browser buttons and keep track of your own damn history. If you're weary of messing with the browser buttons, that's good because messing with native functionality is usually bad, but in this case we have no choice!
-<br>
-<br>
-We'll manage the browser history carefully to make sure the back and forward buttons align with what is possible within the app. Back and forward will be relieved of their duties and become quasi-buttons. We'll relegate the browser's notion of "state" to nothing but a timestamp, so we can gain back & forward detection. And when necessary we'll relinquish control of the back button so that the visitor can still leave without hassle.
-<br>
+<p>
+    Let's say you've already built an app, but you need to add back and forward functionality. You've basically already
+    built an app within an app, so finish the job &mdash; kill the browser buttons and keep track of your own damn
+    history. If you're weary of messing with the browser buttons, that's good because messing with native functionality
+    is usually bad, but in this case we have no choice!
+</p>
+<p>
+    We'll manage the browser history carefully to make sure the back and forward buttons align with what is possible
+    within the app. Back and forward will be relieved of their duties and become quasi-buttons. We'll relegate the
+    browser's notion of "state" to nothing but a timestamp, so we can gain back & forward detection. And when necessary
+    we'll relinquish control of the back button so that the visitor can still leave without hassle.
+</p>
 
 <h4>The Code</h4>
-I opted to hijack the "history" global to add my functionality. First, initialize the environment by creating a
-<b>stack</b> variable seeded with an empty state representing your home page with no open windows. Each item will be a list of windows that are open at that state. Next, an
-<b>index</b> variable for the active state's index and an
-<b>override</b> variable that you can override how many states to go back on the next back button press. Lastly, go ahead and disable the forward button to avoid any conflicts.
+
+<p>
+    I opted to hijack the "history" global to add my functionality. First, initialize the environment by creating a
+    <b>stack</b> variable seeded with an empty state representing your home page with no open windows. Each item will be
+    a list of windows that are open at that state. Next, an
+    <b>index</b> variable for the active state's index and an
+    <b>override</b> variable that you can override how many states to go back on the next back button press. Lastly, go
+    ahead and disable the forward button to avoid any conflicts.
+</p>
 
 {% highlight javascript %}
 history.stack = [[]];
@@ -132,82 +163,95 @@ history.override = 0;
 updateState();
 {% endhighlight %}
 
-The function that pushes a new state and returns the current timestamp. When pushing a new state, remember that state becomes the active state, and the forward button is disabled.
+<p>
+    The function that pushes a new state and returns the current timestamp. When pushing a new state, remember that
+    state becomes the active state, and the forward button is disabled.
+</p>
 
 {% highlight javascript %}
 function updateState() {
-var t = new Date().getTime();
-history.pushState(t);
-return t;
+    var t = new Date().getTime();
+    history.pushState(t);
+    return t;
 }
 {% endhighlight %}
 
-When initializing and showing a new window (I use a popUp function) we need to rewrite our internal history stack, and disable the forward button by pushing a new state to the  history stack.
+<p>
+    When initializing and showing a new window (I use a popUp function) we need to rewrite our internal history stack,
+    and disable the forward button by pushing a new state to the history stack.
+</p>
 
 {% highlight javascript %}
 function popUp(id) {
-// SHOW WINDOW
-document.getElementById(id).classList.add("window_active");
+    // SHOW WINDOW
+    document.getElementById(id).classList.add("window_active");
 
-// REFLECT THAT A NEW STATE IS ACTIVE
-history.index++;
+    // REFLECT THAT A NEW STATE IS ACTIVE
+    history.index++;
 
-// TRUNCATE OLD STACK
-var stack = history.stack.slice(0, history.index);
-history.stack = stack;
+    // TRUNCATE OLD STACK
+    var stack = history.stack.slice(0, history.index);
+    history.stack = stack;
 
-// GET OPEN WINDOWS AND PUSH TO STACK
-var a = document.getElementsByClassName("window_active");
-for (var i=0, state=[]; i
-<a.length; i++) state.push(a[i].id);
-history.stack.push(state);
+    // GET OPEN WINDOWS AND PUSH TO STACK
+    var a = document.getElementsByClassName("window_active");
+    for (var i=0, state=[]; i<a.length; i++) state.push(a[i].id);
+    history.stack.push(state);
 
-// STORE TIMESTAMP
-history.laststate = updateState();
+    // STORE TIMESTAMP
+    history.laststate = updateState();
 }
 {% endhighlight %}
 
-Next we'll build the onpopstate event. Let's say the user completes a process like checking out and you don't want them using the back button to reverse through the process, you need to be able to return him to the home page on the next back button press with:
+<p>
+    Next we'll build the onpopstate event. Let's say the user completes a process like checking out and you don't want
+    them using the back button to reverse through the process, you need to be able to return him to the home page on the
+    next back button press with:
+</p>
 
 {% highlight javascript %}
 history.override = history.index;
 {% endhighlight %}
 
-Let's remember to build that into the code below. If you had an override set you probably wanted to disable the forward button so we throw that in for good measure.
+<p>
+    Let's remember to build that into the code below. If you had an override set you probably wanted to disable the
+    forward button so we throw that in for good measure.
+</p>
 
 
 {% highlight javascript %}
 window.onpopstate = function(event) {
-// THROW AWAY SAFARI EVENTS
-if (!event.state) return;
+    // THROW AWAY SAFARI EVENTS
+    if (!event.state) return;
 
-// COMPUTE NEW INDEX
-// Use override or detect button direction
-if (history.override) { // JS OVERRIDE
-history.index -= history.override;
-history.override = 0;
-history.laststate = updateState(); // Disable Forward
-} else { // USER INITIATED
-var dir = (history.state > history.laststate) ? 1 : -1;
-history.laststate = history.state;
-history.index += dir;
+    // COMPUTE NEW INDEX
+    // Use override or detect button direction
+    if (history.override) { // JS OVERRIDE
+        history.index -= history.override;
+        history.override = 0;
+        history.laststate = updateState(); // Disable Forward
+    } else { // USER INITIATED
+        var dir = (history.state > history.laststate) ? 1 : -1;
+        history.laststate = history.state;
+        history.index += dir;
+        if (history.index < 0) return history.back(); // Quit Loop
+    }
 
-if (history.index < 0) return history.back(); // Quit Loop
-}
+    var state = history.stack[history.index];
 
-var state = history.stack[history.index];
-
-// HIDE/SHOW WINDOWS
-var el = document.getElementsByClassName("window");
-for (var i=0; i
-<el.length; i++) {
-var fn = (state.indexOf(el[i].id) > -1)?"add":"remove";
-el[i].classList[fn]("window_active");
-}
+    // HIDE/SHOW WINDOWS
+    var el = document.getElementsByClassName("window");
+    for (var i=0; i<el.length; i++) {
+        var fn = (state.indexOf(el[i].id) > -1) ? "add" : "remove";
+        el[i].classList[fn]("window_active");
+    }
 }
 {% endhighlight %}
 <h4>Complete</h4>
-Now you can command windows to pull up, use the back button to dismiss them, and navigate back to the home page when the user completes a multi-page action!
+<p>
+    Now you can command windows to pull up, use the back button to dismiss them, and navigate back to the home page when
+    the user completes a multi-page action!
+</p>
 
 <style>
     figure {margin:20px 0;}
