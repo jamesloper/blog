@@ -12,7 +12,7 @@ pre {font-family:Menlo, monospace; color:#fff; background:#192535; padding:5px 7
 li.command {list-style-type:square;}
 li.command, .code, pre, kbd, code {font-family:Menlo, "Courier New", monospace; font-size:12px;}
 kbd {padding:0 3px; font-weight:bold;}
-blockquote {border:1px solid #000; margin-bottom:20px; padding:10px;}
+blockquote {background:#000; color:#fff; margin-bottom:20px; padding:10px;}
 
 .c1 {color:#999;}
 .k, .kd {color:#e9534e;}
