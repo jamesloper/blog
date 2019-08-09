@@ -3,17 +3,15 @@ layout: post
 title:  "How to share one Mongo database with multiple Meteor apps"
 categories: meteor
 ---
-
-<blockquote>
-<b>Warning!</b> I did actually find a better approach to this, and I switched our infrastructure to a more common "database and app are separate servers" paradigm. I highly recommend that, as it does have its benefits. Take a look at my new in depth tutorial on <a href="/mongodb-cluster-setup-with-ssl">setting up mongodb</a> instead!
-</blockquote>
-
-
 <p>
     When I needed to share a database between app #1 and app #2, the solution was astonishingly hard to accomplish.
     Please let me know if there's a better way to do this.
 </p>
 <!--more-->
+
+<blockquote>
+<b>Update</b> I did find a better approach to this, and I switched our infrastructure to a more common "database and app are separate servers" paradigm. Take a look at my new in depth tutorial on <a href="/mongodb-cluster-setup-with-ssl">setting up mongodb</a> instead!
+</blockquote>
 
 <p>
     Since I need to share a DB, the very first thing I did was install the latest Mongo. My idea was that I'd turn off
