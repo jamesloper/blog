@@ -95,8 +95,7 @@ First, you need to have a minimal web server running to connect to LetsEncrypt. 
 apt install nginx
 add-apt-repository ppa:certbot/certbot
 apt update
-apt install software-properties-common
-apt install python-certbot-nginx
+apt install software-properties-common python-certbot-nginx
 ```
 
 Create the certificate for this host:
