@@ -108,7 +108,6 @@ Set up automatic creation of the SSL certificate:
 ``` bash
 cd ~
 nano renew-mongo-cert.sh
-chmod +x renew-mongo-cert.sh
 ```
 
 Paste in this script:
@@ -124,6 +123,12 @@ cat {$newestFull,$newestPriv} | tee /etc/ssl/mongo.pem
 chmod 600 /etc/ssl/mongo.pem
 chown mongodb:mongodb /etc/ssl/mongo.pem
 service mongod restart
+```
+
+Make it executable
+
+``` bash
+chmod +x renew-mongo-cert.sh
 ```
 
 Enable SSL in the mongo server configuration in `/etc/mongod.conf`:
