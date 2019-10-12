@@ -100,7 +100,7 @@ apt install software-properties-common python-certbot-nginx
 
 Create the certificate for this host:
 ``` bash 
-certbot --nginx -d secondary.example.com
+certbot --nginx -d db.example.com
 ```
 
 Set up automatic creation of the SSL certificate:
@@ -114,7 +114,7 @@ Paste in this script:
 
 ``` bash
 #!/bin/bash
-DOMAIN=secondary.example.com
+DOMAIN=db.example.com
 
 certbot renew
 newestFull=$(ls -v /etc/letsencrypt/archive/"$DOMAIN"/fullchain*.pem | tail -n 1)
@@ -131,10 +131,10 @@ Make it executable
 chmod +x renew-mongo-cert.sh
 ```
 
-Enable SSL in the mongo server configuration in `/etc/mongod.conf`:
+Enable SSL in the mongo server configuration in `/etc/mongod.conf` by adding this under the `net` declaration:
 
 ``` yaml
-net.ssl:
+  ssl:
     mode: requireSSL
     PEMKeyFile: /etc/ssl/mongo.pem
 ```
