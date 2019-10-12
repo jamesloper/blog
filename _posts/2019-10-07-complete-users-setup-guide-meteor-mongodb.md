@@ -10,25 +10,21 @@ Meteor is one of the few frameworks to make use of the oplog feature in mongodb.
 We need to create at two users. A "Meteor User" who has read/write abilities & an "Oplog User" for oplog tailing. This guide assumes the database is named `app`, [SSL is enabled, and the replicaSet is named rs1](/mongodb-cluster-setup-with-ssl).
 
 ### Create the Meteor User
-Outside of meteor, this is called an "application user". This user will be used for the `MONGO_URL`. 
+Outside of meteor, this is called an "application user". This user will be used for the `MONGO_URL`. Note the user name doesn't have to match the database name, but I think it helps keep things simple.
+
 
 ```bash
 use app
 db.createUser({user: 'app', pwd: 'password', roles: [{role: 'readWrite', db: 'app'}]});
 ```
 
-Note the user name doesn't have to match the database name, but I think it helps keep things simple.
-
 ### Creating the oplog user
-This user will be used for the `MONGO_OPLOG_URL`.
+This user will be used for the `MONGO_OPLOG_URL`. You may notice the db is `local`. This where the oplog collection is.
 
 ```bash
 use admin
 db.createUser({user: 'oplog', pwd: 'password', roles: [{role: 'read', db: 'local'}]})
 ```
-
-You may have noticed that the db is `local`. This is the name of the db where the oplog is stored.
-
 
 ### Check users
 You can verify that you have created your two users correctly by connecting to the database via the mongo shell:
@@ -49,7 +45,7 @@ Oplog User should have: {role: 'read', db: 'local'}
 Meteor User should have: {role: 'readWrite', db: 'app'}
 ```
 
-### Connect your Meteor app to mongodb
+### Generate connection strings
 Create the `MONGO_URL` and `MONGO_OPLOG_URL` connection strings using the passwords from earlier.
 
 ```bash
