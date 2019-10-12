@@ -13,17 +13,21 @@ In this example, the primary is `db.example.com`. Start by creating a data direc
 ``` bash
 ssh root@db.example.com
 apt update && apt upgrade
-mkdir /mnt/db/mongodb
-chown -R mongodb /mnt/db/mongodb
 ```
 
 Install mongodb:
 
-```
+``` bash
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
 echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
 apt update
 apt install -y mongodb-org
+```
+
+Create a data directory
+``` bash
+mkdir /mnt/db/mongodb
+chown -R mongodb /mnt/db/mongodb
 ```
 
 Create a bare bones configuration just to get it functioning. Edit `/etc/mongod.conf`.
@@ -91,8 +95,7 @@ First, you need to have a minimal web server running to connect to LetsEncrypt. 
 apt install nginx
 add-apt-repository ppa:certbot/certbot
 apt update
-apt install software-properties-common
-apt install python-certbot-nginx
+apt install software-properties-common python-certbot-nginx
 ```
 
 Create the certificate for this host:
@@ -105,7 +108,6 @@ Set up automatic creation of the SSL certificate:
 ``` bash
 cd ~
 nano renew-mongo-cert.sh
-chmod +x renew-mongo-cert.sh
 ```
 
 Paste in this script:
@@ -121,6 +123,12 @@ cat {$newestFull,$newestPriv} | tee /etc/ssl/mongo.pem
 chmod 600 /etc/ssl/mongo.pem
 chown mongodb:mongodb /etc/ssl/mongo.pem
 service mongod restart
+```
+
+Make it executable
+
+``` bash
+chmod +x renew-mongo-cert.sh
 ```
 
 Enable SSL in the mongo server configuration in `/etc/mongod.conf`:
