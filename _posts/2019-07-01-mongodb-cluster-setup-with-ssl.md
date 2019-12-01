@@ -27,15 +27,16 @@ apt install -y mongodb-org
 Create a data directory
 ``` bash
 mkdir /mnt/db/mongodb
-chown -R mongodb /mnt/db/mongodb
+chown -R mongodb:mongodb /mnt/db/mongodb
 ```
 
 Create a bare bones configuration just to get it functioning. Edit `/etc/mongod.conf`.
 
 ``` conf
-storage.dbPath = /mnt/db/mongodb
-net.bindIp = 0.0.0.0
-
+storage:
+  dbPath: /mnt/db/mongodb
+net:
+  bindIp: 0.0.0.0
 replication:
   replSetName: rs0
   oplogSizeMB: 100
