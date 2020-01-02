@@ -3,7 +3,7 @@ layout: post
 title:  "How to make a mongodb cluster with a hidden replica and secure with SSL"
 categories: javascript
 ---
-While hosted mongodb solutions exist, they aren't for everyone. Scaling, security, and reliability is just one tutorial away.  
+While hosted mongodb solutions exist, they aren't for everyone. Scaling, security, and reliability is just one tutorial away.
 <!--more-->
 
 ### Set up your primary server
@@ -18,8 +18,8 @@ apt update && apt upgrade
 Install mongodb:
 
 ``` bash
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
-echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
+echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
 apt update
 apt install -y mongodb-org
 ```
@@ -135,9 +135,9 @@ chmod +x renew-mongo-cert.sh
 Enable SSL in the mongo server configuration in `/etc/mongod.conf` by adding this under the `net` declaration:
 
 ``` yaml
-  ssl:
-    mode: requireSSL
-    PEMKeyFile: /etc/ssl/mongo.pem
+  tls:
+    mode: requireTLS
+    certificateKeyFile: /etc/ssl/mongo.pem
 ```
 
 Run the script for the first time:
