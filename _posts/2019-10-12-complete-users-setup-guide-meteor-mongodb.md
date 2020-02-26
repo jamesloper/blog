@@ -3,6 +3,9 @@ layout: post
 title: "Complete users setup guide for meteor and mongodb"
 categories: javascript
 ---
+
+<img src="/assets/meteor-mongodb.png" alt="Meteor + MongoDB" class="banner"/>
+
 Meteor is one of the few frameworks to make use of the oplog feature in mongodb. It's quite a feat of engineering and the way it is done uses it heavily. It's very important to set it up correctly.
 
 <!--more-->
