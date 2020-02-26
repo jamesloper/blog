@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "How to make a mongodb cluster with a hidden replica and secure with SSL"
-categories: javascript
+categories: mongo
 ---
 While hosted mongodb solutions exist, they aren't for everyone. Scaling, security, and reliability is just one tutorial away.
 <!--more-->
@@ -90,74 +90,13 @@ mongo mongodb://admin:password@db.example.com
 
 ### Enable SSL
 
-First, you need to have a minimal web server running to connect to LetsEncrypt. Install NGINX and Certbot:
+Follow the guide for [MongoDB SSL setup](/mongodb-ssl-setup)
+
+Once you wrap up, you'll be able to connect through SSL. Note that the URL now contains the `ssl` param:
 
 ``` bash
-apt install nginx
-add-apt-repository ppa:certbot/certbot
-apt update
-apt install software-properties-common python-certbot-nginx
-```
-
-Create the certificate for this host:
-``` bash 
-certbot --nginx -d db.example.com
-```
-
-Set up automatic creation of the SSL certificate:
-
-``` bash
-cd ~
-nano renew-mongo-cert.sh
-```
-
-Paste in this script:
-
-``` bash
-#!/bin/bash
-DOMAIN=db.example.com
-
-certbot renew
-newestFull=$(ls -v /etc/letsencrypt/archive/"$DOMAIN"/fullchain*.pem | tail -n 1)
-newestPriv=$(ls -v /etc/letsencrypt/archive/"$DOMAIN"/privkey*.pem | tail -n 1)
-cat {$newestFull,$newestPriv} | tee /etc/ssl/mongo.pem
-chmod 600 /etc/ssl/mongo.pem
-chown mongodb:mongodb /etc/ssl/mongo.pem
-service mongod restart
-```
-
-Make it executable
-
-``` bash
-chmod +x renew-mongo-cert.sh
-```
-
-Enable SSL in the mongo server configuration in `/etc/mongod.conf` by adding this under the `net` declaration:
-
-``` yaml
-  tls:
-    mode: requireTLS
-    certificateKeyFile: /etc/ssl/mongo.pem
-```
-
-Run the script for the first time:
-
-``` bash
-./renew-mongo-cert.sh
-```
-
-Add the script as a cron job with `crontab -e`
-
-```
-0 0 1 * * renew-mongo-cert.sh
-```
-
-Reboot, and now you can connect through SSL. Note that the URL now contains the ssl param:
-
-```
 mongo mongodb://admin:password@db.example.com/?ssl=true
 ```
-
 
 ### Adding a secondary
 
