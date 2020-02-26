@@ -4,6 +4,8 @@ title:  "How to setup MongoDB with SSL"
 categories: mongo
 ---
 
+<img src="/assets/mongodb-ssl.png" alt="MongoDB SSL" class="banner"/>
+
 Hosted MongoDB solutions typically include an SSL certificate, so when you are rolling your own, you'll want to set up SSL. Hosted databases aren't for everyone, fortunately security is just one tutorial away.
 
 <!--more-->
