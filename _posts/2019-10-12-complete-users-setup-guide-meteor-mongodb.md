@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Complete users setup guide for meteor and mongodb"
+title: "Complete users setup guide for Meteor and MongoDB"
 categories: javascript
 ---
 
