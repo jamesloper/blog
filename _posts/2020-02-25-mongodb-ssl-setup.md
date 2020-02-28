@@ -35,7 +35,7 @@ Create the certificate for this host:
 certbot --nginx -d db.example.com
 ```
 
-Set up a bash script that will adapt this certificate for usage in MongoDB:
+Set up a bash script that will concatenate your NGINX certificates together to create your MongoDB server certificate.
 
 ``` bash
 cd ~
@@ -47,13 +47,9 @@ This will be the script contents:
 ``` bash
 #!/bin/bash
 DOMAIN=db.example.com
-
-certbot renew
-newestFull=$(ls -v /etc/letsencrypt/archive/"$DOMAIN"/fullchain*.pem | tail -n 1)
-newestPriv=$(ls -v /etc/letsencrypt/archive/"$DOMAIN"/privkey*.pem | tail -n 1)
-cat {$newestFull,$newestPriv} | tee /etc/ssl/mongo.pem
-chmod 600 /etc/ssl/mongo.pem
-chown mongodb:mongodb /etc/ssl/mongo.pem
+newestFull=$(ls -v /etc/letsencrypt/archive/$DOMAIN/fullchain*.pem | tail -n 1)
+newestPriv=$(ls -v /etc/letsencrypt/archive/$DOMAIN/privkey*.pem | tail -n 1)
+cat $newestFull $newestPriv > /etc/ssl/mongo.pem
 service mongod restart
 ```
 
@@ -77,10 +73,17 @@ Run the script for the first time:
 ./renew-mongo-cert.sh
 ```
 
+Set the file permissions for the outputted pem file. This is only needed one time.
+
+``` bash
+chmod 600 /etc/ssl/mongo.pem
+chown mongodb:mongodb /etc/ssl/mongo.pem
+```
+
 Add the script as a cron job with `crontab -e`
 
 ```
-0 0 1 * * renew-mongo-cert.sh
+0 0 1 * * /root/renew-mongo-cert.sh
 ```
 
 Reboot, and now you can connect through SSL. Note that the URL now contains the `ssl` param:
