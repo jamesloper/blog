@@ -8,7 +8,7 @@ Without sufficient access to the router, it's not possible to expose your comput
 
 <!--more-->
 
-Initially, I searched for how to create a gateway directly to the target server's network interface, however this is actually not the way. We could be using the gateway to serve other apps, or proxy more than one remote computer. Then, we would need name-based routing anyways, so we'll use NGINX to handle requests and routing, SSH to handle the forwarding, and systemd to persist the forwarding through unstable connections.
+I initially wanted to create a sort of hollow gateway to the network interface on the target server, however this is actually a real waste of the gateway server. The gateway could serve other apps, or proxy more than one remote computer. A better way would be to use name-based virtual hosts to route incoming requests to the right server. In this guide I use NGINX to handle requests and routing, SSH to handle the forwarding, and systemd to ensure SSH stays connected at all times.
 
 ### Configure the target computer for basic usage of SSH RemoteForward
 We need to make the target computer reach out to the proxy to initiate the forwarding. Edit `~/.ssh/config` and add the following hostname block. This forms the groundwork for all to come.
