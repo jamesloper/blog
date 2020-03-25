@@ -20,6 +20,7 @@ blockquote {background:#000; color:#fff; margin-bottom:20px; padding:10px;}
 .o {color:#ccc;}
 .mi {color:#7e67ba;}
 .nb {color:#8bd3e6;}
+.nt {color:#e9534e;}
 
 .language-make .err {color:#e9534e;}
 .language-make .nv {color:#f5cd6b;}

@@ -34,9 +34,9 @@ ssh-copy-id ubuntu@example.com
 
 Test your new configuration with `ssh proxy` and you should be able to login without a password prompt. Make sure you can do this now because it'll be harder to diagnose once you begin daemonizing it.
 
-### Use systemd to daemonize the SSH RemoteForward process
+### Use systemctl to daemonize the SSH RemoteForward process
 
-In Ubuntu, `systemd` is ideally suited for this, since it supports waiting until network access is established after boot, and can restart the process when it exits. Create the following config file in `/etc/systemd/system/proxy.service`
+In Ubuntu, `systemctl` is ideally suited for this, since it supports waiting until network access is established after boot, and can restart the process when it exits. Create the following config file in `/etc/systemd/system/proxy.service`
 
 ``` make
 [Unit]
