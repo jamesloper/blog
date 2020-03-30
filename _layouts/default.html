@@ -1,26 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<link rel="canonical" href="https://jamesloper.com{{page.url}}" />
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>{{page.title | default: "James Loper"}}</title>
-<style>{% include styles.css %}</style>
+	<meta charset="UTF-8" />
+	<title>{{page.title | default: "James Loper"}}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<link rel="canonical" href="https://jamesloper.com{{page.url}}">
+	<link rel="stylesheet" type="text/css" href="/assets/styles.css">
 </head>
 
 <body>
-
-<div class="body">
-	<header id="header">
-        <a id="logo" href="/">
-            {% include cube.html %}
-        </a>
-	</header>
-
-	<div id="blog">
-	{{content}}
-	</div>
-</div>
+<header>
+	<h1 class="site-title">
+		<a href="/">
+			<div class="title"><b>J</b><b>A</b><b>M</b><b>E</b><b>S</b></div>
+			<div class="title"><b>L</b><b>O</b><b>P</b><b>E</b><b>R</b></div>
+		</a>
+	</h1>
+</header>
+<main>
+{{content}}
+</main>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-9604239-2"></script>
 <script>
