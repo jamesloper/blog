@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: jamesloper.com
+Token: 41d52796624494f2dcdab38b52856dbc12e6698501d3e445874097e7f668c99b
