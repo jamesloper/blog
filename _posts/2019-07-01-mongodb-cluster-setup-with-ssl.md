@@ -24,7 +24,7 @@ sudo apt update
 sudo apt install -y mongodb-org
 ```
 
-Create a data directory
+Optional: Change data directory
 ``` bash
 mkdir /mnt/db/mongodb
 chown -R mongodb:mongodb /mnt/db/mongodb
@@ -47,8 +47,8 @@ replication:
 Restart `mongod` and register it with `systemctl` to start when your server boots:
 
 ``` bash
-service mongod restart
-systemctl enable mongod
+sudo service mongod restart
+sudo systemctl enable mongod
 ```
 
 ### Create the admin user
@@ -78,8 +78,8 @@ security:
 Restart mongod:
 
 ``` bash
-systemctl restart mongod
-systemctl status mongod
+sudo systemctl restart mongod
+sudo systemctl status mongod
 ```
 
 Try it out! You want to make sure you can log in!
