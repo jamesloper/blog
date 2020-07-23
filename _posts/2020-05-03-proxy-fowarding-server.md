@@ -4,11 +4,13 @@ title:  "A proxy forwarding server in just a few lines of code"
 categories: tech
 ---
 
-Often times an application will provide the option to input a proxy url, but it won't accept anything beyond a simple HTTP proxy, making it next to useless. So I made a node script to serve up a proxy on localhost to forward the request to the real proxy. 
+Often times, an application will provide the option to input a proxy url, but it won't accept anything beyond a simple HTTP proxy, making it next to useless. So I made a node script to serve up a proxy on localhost to forward the request to the real proxy. 
 
 <!--more-->
 
-## Using net.createServer
+This node script is performing excellent for the purpose of adapting an HTTPS proxy to a local HTTP proxy for launching Chrome with a proxy configuration. 
+
+## Using NodeJS's net.createServer
 The application will request a connection and send down an initial request. This will look something like this:
 
 ```yaml
@@ -28,22 +30,22 @@ const proxy = new URL('https://user:pass@https-us-east.privateinternetaccess.com
 const auth = Buffer.from(`${proxy.username}:${proxy.password}`).toString('base64');
 
 net.createServer(async client => {
-    const {clientData, targetHost} = await waitForHeaderData(client);
+	const {clientData, targetHost} = await waitForHeaderData(client);
 
-    const proxy = tls.connect({'host': proxy.host, 'port': 443}, () => {
-        proxy.write(clientData); // Tell proxy to connect to target server
-        stream.pipeline(client, proxy, (err) => {
-            if (err) console.warn('clientToProxyError:', 'targetHost=', targetHost, 'error=', err.toString());
-        });
-        stream.pipeline(proxy, client, (err) => {
-            if (err) console.warn('proxyToClientError:', 'targetHost=', targetHost, 'error=', err.toString());
-        });
-    });
-    proxy.on('error', err => {
-        console.warn('General Error:', 'targetHost=', targetHost, 'error=', err.toString());
-    });
+	const proxy = tls.connect({'host': proxy.host, 'port': 443}, () => {
+		proxy.write(clientData); // Tell proxy to connect to target server
+		stream.pipeline(client, proxy, (err) => {
+			if (err) console.warn('clientToProxyError:', 'targetHost=', targetHost, 'error=', err.toString());
+		});
+		stream.pipeline(proxy, client, (err) => {
+			if (err) console.warn('proxyToClientError:', 'targetHost=', targetHost, 'error=', err.toString());
+		});
+	});
+	proxy.on('error', err => {
+		console.warn('General Error:', 'targetHost=', targetHost, 'error=', err.toString());
+	});
 }).listen(port, () => {
-    console.log(`Proxy listening on port ${port}`);
+	console.log(`Proxy listening on port ${port}`);
 });
 
 const extractHeader = (lines, header) => { // param must be already lowercase
