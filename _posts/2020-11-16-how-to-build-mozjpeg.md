@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "How to install MozJPEG on macOS and Ubuntu"
-categories: ubuntu
+categories: ubuntu, it, linux, build, mozjpeg, web
 ---
 
 I recently had to make a Node script that would interface with the command line program `cjpeg`. I will show you how to install that on both your development laptop and on the Ubuntu server it will ultimately be deployed to.

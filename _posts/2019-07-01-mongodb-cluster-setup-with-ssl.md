@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "How to make a mongodb cluster with a hidden replica and secure with SSL"
-categories: mongo
+categories: ubuntu, it, mongo, ssl
 ---
 While hosted mongodb solutions exist, they aren't for everyone. Scaling, security, and reliability is just one tutorial away.
 <!--more-->

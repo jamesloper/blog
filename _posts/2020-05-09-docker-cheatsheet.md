@@ -1,14 +1,13 @@
 ---
 layout: post
 title:  "Docker host setup on Ubuntu 18 cheat sheet"
-categories: ubuntu
+categories: ubuntu, it, docker, linux
 ---
 
 I've set up quite a few Docker hosts, so I always wind up doing a variation of repetitive tasks. Mix and match these bad boys to get a very functional host. 
 <!--more-->
 
 ## Add a non-root user
-Don't forget this step.
 ``` bash
 adduser ubuntu && usermod -aG sudo ubuntu
 ```

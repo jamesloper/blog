@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "How to run a server behind a firewall without port forwarding"
-categories: tech
+categories: ubuntu, linux, it, networking, ssh
 ---
 
 Without sufficient access to the router, it's not possible to expose your computer to the internet so it can act as a server.  This is often the case, you have a powerful computer behind internet you have no control over. Here I will show the best way to circumvent that via a gateway server.

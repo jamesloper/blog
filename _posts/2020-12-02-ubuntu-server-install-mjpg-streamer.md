@@ -1,7 +1,7 @@
 ---
 layout: "post"
 title: "Setup mjpg-streamer on Ubuntu Server 20"
-categories: ubuntu
+categories: ubuntu, it, linux, streaming
 ---
 
 mjpg-streamer is good and simple software that does no processing on the video, it just queries the capture device for a

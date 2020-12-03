@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "How iteration and ruthless prioritization can not co-exist"
-categories: life
+categories: startups
 ---
 
 You probably think the hallmark of a bad-ass business is the ability to ruthlessly prioritize things that move the needle.

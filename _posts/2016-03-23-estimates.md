@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "How much value do software estimates provide?"
-categories: life
+categories: startups
 ---
 
 As long as we've been making software, we've been screwing up its deadlines. In the 1960's, early programmers began to find that the harder they tried to deliver polished work on time, the more miserably they failed. Frederick Brooks of IBM famously discovered that placing more programmers on delayed projects only added more delays.

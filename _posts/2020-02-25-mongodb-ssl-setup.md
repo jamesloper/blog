@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "How to setup MongoDB with SSL"
-categories: mongo
+categories: mongo, ssl, it
 ---
 
 <img src="/assets/mongodb-ssl.png" alt="MongoDB SSL" class="banner"/>

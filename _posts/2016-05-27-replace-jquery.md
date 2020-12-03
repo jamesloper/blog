@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "How to serve jQuery from CDN in Meteor"
-categories: meteor
+categories: meteor, javascript, web
 ---
 
 Meteor projects using Blaze have a gigantic payload of backward compatible jQuery. Every site should be serving this from a CDN, rather than embedding it.

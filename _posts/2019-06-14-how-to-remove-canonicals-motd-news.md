@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "How to remove canonical's motd-news"
-categories: ubuntu
+categories: ubuntu, it
 ---
 
 <img src="/assets/motd.png" alt="MOTD" class="banner"/>
@@ -18,7 +18,7 @@ rm 51-cloudguest
 rm 10-help-text
 ```
 
-However, it's not always best to remove the file. Instead you should make it exit early. You can disable the Canonical Livepatch ad safely without deleting the file:
+However, it's not always best to remove the file. Instead, you should make it exit early. You can disable the Canonical Livepatch ad safely without deleting the file:
 
 1. edit `/etc/default/motd-news` and change `ENABLED=1` to `ENABLED=0`
 2. edit `/etc/update-motd.d/80-livepatch` and add `exit 0` after the `#!/bin/sh`.

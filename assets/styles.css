@@ -52,3 +52,6 @@ article img {width:100%;}
 article .meta {margin-top:10px;}
 
 .hero {margin-bottom:40px; background:#000080; padding:6px 10px; color:#fff;}
+
+.related-posts {margin-top:10px;}
+.related-posts h3 {font-family:Menlo, "Courier New", monospace;}

@@ -1,7 +1,7 @@
 ---
 layout: "post"
 title: "Setup WiFi on Ubuntu Server 20"
-categories: ubuntu
+categories: ubuntu, it, networking
 ---
 
 Have you ever struggled to do something that sounded so simple such as connecting to a godforsaken wifi network on

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "How to set up a Ubuntu desktop on a VPS"
-categories: linux
+categories: linux, ubuntu, desktop
 ---
 
 <img alt="Ubuntu Cloud Computer" src="/assets/ubuntu-xfce.png" title="Ubuntu Cloud Computer" class="banner"/>

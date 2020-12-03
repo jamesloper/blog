@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "How to minimize rejections when charging a credit card"
-categories: life
+categories: web
 ---
 
 Although card processing errors can be a black box of caveats, some rules are known.
