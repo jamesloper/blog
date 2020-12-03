@@ -1,5 +1,6 @@
 ---
-layout: post title:  "Setup WiFi on Ubuntu Server 20"
+layout: "post"
+title: "Setup WiFi on Ubuntu Server 20"
 categories: ubuntu
 ---
 
@@ -62,4 +63,5 @@ sudo reboot
 
 ### More notes
 
-Yeah so in summary there was no need for learning network-manager, creating unnecessary conflicts by mixing in deprecated ifconfig commands. Really wish this guide wasn't buried by Google.
+Yeah so in summary there was no need for learning network-manager, creating unnecessary conflicts by mixing in
+deprecated ifconfig commands. Really wish this guide wasn't buried by Google.
