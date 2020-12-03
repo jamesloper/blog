@@ -1,6 +1,6 @@
 ---
 layout: "post"
-title:  "Setup mjpg-streamer on Ubuntu Server 20"
+title: "Setup mjpg-streamer on Ubuntu Server 20"
 categories: ubuntu
 ---
 

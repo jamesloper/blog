@@ -37,7 +37,7 @@ wlan0 or wlp2s0. That's the wifi.
 sudo nano /etc/netplan/00-installer-config.yaml
 ```
 
-``` yaml
+``` yml
 network:
   ethernets:
     eno1:
