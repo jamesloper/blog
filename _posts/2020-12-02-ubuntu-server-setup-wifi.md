@@ -14,9 +14,7 @@ anything you keep the server clean and wifi and lan can both work at the same ti
 If you think you are clever and can do this without the internet, sorry, you're going to have to walk over to the router
 and plug the thing in, because apparently it's not really 2020 yet.
 
-### Every tutorial leaves this shit out
-
-Weird because *this* is how you should start:
+### Step 1, every tutorial leaves this out...
 
 ``` bash
 sudo apt-get install wpasupplicant
@@ -52,8 +50,6 @@ network:
           password: "SeriesOfTubes"
       dhcp4: true
 ```
-
-### Apply your new config
 
 ``` bash
 sudo netplan --debug generate

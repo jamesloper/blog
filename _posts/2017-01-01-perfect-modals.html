@@ -17,7 +17,7 @@ categories: javascript
     <li>Show a darkened backdrop while the modal is open</li>
 </ol>
 
-<h4>Scrolling</h4>
+<h3>Scrolling</h3>
 <p>
     As for #1, you may think this is not an issue, but it is the largest when combined with the #2 requirement. If we
     want to do fixed positioning, we can use
@@ -40,7 +40,7 @@ categories: javascript
     <kbd>absolute</kbd> instead. This mimics iPhones but is cross platform.
 </p>
 
-<h4>Backdrop</h4>
+<h3>Backdrop</h3>
 <p>
     Next, the "backdrop" has long since been solved by the same method. There's always a 100% height, 100% width element
     with <kbd>position:fixed</kbd> that is slightly transparent, with a high z-index. The problem lies within the 100%
@@ -49,7 +49,7 @@ categories: javascript
     being covered by the backdrop. This can be recreated in all mobile operating systems.
 </p>
 
-<h4>Solution</h4>
+<h3>Solution</h3>
 <p>
     This was a blast to come up with. First, the backdrop since it's easiest to explain. Starting over, I decided to
     wrap the header and body in a container called
@@ -89,9 +89,9 @@ categories: javascript
     .updown {top:0; animation:example 2s infinite alternate; -webkit-animation:example 2s infinite alternate;}
 </style>
 <div style="background:lightgray; height:130px; width:200px; position:relative; margin:75px auto;">
-    <div style="position:absolute; top:0; left:0; width:100%; background:black; ">
+    <div style="position:absolute; top:0; left:0; width:100%; background:#333; ">
         <div class="label" style="top:0;">Container</div>
-        <div style="height:75px; margin:0 auto; width:100px; padding-top:5px; text-align:center; background:lightblue;"
+        <div style="height:75px; margin:0 auto; width:100px; padding-top:5px; text-align:center; background:lightblue; color:#000;"
              class="updown">
             Modal
         </div>

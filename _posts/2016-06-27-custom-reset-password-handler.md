@@ -1,6 +1,6 @@
 ---
-layout: post
-title:  "How to set a custom reset password handler in Meteor"
+layout: "post"
+title: "How to set a custom reset password handler in Meteor"
 categories: meteor
 ---
 
