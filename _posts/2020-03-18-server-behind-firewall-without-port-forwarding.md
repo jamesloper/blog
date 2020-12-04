@@ -10,6 +10,12 @@ Without sufficient access to the router, it's not possible to expose your comput
 
 I initially wanted to create a sort of hollow gateway to the network interface on the target server, however this is actually a real waste of the gateway server. The gateway could serve other apps, or proxy more than one remote computer. A better way would be to use name-based virtual hosts to route incoming requests to the right server. In this guide I use NGINX to handle requests and routing, SSH to handle the forwarding, and systemd to ensure SSH stays connected at all times.
 
+### Here is the config file for ssh for convenience
+``` bash
+sudo nano /etc/ssh/sshd_config
+sudo service ssh restart
+```
+
 ### Configure the target computer for basic usage of SSH RemoteForward
 We need to make the target computer reach out to the proxy to initiate the forwarding. Edit `~/.ssh/config` and add the following hostname block. This forms the groundwork for all to come.
 
@@ -61,7 +67,7 @@ sudo systemctl start proxy
 sudo systemctl enable proxy
 ```
 
-You can diagnose any problems by checking the log with `journalctl -u proxy.service -`
+You can diagnose any problems by checking the log with `journalctl -u proxy.service`
 
 ### Install the latest NGINX on the proxy server
 

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "A proxy forwarding server in just a few lines of code"
-categories: javascript, web, it
+categories: javascript, web, it, networking
 ---
 
 Often times, an application will provide the option to input a proxy url, but it won't accept anything beyond a simple HTTP proxy, making it next to useless. So I made a node script to serve up a proxy on localhost to forward the request to the real proxy. 
