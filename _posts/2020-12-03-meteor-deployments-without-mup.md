@@ -5,38 +5,36 @@ categories: meteor, ubuntu, javascript
 ---
 
 I love [mup](http://meteor-up.com/) and have been using it for years. It's the simplest way to get your meteor project
-deployed. However, when it comes to using binaries in your projects, it necessitates a docker image and of the
-continuous maintenance of said image. In the spirit of keeping things simple, I opted to switch my deployment strategy
-to run a node server directly on the host.
+deployed. However, when it comes to using binaries, things get complicated. Suddenly, creating your own deployment script becomes the less complicated option.
 
 <!--more-->
 
 ### Advantages of deploying manually
 
-It goes without saying, familiarity with the inner workings of a large and powerful tool like meteor is always a good
-thing. When the "training wheels" are removed, you are free to configure each module in the stack to best suit your
-purpose.
+Quite a few good things come out of this. It goes without saying that familiarity with the inner workings with a magical tool such as meteor is a good thing.
 
-1. **There is no longer an SSL error during deployment.** The error is a relic of a long-standing "code smell" from mup
+**Faster deployment.** Once your bundle is uploaded, the deployment is running in seconds
+
+**There is no longer an SSL error during deployment.** The error is a relic of a long-standing "code smell" from mup
    that I do not like. I believe the cause is that SSL support is handled by a separate docker container which becomes
    part of a docker network, and while that container is down, the certificate is gone.
 
-2. **You can replace the 500 error page that appears during deployments.** When you configure NGINX yourself, you don't
+**You can replace the 500 error page that appears during deployments.** When you configure NGINX yourself, you don't
    have to worry about "stepping on toes".
 
-3. **There is no need to author and maintain a docker image.** That's one less thing to worry about.
+**There is no need to author and maintain a docker image.** That's one less thing to worry about.
 
-4. **Faster deployments.** Once your bundle is uploaded, the deployment is running in mere seconds!
 
-### Summary
+### Let's get started
 
-You can run any number of meteor apps directly on the server, each one bound to a different port. NGINX will provide the
-SSL and forward requests to the correct port based on the requested domain. Certbot will auto-renew all certs. There is
-no docker. You can install additional software such as ffmpeg on the server.
+In this guide, you will:
+- Provision a new server with NGINX to forward requests to the correct port based on the requested domain and install Certbot to auto-renew certs.
+- Create the deployment scripts and environment files to be used from your laptop.
+- Run any number of meteor apps directly on the server, each one bound to a different port.
 
 ### Provisioning from a blank server
 
-You'll want to have set up PEM key authentication in SSH, if you don't know how
+For this guide, I used Ubuntu Server 20 on DigitalOcean. You'll want to have set up PEM key authentication in SSH, if you don't know how
 to, [check out this guide](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-20-04). And
 don't forget to create a non-root user to run your apps under.
 
@@ -44,7 +42,7 @@ don't forget to create a non-root user to run your apps under.
 adduser ubuntu && usermod -aG sudo ubuntu
 ```
 
-Install nginx, certbot and nodejs...
+Now let's get all the software installed onto the server...
 
 ``` bash
 curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
@@ -57,7 +55,7 @@ sudo npm install -g pm2
 ### Configure NGINX to proxy to node
 
 Node is not running any of our apps yet, but we can stage the config files and get SSL working. Create a vhost for and
-app that will run on port 3000...
+app that will run on port 3000.
 
 ``` bash
 sudo nano /etc/nginx/sites-available/default
