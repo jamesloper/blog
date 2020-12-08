@@ -14,13 +14,13 @@ li.command, .code, pre, kbd, code {font-family:Menlo, "Courier New", monospace; 
 kbd {padding:0 3px; font-weight:bold; color:#0ff;}
 blockquote {background:#000; color:#fff; margin-bottom:20px; padding:10px;}
 
-.c1 {color:#999;}
-.k, .kd {color:#e9534e;}
-.s1, .s2 {color:#f5cd6b;}
+.c1, .c {color:#999;}
+.k, .kd {color:#e54;}
+.s1, .s2 {color:#fc6;}
 .o {color:#ccc;}
-.mi {color:#7e67ba;}
-.nb {color:#8bd3e6;}
-.nt {color:#e9534e;}
+.mi {color:#76b;}
+.nb {color:#8de;}
+.nt {color:#e54;}
 
 .language-make .err {color:#e9534e;}
 .language-make .nv {color:#f5cd6b;}
