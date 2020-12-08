@@ -106,7 +106,7 @@ production environment variables.
 │   ├── env.sh
 │   └── settings.json
 ├── deploy.sh
-└── remove-script.sh
+└── remote-script.sh
 ```
 
 ### Contents of `deploy.sh`
