@@ -23,20 +23,9 @@ sudo apt install nginx
 sudo nano /etc/nginx/sites-available/default
 ```
 
-### Example configuration
+### Proxy config
 
 ``` conf
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    root /var/www/html;
-    index index.html;
-    server_name _;
-    location / {
-        try_files $uri $uri/ =404;
-    }
-}
-
 server {
     listen 80;
     server_name example.jamesloper.com;
@@ -48,7 +37,7 @@ server {
 }
 ```
 
-### Meteor
+### Proxy config with WebSockets
 
 ``` conf
 map $http_upgrade $connection_upgrade {
@@ -57,16 +46,10 @@ map $http_upgrade $connection_upgrade {
 }
 
 server {
-    server_name hotspotnyc.com;
+    listen 80;
+    server_name example.jamesloper.com;
     root /var/www/html;
     client_max_body_size 100M;
-
-    error_page 500 502 503 504 /500.html;
-
-    location = /500.html {
-        root /var/www/html;
-        internal;
-    }
 
     location / {
         proxy_pass http://127.0.0.1:4000;
@@ -79,7 +62,19 @@ server {
 }
 ```
 
-### HTTP redirect
+### Custom 500 error
+
+Goes *inside* a server block!
+
+``` conf
+    error_page 500 502 503 504 /500.html;
+    location = /500.html {
+        root /var/www/html;
+        internal;
+    }
+```
+
+### HTTP redirect block
 
 ``` conf
 server {
@@ -88,7 +83,7 @@ server {
 }
 ```
 
-### SSL
+### Enable SSL
 
 ``` bash
 sudo apt install certbot python3-certbot-nginx
