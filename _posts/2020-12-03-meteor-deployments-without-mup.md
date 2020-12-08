@@ -45,7 +45,7 @@ adduser ubuntu && usermod -aG sudo ubuntu
 Now let's get all the software installed onto the server...
 
 ``` bash
-curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 sudo add-apt-repository ppa:nginx/stable
 sudo apt-get update
 sudo apt install -y nginx certbot python3-certbot-nginx nodejs jq
