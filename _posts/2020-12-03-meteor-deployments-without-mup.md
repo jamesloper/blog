@@ -4,6 +4,8 @@ title: "Meteor deployments without mup"
 categories: meteor, ubuntu, javascript
 ---
 
+<img src="/assets/meteor-deployment.png" alt="Meteor deployment without Mup" class="banner"/>
+
 I love [mup](http://meteor-up.com/) and have been using it for years. It's the simplest way to get your meteor project
 deployed. However, when it comes to using binaries, things get complicated. Suddenly, creating your own deployment script becomes the less complicated option.
 
