@@ -7,12 +7,9 @@ categories: mongo, ssl, it
 <img src="/assets/mongodb-ssl.png" alt="MongoDB SSL" class="banner"/>
 
 Hosted MongoDB solutions typically include an SSL certificate, so when you are rolling your own, you'll want to set up
-SSL. Hosted databases aren't for everyone, fortunately security is just one tutorial away.
+SSL with LetsEncrypt.
 
 <!--more-->
-
-In this example, the primary is already set up on `db.example.com`, so that is the domain this tutorial will use to
-demonstrate the certificate renewal process.
 
 LetsEncrypt requires your server to respond to a challenge in order to fulfill a certificate request, so we'll need a
 web server to answer their challenge.
@@ -24,7 +21,7 @@ sudo apt install nginx
 ```
 
 At this point, navigating to `db.example.com` will result in the demo page for Nginx. Nothing further is really required
-to set up Nginx.
+to set up Nginx, and quite frankly no other software should even be running on your production database server.
 
 Next, install Certbot, the official tool that fully automate setup and of course renewal of LetsEncrypt certificates.
 
@@ -43,7 +40,7 @@ sudo apt update
 sudo apt install certbot python3-certbot-nginx
 ```
 
-Create the certificate for this host:
+Create the certificate:
 
 ``` bash 
 certbot --nginx -d db.example.com
@@ -55,8 +52,6 @@ Set up a bash script that will concatenate your NGINX certificates together to c
 cd ~
 nano renew-mongo-cert.sh
 ```
-
-This will be the script contents:
 
 ``` bash
 #!/bin/bash
