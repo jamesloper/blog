@@ -11,8 +11,10 @@ SSL with LetsEncrypt.
 
 <!--more-->
 
+### Install NGINX
+
 LetsEncrypt requires your server to respond to a challenge in order to fulfill a certificate request, so we'll need a
-web server to answer their challenge.
+web server to answer their challenge:
 
 ``` bash
 sudo add-apt-repository ppa:nginx/stable
@@ -23,9 +25,11 @@ sudo apt install nginx
 At this point, navigating to `db.example.com` will result in the demo page for Nginx. Nothing further is really required
 to set up Nginx, and quite frankly no other software should even be running on your production database server.
 
-Next, install Certbot, the official tool that fully automate setup and of course renewal of LetsEncrypt certificates.
+### Install Certbot
 
-### Ubuntu 18
+Certbot is the official tool that fully automate setup and of course renewal of LetsEncrypt certificates.
+
+In Ubuntu 18...
 
 ``` bash
 sudo add-apt-repository ppa:certbot/certbot
@@ -33,20 +37,25 @@ sudo apt update
 sudo apt install software-properties-common python-certbot-nginx
 ```
 
-### Ubuntu 20
+And for Ubuntu 20...
 
 ``` bash
 sudo apt update
 sudo apt install certbot python3-certbot-nginx
 ```
 
-Create the certificate:
+### Get your initial certificate
 
 ``` bash 
 certbot --nginx -d db.example.com
 ```
 
-Set up a bash script that will concatenate your NGINX certificates together to create your MongoDB server certificate.
+At this point, you should be able to visit the NGINX page again, but this time it will be served over HTTPS!
+
+### Setting up auto-renewal and applying the cert to MongoDB
+
+Set up a bash script that will concatenate your NGINX certificates together to create your MongoDB server
+certificate:
 
 ``` bash
 cd ~
@@ -61,8 +70,6 @@ newestPriv=$(ls -v /etc/letsencrypt/archive/$DOMAIN/privkey*.pem | tail -n 1)
 cat $newestFull $newestPriv > /etc/ssl/mongo.pem
 service mongod restart
 ```
-
-Make it executable:
 
 ``` bash
 chmod +x renew-mongo-cert.sh
