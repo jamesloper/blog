@@ -3,12 +3,19 @@ layout: post
 title:  "How to install MozJPEG on macOS and Ubuntu"
 categories: ubuntu, it, linux, build, mozjpeg, web
 ---
+<img src="/assets/mozjpeg.png" alt="MozJPEG" class="banner"/>
 
 I recently had to make a Node script that would interface with the command line program `cjpeg`. I will show you how to install that on both your development laptop and on the Ubuntu server it will ultimately be deployed to.
 
 <!--more-->
 
+## What is MozJPEG
+
+MozJPEG is a high efficiency JPEG converter that boasts higher visual quality and smaller file sizes than most other programs that output JPEG files. MozJPEG is meant to be used as a library in graphics programs and image processing tools, but mozjpeg is also packaged as a wonderful standalone command line tool called `cjpeg` which is what this article is about. 
+
 ## Install MozJPEG on macOS with brew
+
+Brew is where you will find the latest mozjpeg binaries. If you don't have brew yet, [download it here](https://brew.sh/).
 
 ``` bash
 brew install mozjpeg
@@ -46,11 +53,16 @@ sudo ln -s /opt/mozjpeg/bin/cjpeg
 sudo ln -s /opt/mozjpeg/bin/djpeg
 ```
 
-
 ## Raw CJPEG usage examples
+How to convert a file with cjpeg:
 
 ``` bash
 cjpeg -quality 80 test.jpg output.jpg  # convert a file
+```
+
+How to convert a JPEG file and read out the contents to `stdout`:
+
+``` bash
 djpeg test.jpg | cjpeg -quality 80  # pipe the output to stdout
 ```
 
@@ -68,7 +80,7 @@ const bufferToStream = (buffer) => {
 };
 
 export const compressPhotoAsync = (buf) => new Promise((resolve, reject) => {
-	const cjpeg = cp.exec(`djpeg | cjpeg -optimize -quality 80`, {encoding: 'buffer'});
+	const cjpeg = cp.exec('djpeg | cjpeg -optimize -quality 80', {encoding: 'buffer'});
 	const parts = [];
 	cjpeg.stderr.on('data', reject);
 	cjpeg.stdout.on('data', part => parts.push(part));

@@ -4,6 +4,8 @@ title: "Setup mjpg-streamer on Ubuntu Server 20"
 categories: ubuntu, it, linux, streaming
 ---
 
+<img src="/assets/mjpg-streamer.png" alt="mjpg-streamer" class="banner"/>
+
 mjpg-streamer is good and simple software that does no processing on the video, it just queries the capture device for a
 specific resolution and passes it through to the web. I like it.
 

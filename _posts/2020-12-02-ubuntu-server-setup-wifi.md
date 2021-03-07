@@ -4,8 +4,10 @@ title: "Setup WiFi on Ubuntu Server 20"
 categories: ubuntu, it, networking
 ---
 
-Have you ever struggled to do something that sounded so simple such as connecting to a godforsaken wifi network on
-Ubuntu Server? Well me too and here is how you do it without frustration. What's more is if you basically don't install
+<img src="/assets/caveman.png" alt="Caveman with no wifi" class="banner"/>
+
+**Have you ever struggled to do something that sounded so simple such as connecting to a godforsaken wifi network on
+Ubuntu Server?** Well me too and here is how you do it. What's more is if you basically don't install
 anything you keep the server clean and wifi and lan can both work at the same time without hassle.
 <!--more-->
 

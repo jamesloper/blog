@@ -4,6 +4,8 @@ title:  "Docker host setup on Ubuntu 18 cheat sheet"
 categories: ubuntu, it, docker, linux
 ---
 
+<img src="/assets/docker.png" alt="Docker" class="banner"/>
+
 I've set up quite a few Docker hosts, so I always wind up doing a variation of repetitive tasks. Mix and match these bad boys to get a very functional host. 
 <!--more-->
 
