@@ -2,6 +2,7 @@
 layout: post
 title:  "How to minimize rejections when charging a credit card"
 categories: web
+modified: 2021-03-06
 ---
 
 <img src="/assets/credit-card.png" alt="Credit Card" class="banner"/>

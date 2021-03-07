@@ -2,6 +2,7 @@
 layout: post
 title:  "How to install MozJPEG on macOS and Ubuntu"
 categories: ubuntu, it, linux, build, mozjpeg, web
+modified: 2021-03-06
 ---
 <img src="/assets/mozjpeg.png" alt="MozJPEG" class="banner"/>
 

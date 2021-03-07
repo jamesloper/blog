@@ -2,6 +2,7 @@
 layout: post
 title:  "Docker host setup on Ubuntu 18 cheat sheet"
 categories: ubuntu, it, docker, linux
+modified: 2021-03-06
 ---
 
 <img src="/assets/docker.png" alt="Docker" class="banner"/>

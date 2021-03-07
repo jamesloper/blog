@@ -2,6 +2,7 @@
 layout: "post"
 title: "Meteor deployments without mup"
 categories: meteor, ubuntu, javascript
+modified: 2021-03-06
 ---
 
 <img src="/assets/meteor-deployment.png" alt="Meteor deployment without Mup" class="banner"/>
