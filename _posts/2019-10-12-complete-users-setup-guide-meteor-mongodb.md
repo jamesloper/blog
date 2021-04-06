@@ -10,10 +10,10 @@ Meteor is one of the few frameworks to make use of the oplog feature in mongodb.
 
 <!--more-->
 
-We need to create two users. A "Meteor User" who has read/write abilities & an "Oplog User" for oplog tailing. This guide assumes the database is named `app`, [SSL is enabled](/mongodb-cluster-setup-with-ssl).
+When deploying a Meteor app, it actually requires two users. A "Meteor User" who has read/write abilities & an "Oplog User" for oplog tailing. This guide assumes the database is named `app`, [SSL is enabled](/mongodb-cluster-setup-with-ssl).
 
-### Create the Meteor User
-Outside of meteor, this is called an "application user". This user will be used for the `MONGO_URL`. Note the user name doesn't have to match the database name, but I think it helps keep things simple.
+### Create the meteor application user
+Outside of meteor, this would typically be called an "application user". This user will be used for the `MONGO_URL`. Note the user name doesn't have to match the database name, but I think it helps keep things simple.
 
 
 ```bash
