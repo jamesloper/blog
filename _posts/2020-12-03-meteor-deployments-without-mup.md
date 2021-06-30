@@ -1,16 +1,19 @@
 ---
 layout: "post"
 title: "Meteor deployments without mup"
-categories: meteor, ubuntu, javascript
-modified: 2021-03-06
+categories: meteor, ubuntu, javascript 
+modified: 2021-06-30
 ---
 
 <img src="/assets/meteor-deployment.png" alt="Meteor deployment without Mup" class="banner"/>
 
-I love [mup](http://meteor-up.com/) and have been using it for years. It's the simplest way to get your meteor project
-deployed. However, when it comes to using binaries, things get complicated. Suddenly, creating your own deployment script becomes the less complicated option.
+I love [mup](http://meteor-up.com/) and have been using it for years. It's the simplest way to get your meteor project deployed. However, when it comes to using binaries, things get complicated. Suddenly, creating your own deployment script becomes the less complicated option.
 
 <!--more-->
+
+### Updated for Meteor 2.3
+
+This guide was updated for Meteor 2.3, which upgrades Node to v14. I also fixed a few mistakes.
 
 ### Advantages of deploying manually
 
@@ -18,28 +21,23 @@ Quite a few good things come out of this. It goes without saying that familiarit
 
 **Faster deployment.** Once your bundle is uploaded, the deployment is running in seconds
 
-**There is no longer an SSL error during deployment.** The error is a relic of a long-standing "code smell" from mup
-   that I do not like. I believe the cause is that SSL support is handled by a separate docker container which becomes
-   part of a docker network, and while that container is down, the certificate is gone.
+**There is no longer an SSL error during deployment.** The error is a relic of a long-standing "code smell" from mup that I do not like. I believe the cause is that SSL support is handled by a separate docker container which becomes part of a docker network, and while that container is down, the certificate is gone.
 
-**You can replace the 500 error page that appears during deployments.** When you configure NGINX yourself, you don't
-   have to worry about "stepping on toes".
+**You can replace the 500 error page that appears during deployments.** When you configure NGINX yourself, you don't have to worry about "stepping on toes".
 
 **There is no need to author and maintain a docker image.** That's one less thing to worry about.
-
 
 ### Let's get started
 
 In this guide, you will:
+
 - Provision a new server with NGINX to forward requests to the correct port based on the requested domain and install Certbot to auto-renew certs.
 - Create the deployment scripts and environment files to be used from your laptop.
 - Run any number of meteor apps directly on the server, each one bound to a different port.
 
 ### Provisioning from a blank server
 
-For this guide, I used Ubuntu Server 20 on DigitalOcean. You'll want to have set up PEM key authentication in SSH, if you don't know how
-to, [check out this guide](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-20-04). And
-don't forget to create a non-root user to run your apps under.
+For this guide, I used Ubuntu Server 20 on DigitalOcean. You'll want to have set up PEM key authentication in SSH, if you don't know how to, [check out this guide](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-20-04). And don't forget to create a non-root user to run your apps under.
 
 ``` bash
 adduser ubuntu && usermod -aG sudo ubuntu
@@ -48,17 +46,16 @@ adduser ubuntu && usermod -aG sudo ubuntu
 Now let's get all the software installed onto the server...
 
 ``` bash
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 sudo add-apt-repository ppa:nginx/stable
 sudo apt-get update
-sudo apt install -y nginx certbot python3-certbot-nginx nodejs jq
+sudo apt install -y nginx certbot python3-certbot-nginx nodejs jq build-essential
 sudo npm install -g pm2
 ```
 
 ### Configure NGINX to proxy to node
 
-Node is not running any of our apps yet, but we can stage the config files and get SSL working. Create a vhost for and
-app that will run on port 3000.
+Node is not running any of our apps yet, but we can stage the config files and get SSL working. Create a vhost for and app that will run on port 3000.
 
 ``` bash
 sudo nano /etc/nginx/sites-available/default
@@ -92,27 +89,26 @@ Test the config, restart nginx, and enable SSL:
 ``` bash
 sudo nginx -t
 sudo service nginx restart
-certbot --nginx -d example.jamesloper.com
+sudo certbot --nginx -d example.jamesloper.com
 ```
 
 ### Creating the upload script for your laptop
 
-Create `.deploy` folder for your deployment scripts. In that folder create two more folders to contain your staging and
-production environment variables.
+Create `.deploy` folder for your deployment scripts. In that folder create two more folders to contain your staging and production environment variables.
 
 ```
 .deploy/
 ├── example/
 │   ├── env.sh
-│   └── staging.json
+│   └── settings.json
 ├── example-staging/
 │   ├── env.sh
 │   └── settings.json
-├── deploy.sh
+├── deploy
 └── remote-script.sh
 ```
 
-### Contents of `deploy.sh`
+### Contents of `deploy`
 
 ``` bash
 #!/bin/bash
@@ -162,7 +158,7 @@ tar -xf "$PROJECT.tar.gz"
 
 echo "Installing npm packages"
 cd bundle/programs/server
-meteor npm install --production &> /dev/null
+npm install --production &> /dev/null
 
 echo "Restarting app"
 pm2 stop $APP -s
@@ -173,10 +169,7 @@ pm2 logs $APP -s
 
 ### Contents of `example/env.sh`
 
-You can make a new folder for each deployment. In the example directory layout I used above, production files are
-in `example/` and staging files are in `example-staging/`. For each deployment, place a `settings.json` file in the
-deployment folder, and as for the `env.sh`, here is the one I am using for production (the port is 3000, the root URL is
-fully qualified)
+You can make a new folder for each deployment. In the example directory layout I used above, production files are in `example/` and staging files are in `example-staging/`. For each deployment, place a `settings.json` file in the deployment folder, and as for the `env.sh`, here is the one I am using for production (the port is 3000, the root URL is fully qualified)
 
 ``` bash
 #!/bin/bash
@@ -184,7 +177,7 @@ fully qualified)
 export PORT=3000
 export ROOT_URL=https://example.jamesloper.com
 export MAIL_URL=smtp://postmaster%40jamesloper.com:password@smtp.mailgun.org:587
-export MONGO_URL=mongodb://app:password@db.jamesloper.com:27017/hotspot
+export MONGO_URL=mongodb://app:password@db.jamesloper.com:27017/example
 export MONGO_OPLOG_URL=mongodb://oplog:password@db.jamesloper.com:27017/local?authSource=admin
 ```
 
