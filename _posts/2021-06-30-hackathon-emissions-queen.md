@@ -1,5 +1,6 @@
 ---
-layout: post title:  "My hackathon submission: Emissions Queen"
+layout: post 
+title: "My hackathon submission: Emissions Queen"
 categories: digitalocean, hackathon, mongo, meteor
 ---
 
