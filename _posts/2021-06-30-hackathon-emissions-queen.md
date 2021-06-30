@@ -1,12 +1,15 @@
 ---
-layout: post 
-title: "My hackathon submission: Emissions Queen"
+layout: post title: "My hackathon submission: Emissions Queen"
 categories: digitalocean, hackathon, mongo, meteor
 ---
 
-For [DigitalOcean's 2021 hackathon](https://www.digitalocean.com/mongodb-hackathon/) I set out to create a dashboard for my Emissions station in Duluth, GA.
+<img src="/assets/queen.png" alt="Emissions Queen" class="banner"/>
+
+For DigitalOcean's 2021 hackathon I set out to create a dashboard for my Emissions station in Duluth, GA.
 
 <!--more-->
+
+You can check progress on the publicly accessible website [queen.jamesloper.com](https://queen.jamesloper.com)
 
 ### I am aiming to build the following features...
 
