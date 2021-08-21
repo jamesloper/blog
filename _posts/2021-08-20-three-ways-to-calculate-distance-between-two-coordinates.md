@@ -1,5 +1,6 @@
 ---
-layout: post title: "Three ways to calculate distance between coordinates"
+layout: post 
+title: "Three ways to calculate distance between coordinates"
 categories: javascript
 ---
 
