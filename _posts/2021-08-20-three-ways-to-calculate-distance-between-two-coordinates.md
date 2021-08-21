@@ -1,7 +1,6 @@
 ---
-layout: post 
-title: "Three ways to calculate distance between coordinates"
-categories: javascript
+layout: post title: "Three ways to calculate distance between coordinates"
+categories: javascript, web
 ---
 
 I'm always facing the problem of calculating the distance between two points over the surface of the Earth. This calculation involves some trigonometry a bit more complex than the planar one we all studied in high school, we are talking about spherical trigonometry, and the first thing that pops up is the haversine function.
@@ -55,13 +54,11 @@ After finding the fast haversine formula, I could not stand still. For my use ca
 
 ``` javascript
 const kRad = Math.PI / 180;
-const kx = (1 / 111.139);
-
 export const getDistance = (a, b) => {
-    const ky = Math.cos(a.lat * kRad) * 111.321;
-    const dx = (a.lon - b.lon) * kx;
-    const dy = (a.lat - b.lat) * ky;
-    return Math.sqrt(dx * dx + dy * dy);
+	const kx = Math.cos(a.lat * kRad) * 111.321;
+	const dx = (a.lon - b.lon) * kx;
+	const dy = (a.lat - b.lat) * 111.139;
+	return Math.sqrt(dx * dx + dy * dy);
 };
 ```
 
