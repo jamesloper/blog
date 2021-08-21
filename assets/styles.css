@@ -18,7 +18,7 @@ blockquote {background:#000; color:#fff; margin-bottom:20px; padding:10px;}
 .k, .kd {color:#e54;}
 .s1, .s2 {color:#fc6;}
 .o {color:#ccc;}
-.mi {color:#76b;}
+.mi,.mf {color:#76b;}
 .nb {color:#8de;}
 .nt {color:#e54;}
 
