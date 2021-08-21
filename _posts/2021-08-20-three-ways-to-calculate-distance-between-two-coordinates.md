@@ -8,9 +8,9 @@ I'm always facing the problem of calculating the distance between two points ove
 
 <!--more-->
 
-## The haversine function
+## The one you probably already know
 
-This is a pretty solid way to calculate distances. Its main criticism is that it assumes the earth is a sphere, when it is in fact an ellipsoid. Despite this, the algorithm is more prevalent than the often ignored but more accurate Vicenty algorithm, which is unbelievably computationally expensive. Nevertheless, the haversine algorithm still involves 7 computationally expensive trigonometric functions (4 sin, 2 cos, 1 atan), pows and two square roots and looks like this:
+This is a pretty solid way to calculate distances. Although it assumes the earth is a sphere, it is widely agreed that this is the way, it sacrifices very little, and reaches a good level of speed. Despite it being the more performant among the top distance algorithms, the haversine still involves 7 computationally expensive trigonometric functions (4 Sin, 2 Cos, 1 Atan), Pows and two square roots and looks like this:
 
 ``` javascript
 const R = 6378.137;
@@ -27,9 +27,9 @@ export const getDistance = (a, b) => {
 };
 ```
 
-Calculating 2M coordinate pairs took 125.493ms
+I benchmarked the haversine taking 1.413s to process 5 million coordinate pairs.
 
-## Optimizing haversine for small distances: the fast haversine
+## Optimizing for small distances: the fast haversine
 
 My own use case allowed me to take some additional shortcuts. I got rid of the Sin calculations. On top of that, the Cos of two close latitudes is approximately the Cos of its average. That allowed me to remove one Cos and assume some error. Finally, the two Pow were inlined, so no need to call an external generic power function if only to multiply a number by itself. The final algorithm, with some additional inlining to optimize even more, looks like this:
 
@@ -47,7 +47,7 @@ export const getDistance = (a, b) => {
 };
 ```
 
-Calculating 2M coordinate pairs like this took 83.486ms. We are doing well with impressive gains. This one took only 67% of the time compared to baseline.
+Benchmarking 5 million coordinate pairs took 303.719ms. We are doing well with impressive gains. This one took only 21% of the time compared to baseline.
 
 ## Reaching the end-game, the sloppy haversine
 
@@ -63,6 +63,6 @@ export const getDistance = (a, b) => {
 };
 ```
 
-This new formula takes a mere square root and cosine call and completes 2M iterations in 51.652ms which is only 41% of the baseline!
+This new algorithm takes a mere square root and cosine call and completes 5 million coordinate pairs in a break neck speed of 215.79ms which is only 15% of the baseline!
 
-So, all in all, I can only conclude that haversine is a wonderfully educational and academic exercise but when it comes to the practical side, nothing beats a solution built specifically for a use case. 
+So, all in all, we conclude that haversine is useful, generic, and academically perfect- but when it comes to the practical programming, nothing beats a solution with a use case already in mind. 
