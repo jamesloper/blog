@@ -1,6 +1,5 @@
 ---
-layout: post
-title: "Three ways to calculate distance between coordinates"
+layout: post title: "Three ways to calculate distance between coordinates"
 categories: javascript, web
 ---
 
@@ -63,6 +62,6 @@ export const getDistance = (a, b) => {
 };
 ```
 
-This new formula makes a mere square root and cosine call and takes 51.652ms which is only 41% of the baseline!
+This new formula takes a mere square root and cosine call and completes 2M iterations in 51.652ms which is only 41% of the baseline!
 
 So, all in all, I can only conclude that haversine is a wonderfully educational and academic exercise but when it comes to the practical side, nothing beats a solution built specifically for a use case. 
