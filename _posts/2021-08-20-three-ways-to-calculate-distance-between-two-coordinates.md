@@ -54,21 +54,17 @@ Calculating 2M coordinate pairs like this took 83.486ms. We are doing well with 
 After finding the fast haversine formula, I could not stand still. For my use case I knew there was one more way to push the formula even further and make it even more sloppy. To do this, I revisited our good friend trigonometry. By now we know that haversine exists to accommodate the earth's spherical math. However when we are looking close to the earth's surface it no longer appears as a sphere and instead looks flat. So if we can find a factor to multiply by the longitude delta, and a factor to multiply by the latitude delta, we can use trigonometry as if we are dealing with a flat plane. That code is this magnificent sloppy boy:
 
 ``` javascript
-const FE = 1 / 298.257223563;
-const E2 = FE * (2 - FE);
-const RAD = Math.PI / 180;
-const m = RAD * 6378.137;
+const kRad = Math.PI / 180;
+const kx = (1 / 111.139);
 
 export const getDistance = (a, b) => {
-    const cosLat = Math.cos(a.lat * RAD);
-    const w2 = 1 / (1 - E2 * (1 - cosLat * cosLat));
-    const mw = m * Math.sqrt(w2);
-    const dx = (a.lon - b.lon) * (mw * cosLat);
-    const dy = (a.lat - b.lat) * (mw * w2 * (1 - E2));
+    const ky = Math.cos(a.lat * kRad) * 111.321;
+    const dx = (a.lon - b.lon) * kx;
+    const dy = (a.lat - b.lat) * ky;
     return Math.sqrt(dx * dx + dy * dy);
 };
 ```
 
-This new formula makes a mere two square root calls and a cosine call and takes 66.099ms which is only 53% of the baseline!
+This new formula makes a mere two square root calls and a cosine call and takes 51.652ms which is only 41% of the baseline!
 
 So, all in all, I can only conclude that haversine is a wonderfully educational and academic exercise but when it comes to the practical side, nothing beats a solution built specifically for a use case. 
