@@ -33,7 +33,7 @@ Each car that buys an emissions test uses up a "ticket" provided by the governme
 
 Depending on the protocol, it can be easy or hard. For the screen cast, it's easy. I bought a [capture card with pass-thru](https://amzn.to/3drkRJ2) to grab the HDMI signal running to the emissions station screen. A [cheap computer](https://amzn.to/3y3n4SY) running [mjpg-streamer](ubuntu-server-install-mjpg-streamer) exposes the feed as a URL. To embed that in a webpage, all I have to do is put an `<img>` tag with the url set as the `src`. Any URL pointing to a MJPEG stream can also be embedded into a web page this way.
 
-I also want to get some networked webcams, so I chose [Wyze Cam V2](https://amzn.to/3dtEUXv). It is capable of serving an RTSP stream, but I had to convert that to something web browsers can view. For this I made an [RTSP to MJPEG proxy server](https://github.com/jamesloper/emissions/blob/main/server/imports/rest/proxy-rtsp.js). I hand off most of the work to FFMPEG, streaming the output from stdout to the client, however care must be taken to build a buffer and flush it upon each frame.
+I also want to get some networked webcams, so I chose [Wyze Cam V2](https://amzn.to/3dtEUXv). It is capable of serving an RTSP stream, but I had to convert that to something web browsers can view. For this I made an [RTSP to MJPEG proxy server](https://github.com/jamesloper/emissions/blob/main/server/imports/rest/proxy-video.js). I hand off most of the work to FFMPEG, streaming the output from stdout to the client, however care must be taken to build a buffer and flush it upon each frame.
 
 ### How are the call logs set up?
 
