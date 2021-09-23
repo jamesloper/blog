@@ -13,7 +13,7 @@ for the fixed IP address.
 
 <!--more-->
 
-### Creating the VPN server
+## Creating the VPN server
 
 ``` bash
 curl -O https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
@@ -27,7 +27,7 @@ used `sudo cat /root/client.ovpn` to copy it to the clipboard since it's just a 
 At this point, you can use Tunnelblick on your laptop to log into the server using the `client.ovpn` file. So far so
 good!
 
-### Installing OpenVPN on the client
+## Installing OpenVPN on the client
 
 ``` bash
 cd /etc/openvpn/client
@@ -68,6 +68,6 @@ sudp sustemctl status vpn
 
 Now it's running in the background and you should see the tun0 network interface when you run `ls /sys/class/net`.
 
-### Bridging the LAN interface to the VPN interface
+## Bridging the LAN interface to the VPN interface
 
 This is as far as I've gotten!

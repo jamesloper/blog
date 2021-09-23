@@ -11,31 +11,20 @@ I love [mup](http://meteor-up.com/) and have been using it for years. It's the s
 
 <!--more-->
 
-### Updated for Meteor 2.3
+> This guide was updated for Meteor 2.3 / Meteor 2.4, which upgraded Node to v14. Also added info on future upgrades.
 
-This guide was updated for Meteor 2.3, which upgrades Node to v14. I also fixed a few mistakes.
+## Advantages of deploying manually
 
-### Advantages of deploying manually
+Quite a few good things come out of this. Also it goes without saying that familiarity with the inner workings with a magical tool such as meteor is a good thing.
 
-Quite a few good things come out of this. It goes without saying that familiarity with the inner workings with a magical tool such as meteor is a good thing.
+- **Faster deployment.** Once your bundle is uploaded, the deployment is running in seconds
+- **There is no longer an SSL error during deployment.** The error is a relic of a long-standing "code smell" from mup that I do not like. I believe the cause is that SSL support is handled by a separate docker container which becomes part of a docker network, and while that container is down, the certificate is gone.
+- **You can replace the 500 error page that appears during deployments.** When you configure NGINX yourself, you don't have to worry about "stepping on toes".
+- **There is no need to author and maintain a docker image.** That's one less thing to worry about.
 
-**Faster deployment.** Once your bundle is uploaded, the deployment is running in seconds
+In this guide, you will (1) Provision a new server with NGINX to forward requests to the correct port based on the requested domain and install Certbot to auto-renew certs. (2) Create the deployment scripts and environment files to be used from your laptop. (3) Run any number of meteor apps on the server, each one bound to a different port.
 
-**There is no longer an SSL error during deployment.** The error is a relic of a long-standing "code smell" from mup that I do not like. I believe the cause is that SSL support is handled by a separate docker container which becomes part of a docker network, and while that container is down, the certificate is gone.
-
-**You can replace the 500 error page that appears during deployments.** When you configure NGINX yourself, you don't have to worry about "stepping on toes".
-
-**There is no need to author and maintain a docker image.** That's one less thing to worry about.
-
-### Let's get started
-
-In this guide, you will:
-
-- Provision a new server with NGINX to forward requests to the correct port based on the requested domain and install Certbot to auto-renew certs.
-- Create the deployment scripts and environment files to be used from your laptop.
-- Run any number of meteor apps directly on the server, each one bound to a different port.
-
-### Provisioning from a blank server
+## Provisioning from a blank server
 
 For this guide, I used Ubuntu Server 20 on DigitalOcean. You'll want to have set up PEM key authentication in SSH, if you don't know how to, [check out this guide](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-20-04). And don't forget to create a non-root user to run your apps under.
 
@@ -53,7 +42,7 @@ sudo apt install -y nginx certbot python3-certbot-nginx nodejs jq build-essentia
 sudo npm install -g pm2
 ```
 
-### Configure NGINX to proxy to node
+## Configure NGINX to proxy to node
 
 Node is not running any of our apps yet, but we can stage the config files and get SSL working. Create a vhost for and app that will run on port 3000.
 
@@ -92,7 +81,7 @@ sudo service nginx restart
 sudo certbot --nginx -d example.jamesloper.com
 ```
 
-### Creating the upload script for your laptop
+## Creating the upload script for your laptop
 
 Create `.deploy` folder for your deployment scripts. In that folder create two more folders to contain your staging and production environment variables.
 
@@ -108,7 +97,7 @@ Create `.deploy` folder for your deployment scripts. In that folder create two m
 └── remote-script.sh
 ```
 
-### Contents of `deploy`
+## Contents of `deploy`
 
 ``` bash
 #!/bin/bash
@@ -142,7 +131,7 @@ log "Executing remote script"
 ssh $SERVER "APP=$1 PROJECT=$PROJECT bash -s" < .deploy/remote-script.sh
 ```
 
-### Contents of `remote-script.sh`
+## Contents of `remote-script.sh`
 
 ``` bash
 #!/bin/bash
@@ -167,7 +156,7 @@ pm2 start ../../main.js --name $APP --update-env -s
 pm2 logs $APP -s
 ```
 
-### Contents of `example/env.sh`
+## Contents of `example/env.sh`
 
 You can make a new folder for each deployment. In the example directory layout I used above, production files are in `example/` and staging files are in `example-staging/`. For each deployment, place a `settings.json` file in the deployment folder, and as for the `env.sh`, here is the one I am using for production (the port is 3000, the root URL is fully qualified)
 
@@ -181,7 +170,7 @@ export MONGO_URL=mongodb://app:password@db.jamesloper.com:27017/example
 export MONGO_OPLOG_URL=mongodb://oplog:password@db.jamesloper.com:27017/local?authSource=admin
 ```
 
-### Running your first deployment
+## Running your first deployment
 
 To deploy, run the script and give it the argument of the deployment folder.
 
@@ -195,3 +184,21 @@ After deploying, you will get the logs. You can also pull up the logs any time l
 ssh ubuntu@example.jamesloper.com
 pm2 logs example
 ```
+
+## Enable pm2 startup
+To ensure your sites start up when the server starts up, execute `pm2 startup` and follow the instructions.
+
+## Future updates
+
+Future versions of Meteor occasionally bump up the version of Node. If you're wondering, you can check the Meteor Node version with `meteor node --version`. Since we are not dealing with docker containers, if you use this approach you will have to operationalize your upgrade process. That process is as follows:
+
+1. Upgrade all your meteor projects locally and ensure they all work on the latest version of Meteor/Node.
+2. ssh into your server, take your websites offline, and update node.
+   ``` bash
+pm2 stop all
+sudo apt update
+sudo apt upgrade
+sudo reboot
+```
+3. Re-deploy all your meteor apps!
+4. Re-check that startup is still enabled with `pm2 startup`

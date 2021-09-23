@@ -10,14 +10,14 @@ An always-online server running a full Ubuntu Desktop can be useful for many rea
     
 <!--more-->
 
-### Install xfce4 desktop environment
+## Install xfce4 desktop environment
 The familiar desktops Unity and Gnome don't work without a display plugged in so the next best choice is Xfce which is like the Raspberry Pi desktop.
 
 ``` bash
 sudo apt install xfce4 xfce4-goodies tightvncserver
 ```
 
-### Create a user and start VNC
+## Create a user and start VNC
 Each user gets a VNC server. In this example, we set up an account called user1 and give them sudoer permissions.
 
 ``` bash 
@@ -34,7 +34,7 @@ vncserver -geometry 1280x800 :1
 
 At this point you can use a VNC app like [RealVNC](https://www.realvnc.com/en/connect/download/viewer/) to connect. The first screen will be on port `590X` where `X` is the screen number to connect to.
 
-### Run vncserver at startup using systemctl
+## Run vncserver at startup using systemctl
 We can take this to the next level by creating a service that will run at startup. Create a service for each user. First, kill any running VNC servers with
 ``` bash 
 vncserver -kill :1

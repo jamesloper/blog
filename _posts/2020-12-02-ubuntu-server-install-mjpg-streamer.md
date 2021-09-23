@@ -12,7 +12,7 @@ specific resolution and passes it through to the web. I like it.
 
 <!--more-->
 
-### List your webcams
+## List your webcams
 
 ``` bash
 sudo ls -ltrh /dev/video*
@@ -21,20 +21,20 @@ sudo ls -ltrh /dev/video*
 If there are multiple, try the first one first, like video0. If it's not there, check the power or run `lsusb` to check
 the USB devices.
 
-### Install from snap and grant permission
+## Install from snap and grant permission
 
 ``` bash
 sudo snap install mjpg-streamer
 sudo snap connect mjpg-streamer:camera
 ```
 
-### Start server
+## Start server
 
 ``` bash
 mjpg-streamer -i "input_uvc.so -d /dev/video0 -r XGA"
 ```
 
-### Configure daemon
+## Configure daemon
 
 Normally I'd use `systemctl` but the snap can be configured as a daemon.
 

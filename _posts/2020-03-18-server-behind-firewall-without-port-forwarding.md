@@ -13,13 +13,13 @@ Normally without sufficient access to the router, it's not possible to expose yo
 
 I initially wanted to create a sort of hollow gateway to the network interface on the target server, however this is actually a real waste of the gateway server. The gateway could serve other apps, or proxy more than one remote computer. A better way would be to use name-based virtual hosts to route incoming requests to the right server. In this guide I use NGINX to handle requests and routing, SSH to handle the forwarding, and systemd to ensure SSH stays connected at all times.
 
-### Here is the config file for ssh for convenience
+## Here is the config file for ssh for convenience
 ``` bash
 sudo nano /etc/ssh/sshd_config
 sudo service ssh restart
 ```
 
-### Configure the target computer for basic usage of SSH RemoteForward
+## Configure the target computer for basic usage of SSH RemoteForward
 We need to make the target computer reach out to the proxy to initiate the forwarding. Edit `~/.ssh/config` and add the following hostname block. This forms the groundwork for all to come.
 
 ``` nginx
@@ -32,7 +32,7 @@ Host proxy
 
 At this point, if you run `ssh proxy` on the target computer, you'll be able to navigate to `example.com:4000` If that's all you need, great! Next we'll bulk up this thing by daemonizing it and integrating with NGINX.
 
-### Configure SSH public key authentication
+## Configure SSH public key authentication
 
 Since this is going to be a daemon, there will be no prompt for the SSH password, so the remote server is going to have must authenticate with a [public key](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-1804).
 
@@ -43,7 +43,7 @@ ssh-copy-id ubuntu@example.com
 
 Test your new configuration with `ssh proxy` and you should be able to login without a password prompt. Make sure you can do this now because it'll be harder to diagnose once you begin daemonizing it.
 
-### Use systemctl to daemonize the SSH RemoteForward process
+## Use systemctl to daemonize the SSH RemoteForward process
 
 In Ubuntu, `systemctl` is ideally suited for this, since it supports waiting until network access is established after boot, and can restart the process when it exits. Create the following config file in `/etc/systemd/system/proxy.service`
 
@@ -72,7 +72,7 @@ sudo systemctl enable proxy
 
 You can diagnose any problems by checking the log with `journalctl -u proxy.service`
 
-### Install the latest NGINX on the proxy server
+## Install the latest NGINX on the proxy server
 
 ``` bash
 sudo add-apt-repository ppa:nginx/stable
@@ -80,7 +80,7 @@ sudo apt-get update
 sudo apt install nginx
 ```
 
-### Set up host names to forward traffic to the remote computer
+## Set up host names to forward traffic to the remote computer
 
 Add a new virtual host, in this guide, the proxy server will have the hostname `proxy.example.com` and forward to port 4000. Edit the NGINX config file at `/etc/nginx/sites-enabled/default`
 

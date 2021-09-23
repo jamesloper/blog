@@ -12,18 +12,18 @@ Ubuntu Server?** Well me too and here is how you do it. What's more is if you ba
 anything you keep the server clean and wifi and lan can both work at the same time without hassle.
 <!--more-->
 
-### A quick note...
+## A quick note...
 
 If you think you are clever and can do this without the internet, sorry, you're going to have to walk over to the router
 and plug the thing in, because apparently it's not really 2020 yet.
 
-### Step 1, every tutorial leaves this out...
+## Step 1, every tutorial leaves this out...
 
 ``` bash
 sudo apt-get install wpasupplicant
 ```
 
-### Next, find the interface name
+## Next, find the interface name
 
 ``` bash
 ls /sys/class/net
@@ -32,7 +32,7 @@ ls /sys/class/net
 It will output some names but you are going to have to flex your pattern recognition skills and find one that looks like
 wlan0 or wlp2s0. That's the wifi.
 
-### Edit your netplan configuration file
+## Edit your netplan configuration file
 
 ``` bash
 sudo nano /etc/netplan/00-installer-config.yaml
@@ -60,7 +60,7 @@ sudo netplan --debug apply
 sudo reboot
 ```
 
-### More notes
+## More notes
 
 Yeah so in summary there was no need for learning network-manager, creating unnecessary conflicts by mixing in
 deprecated ifconfig commands. Really wish this guide wasn't buried by Google.

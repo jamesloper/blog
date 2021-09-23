@@ -8,7 +8,7 @@ categories: ubuntu, it, mongo, ssl
 While hosted mongodb solutions exist, they aren't for everyone. Scaling, security, and reliability is just one tutorial away. In this fairly deep tutorial we cover everything from the initial installation to optional steps such as SSL and a secondary replica. This guide is targeted for Ubuntu 20.
 <!--more-->
 
-### Quick links
+## Quick links
 
 1. [Getting started](#getting-started)
 2. [Create the admin user](#create-the-admin-user)
@@ -17,7 +17,7 @@ While hosted mongodb solutions exist, they aren't for everyone. Scaling, securit
 5. [Enable swap](#enable-swap)
 6. [Simple MongoDB backups with mongodump](#simple-mongodb-backups-with-mongodump)
 
-### Getting started
+## Getting started
 
 In this guide, the primary will be `db.example.com`. Start by logging in and performing the apt ritual. You should already set up a user, in this case my user is `ubuntu`.
 
@@ -65,7 +65,7 @@ sudo systemctl enable mongod
 
 At this point you can connect to the db, but it's also wide open for attackers to take over! Next up we will deal with security.
 
-### Create the admin user
+## Create the admin user
 
 In this section, you will configure your database to only accept username & password authentication. Create an `admin`
 user:
@@ -103,7 +103,7 @@ Try it out! You want to make sure you can log in.
 mongo mongodb://admin:password@db.example.com
 ```
 
-### Enable SSL
+## Enable web server
 
 LetsEncrypt requires your server to respond to a challenge in order to fulfill a certificate request, so we'll need a tiny web server to answer their challenge:
 
@@ -115,16 +115,11 @@ sudo apt install nginx
 
 At this point, navigating to `db.example.com` will result in the demo page for Nginx. Nothing further is really required to set up Nginx, and quite frankly no other software should even be running on your production database server.
 
-### Install Certbot
+## Install certbot & certificate
 
 ``` bash
 sudo apt update
 sudo apt install certbot python3-certbot-nginx
-```
-
-### Get your initial certificate
-
-``` bash 
 certbot --nginx -d db.example.com
 ```
 
@@ -181,7 +176,7 @@ Reboot, and now you can connect through SSL. Note that the URL now contains the 
 mongo mongodb://admin:password@db.example.com/?ssl=true
 ```
 
-### Adding a secondary
+## Adding a secondary
 
 Follow the same process above to get mongo installed and configured, switching out `db.example.com` with your secondary's hostname.
 
@@ -219,7 +214,7 @@ rs.slaveOk()
 
 If you want to provide more hosts for your app to connect to, you instead want to make them visible. The minimum number of nodes in a cluster jumps from 1 straight to 3, otherwise a cluster of 2 can not perform a vote to decide which node will become primary.
 
-### Enable swap
+## Enable swap
 
 In the case of large load, having a few gigs of swap space can help your database not crash. Unfortunately turning swap on can mask critical memory issues which would be better solved by adding more ram. It's always up to you to determine if you want to use swap or not. If you want to go down that route, here is how.
 
@@ -236,7 +231,7 @@ sudo swapon /swapfile
 
 Now you have swap space, but it won't persist after reboot. Fix that by editing your fstab file with `sudo nano /etc/fstab` and paste the following `/swapfile swap swap defaults 0 0`
 
-### Simple MongoDB backups with mongodump
+## Simple MongoDB backups with mongodump
 
 This is probably a horrible solution for a database over 1 gig, but I just got it functional so I will share it in the hopes that someone can benefit from it.
 

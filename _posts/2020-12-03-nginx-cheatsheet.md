@@ -8,13 +8,13 @@ It's no secret I love NGINX. I use it in all my projects.
 
 <!--more-->
 
-### Create a non-root user
+## Create a non-root user
 
 ``` bash
 adduser ubuntu && usermod -aG sudo ubuntu
 ```
 
-### Install latest NGINX
+## Install latest NGINX
 
 ``` bash
 sudo add-apt-repository ppa:nginx/stable
@@ -23,7 +23,7 @@ sudo apt install nginx
 sudo nano /etc/nginx/sites-available/default
 ```
 
-### Proxy config
+## Proxy config
 
 ``` conf
 server {
@@ -37,7 +37,7 @@ server {
 }
 ```
 
-### Proxy config with WebSockets
+## Proxy config with WebSockets
 
 ``` conf
 map $http_upgrade $connection_upgrade {
@@ -62,7 +62,7 @@ server {
 }
 ```
 
-### Custom 500 error
+## Custom 500 error
 
 Goes *inside* a server block!
 
@@ -74,7 +74,7 @@ Goes *inside* a server block!
     }
 ```
 
-### HTTP redirect block
+## HTTP redirect block
 
 ``` conf
 server {
@@ -83,7 +83,7 @@ server {
 }
 ```
 
-### Enable SSL
+## Enable SSL
 
 ``` bash
 sudo apt install certbot python3-certbot-nginx

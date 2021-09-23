@@ -9,7 +9,7 @@ As long as we've been making software, we've been screwing up its deadlines. In 
 
 Late software projects run up costs and incur collateral damage, but why is software so late? The answer lies in software's very nature. Software development is less like other engineering fields and more like scientific research. An equivalent question would be, "Estimate the amount of time it will take for us create a black hole." Faced with problems that we've never faced before, the usual techniques of estimation break down.
 
-There are a lot of ways to do software estimates, but all of them boil down to the exact same process: First, you break your project down into pieces small enough to get your head around. Then you figure out how long each of those parts will take, breaking them down further into smaller pieces as needed. Then you add it up! There's your estimate.
+Throughout computer history, there have been countless individual claims that a simple process resembling the following works: First, you break your project down into pieces small enough to get your head around. Then you figure out how long each of those parts will take, breaking them down further into smaller pieces as needed. Then you add it up! There's your estimate.
 
 But, we always end up finding the devil is in the details. No amount of awareness can solve our ignorance of the icebergs of software programming &mdash; whose depths are unknown until they are explored.
 

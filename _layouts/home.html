@@ -2,14 +2,19 @@
 layout: default
 ---
 
-<article>
-    <ul id="nav">
-        {% for node in site.posts %}
-        <li>
-            <h3><a href="{{node.url}}">{{node.title}}</a></h3>
-            <div>{{node.excerpt}}</div>
-            <a href="{{node.url}}">Read more...</a>
-        </li>
-        {% endfor %}
-    </ul>
-</article>
+<h1 class="site-title">
+    <a href="/">
+        <div class="title"><b>J</b><b>A</b><b>M</b><b>E</b><b>S</b></div>
+        <div class="title"><b>L</b><b>O</b><b>P</b><b>E</b><b>R</b></div>
+    </a>
+</h1>
+
+<ul id="nav">
+    {% for node in site.posts %}
+    <li>
+        <h3><a href="{{node.url}}">{{node.title}}</a></h3>
+        <div>{{node.excerpt}}</div>
+        <a href="{{node.url}}">Read more...</a>
+    </li>
+    {% endfor %}
+</ul>

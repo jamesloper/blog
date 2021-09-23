@@ -1,16 +1,16 @@
 ---
 layout: post
-title: "Three ways to calculate distance between coordinates"
-categories: javascript, web
+title: "Fastest way to calculate distance between coordinates"
+categories: javascript, web, algorithm
 ---
 
 I'm always facing the problem of calculating the distance between two points over the surface of the Earth. This calculation involves some trigonometry a bit more complex than the planar one we all studied in high school, we are talking about spherical trigonometry, and the first thing that pops up is the haversine function.
 
 <!--more-->
 
-## The one you probably already know
+## The one you probably already know, Haversine
 
-This is a pretty solid way to calculate distances. Although it assumes the earth is a sphere, it is widely agreed that this is the way, it sacrifices very little, and reaches a good level of speed. Despite it being the more performant among the top distance algorithms, the haversine still involves 7 computationally expensive trigonometric functions (4 Sin, 2 Cos, 1 Atan), Pows and two square roots and looks like this:
+Haversine is a pretty solid way to calculate distances. Although it assumes the earth is a sphere, it sacrifices very little and reaches a good level of speed. Despite it being the more performant among the top distance algorithms, the haversine still involves 7 computationally expensive trigonometric functions (4 Sin, 2 Cos, 1 Atan), Pows and two square roots and looks like this:
 
 ``` javascript
 const R = 6378.137;
@@ -27,7 +27,7 @@ export const getDistance = (a, b) => {
 };
 ```
 
-I benchmarked the haversine taking 1.413s to process 5 million coordinate pairs.
+> I benchmarked the haversine taking 1.413s to process 5 million coordinate pairs.
 
 ## Optimizing for small distances: the fast haversine
 
@@ -47,7 +47,7 @@ export const getDistance = (a, b) => {
 };
 ```
 
-Benchmarking 5 million coordinate pairs took 303.719ms. We are doing well with impressive gains. This one took only 21% of the time compared to baseline.
+> Benchmarking 5 million coordinate pairs took 303.719ms. We are doing well with impressive gains. This one took only 21% of the time compared to baseline.
 
 ## Reaching the end-game, the sloppy haversine
 
@@ -63,6 +63,6 @@ export const getDistance = (a, b) => {
 };
 ```
 
-This new algorithm takes a mere square root and cosine call and completes 5 million coordinate pairs in a break neck speed of 215.79ms which is only 15% of the baseline!
+> This new algorithm takes a mere square root and cosine call and completes 5 million coordinate pairs in a break neck speed of 215.79ms which is only 15% of the baseline!
 
 So, all in all, we conclude that haversine is useful, generic, and academically perfect- but when it comes to the practical programming, nothing beats a solution with a use case already in mind. 
