@@ -13,6 +13,10 @@ li.command {list-style-type:square;}
 li.command, .code, pre, kbd, code {font-family:Menlo, monospace; font-size:12px;}
 blockquote {color:#666; margin:20px 40px; font-size:18px;}
 
+table {width:100%; border-collapse:collapse; margin-bottom:20px; border:1px solid #fff; border-radius:4px; overflow:hidden;}
+th {text-align:left;}
+td, th {border:1px solid #000; padding:2px 10px;}
+
 article ul li {list-style:none; position:relative; margin-bottom:10px;}
 article ul li:before {content:'👉'; position:absolute; left:-24px;}
 article ul li > strong:first-child {background:#f5cd6b; padding:0 5px;}
@@ -22,8 +26,9 @@ article ul li > strong:first-child {background:#f5cd6b; padding:0 5px;}
 .s1, .s2 {color:#fc6;}
 .o {color:#ccc;}
 .mi,.mf {color:#76b;}
-.nb {color:#8de;}
+.nb, .kc {color:#8de;}
 .nt {color:#e54;}
+.na {font-weight:bold;}
 
 .language-make .err {color:#e9534e;}
 .language-make .nv {color:#f5cd6b;}
@@ -57,4 +62,4 @@ article .meta {margin-top:10px;}
 .hero {margin-bottom:40px; background:#000080; padding:6px 10px; color:#fff;}
 
 .related-posts {margin-top:10px;}
-.related-posts h3 {font-family:Menlo, "Courier New", monospace;}
+.related-posts > div {margin-bottom:10px;}

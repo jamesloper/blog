@@ -1,8 +1,10 @@
 source "https://rubygems.org"
 ruby RUBY_VERSION
-gem "jekyll", "3.8.5"
-gem "minima", "~> 2.0"
-gem "jekyll-target-blank"
+
+gem "github-pages", "213", group: :jekyll_plugins
+
 group :jekyll_plugins do
-   gem "jekyll-feed", "~> 0.6"
+   gem "jekyll-file-size"
 end
+
+gem "webrick", "~> 1.7"

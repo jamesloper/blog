@@ -1,2 +1,2 @@
 #!/bin/zsh
-bundle exec jekyll serve
+bundle exec jekyll serve --port 3004
