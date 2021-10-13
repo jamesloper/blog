@@ -4,27 +4,33 @@ title: "Official meteor client in react native"
 categories: react native, javascript, meteor
 ---
 
-When you build a Meteor app for deployment, Meteor outputs a regular js file that you can run anywhere js is supported. Using this knowledge, we can make use of the official, battle tested client.
- 
+When building a Meteor app for deployment, Meteor generates a js bundle that you can run anywhere. Using this knowledge, we can make use of the official, battle-tested client instead of the 3rd party one from npm.
 
 <!--more-->
 
 ```javascript
 import { Random } from 'meteor/random';
+
 Meteor.call('Test', Random.id(), (err, res) => {
 	console.log(err, res);
 });
 ```
 
-> This is what we will are working towards!
+> Importing meteor within a React Native project seems like madness!
 
 [comment]: <> (In my particular use case, I've made the decision to limit the scope of my bundler to only output official meteor code, including none of my isomorphic JS code at all. This makes it so you only have to regenerate the bundle once per meteor version.)
 
 ## Table of contents
+
 - [Setup and build the meteor client](#setup-and-build-meteor-client)
 - [Polyfills](#polyfills)
 - [Get imports to work](#get-imports-to-work)
+- [useTracker](#usetracker)
 - [Meteor updates](#meteor-updates)
+
+## Prior work
+
+This blog post is based off of the work of Urigo and his [meteor-client-bundler](https://blog.meteor.com/leverage-the-power-of-meteor-with-any-client-side-framework-bfb909141008) and has been made more efficient through use of better polyfills and a transparent and configurable set of scripts.
 
 ## Setup and build meteor client
 
@@ -42,6 +48,7 @@ util/ *folder inside your app
 ```
 
 **Let's get started!** Create a folder to house the bundler and make a blank meteor app inside.
+
  ``` javascript
 mkdir .meteor-client
 cd .meteor-client
@@ -87,6 +94,7 @@ The bundler's purpose is to build the meteor client to a temporary folder and co
  ```
 
 Contents of `post-bundle.js`
+
  ``` javascript
  // Disable hot-code-push
  if (Package.reload) {
@@ -103,20 +111,28 @@ npm install --dev execa
 ```
 
 In your `package.json` add a new script:
+
 ```javascript
-"scripts": {
-  ...
-  "meteor-client-bundle": "node .meteor-client/create-bundle.js"
+"scripts"
+:
+{
+...
+	"meteor-client-bundle"
+:
+	"node .meteor-client/create-bundle.js"
 }
 ```
 
 And run it...
 
 ```javascript
-npm run meteor-client-bundle
+npm
+run
+meteor - client - bundle
 ```
 
 In your root component, import the polyfill and the meteor client:
+
 ```javascript
 import './utils/meteor/polyfills';
 import './utils/meteor/meteor-client';
@@ -130,7 +146,7 @@ registerRootComponent(App);
 
 ## Polyfills
 
-This generated bundle is not much use yet, it was intended to be run within a browser environment. So we must polyfill all those browser apis. This polyfill depends on react-native-mmkv-storage. 
+This generated bundle is not much use yet, it was intended to be run within a browser environment. So we must polyfill all those browser apis. This polyfill depends on react-native-mmkv-storage.
 
 ```bash
 npm install react-native-mmkv-storage
@@ -378,7 +394,7 @@ At this point you can access the meteor packages but unless you are a maniac, th
 | ---- | ---- |
 | `const {check} = Package['check'];` | `import { check } from 'meteor/check';` |
 
-To be able to `import` meteor packages, you can implement an adapter in babel. Contents of `babel.config.js`:
+To be able to `import` meteor packages, you can implement an adapter in babel. Using AST explorer I developed a "[import from meteor package](https://astexplorer.net/#/gist/359ce39f3069f400426a2e1f3e0bce41/bedeac44b0f54d13945bb289e0d45126d87a3d49)" transpiler. By including the transpiler in `babel.config.js` babel (which is built in) will immediately make the new syntax work.
 
 ``` javascript
 const adaptMeteor = (babel) => {
@@ -412,9 +428,50 @@ module.exports = function(api) {
 };
 ```
 
-[Source](https://astexplorer.net/#/gist/359ce39f3069f400426a2e1f3e0bce41/bedeac44b0f54d13945bb289e0d45126d87a3d49)
+## useTracker
+
+Here's a useTracker function you can drop into your project!
+
+```javascript
+import { Tracker } from 'meteor/tracker';
+import { isEqual } from 'underscore';
+import { useReducer, useRef, useMemo, useEffect } from 'react';
+
+const add = (x) => x + 1;
+const useForceUpdate = () => useReducer(add, 0)[1];
+
+export const useTracker = (reactiveFn, deps = []) => {
+	const forceUpdate = useForceUpdate();
+	const {current: refs} = useRef({});
+
+	refs.reactiveFn = reactiveFn; // keep reactiveFn ref fresh
+
+	useMemo(() => {
+		const handle = Tracker.autorun(() => {
+			refs.data = refs.reactiveFn();
+		});
+		setTimeout(() => {
+			handle.stop();
+		}, 0);
+	}, deps);
+
+	useEffect(() => {
+		const computation = Tracker.autorun(() => {
+			const data = refs.reactiveFn();
+			if (!isEqual(refs.data, data)) {
+				refs.data = data;
+				forceUpdate();
+			}
+		});
+		return () => computation.stop();
+	}, deps);
+
+	return refs.data;
+};
+```
 
 ## Meteor updates
+
 Meteor updates are a simple matter of accepting the update and re-running the bundler:
 
 ```bash
