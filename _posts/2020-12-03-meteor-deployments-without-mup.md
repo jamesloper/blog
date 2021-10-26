@@ -85,16 +85,16 @@ sudo certbot --nginx -d example.jamesloper.com
 
 Create `.deploy` folder for your deployment scripts. In that folder create two more folders to contain your staging and production environment variables.
 
-```
-.deploy/
-├── example/
-│   ├── env.sh
-│   └── settings.json
-├── example-staging/
-│   ├── env.sh
-│   └── settings.json
-├── deploy
-└── remote-script.sh
+``` directory
+📂 .deploy
+   📂 example
+      📄 env.sh
+      📄 settings.json
+   📂 example-staging
+      📄 env.sh
+      📄 settings.json
+   📄 deploy
+   📄 remote-script.sh
 ```
 
 ## Contents of `deploy`

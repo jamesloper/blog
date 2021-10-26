@@ -4,7 +4,7 @@ title: "Fastest way to calculate distance between coordinates"
 categories: javascript, web, algorithm
 ---
 
-I'm always facing the problem of calculating the distance between two points over the surface of the Earth. This calculation involves some trigonometry a bit more complex than the planar one we all studied in high school, we are talking about spherical trigonometry, and the first thing that pops up is the haversine function.
+I'm always facing the problem of calculating the distance between two points over the surface of the Earth. So let's dive into the various ways you can do that.
 
 <!--more-->
 
@@ -51,18 +51,18 @@ export const getDistance = (a, b) => {
 
 ## Reaching the end-game, the sloppy haversine
 
-After finding the fast haversine formula, I could not stand still. For my use case I knew there was one more way to push the formula even further and make it even more sloppy. To do this, I revisited our good friend trigonometry. By now we know that haversine exists to accommodate the earth's spherical math. However when we are looking close to the earth's surface it no longer appears as a sphere and instead looks flat. So if we can find a factor to multiply by the longitude delta, and a factor to multiply by the latitude delta, we can use trigonometry as if we are dealing with a flat plane. That code is this magnificent sloppy boy:
+After finding the fast haversine formula, I could not stand still. For my use case I knew there was one more way to push the formula even further. To do this, I revisited our good friend trigonometry. By now we know that haversine exists to accommodate the earth's spherical math. However when we are looking close to the earth's surface it no longer appears as a sphere and instead looks flat. So if we can find a factor to multiply by the longitude delta, and a factor to multiply by the latitude delta, we can use trigonometry as if we are dealing with a flat plane. That code is this magnificent sloppy boy:
 
 ``` javascript
 const kRad = Math.PI / 180;
 export const getDistance = (a, b) => {
-	const kx = Math.cos(a.lat * kRad) * 111.321;
-	const dx = (a.lon - b.lon) * kx;
-	const dy = (a.lat - b.lat) * 111.139;
-	return Math.sqrt(dx * dx + dy * dy);
+    const kx = Math.cos(a.lat * kRad) * 111.321;
+    const dx = (a.lon - b.lon) * kx;
+    const dy = (a.lat - b.lat) * 111.139;
+    return Math.sqrt(dx * dx + dy * dy);
 };
 ```
 
 > This new algorithm takes a mere square root and cosine call and completes 5 million coordinate pairs in a break neck speed of 215.79ms which is only 15% of the baseline!
 
-So, all in all, we conclude that haversine is useful, generic, and academically perfect- but when it comes to the practical programming, nothing beats a solution with a use case already in mind. 
+So, we can conclude that haversine is very generalized, and you should choose algorithms knowing how they work, not just blindly importing them!

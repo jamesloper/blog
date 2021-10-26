@@ -30,21 +30,21 @@ Meteor.call('Test', Random.id(), (err, res) => {
 
 ## Prior work
 
-This blog post is based off of the work of Urigo and his [meteor-client-bundler](https://blog.meteor.com/leverage-the-power-of-meteor-with-any-client-side-framework-bfb909141008) and has been made more efficient through use of better polyfills and a transparent and configurable set of scripts.
+This blog post is based off of the work of Urigo and his [meteor-client-bundler](https://blog.meteor.com/leverage-the-power-of-meteor-with-any-client-side-framework-bfb909141008) and has been made more efficient through use of better polyfills and a smaller, simpler, more readily modified set of scripts.
 
 ## Setup and build meteor client
 
 Here's a quick overview of the folder structure involved in the whole process:
 
-``` text
-.meteor-client/
-├─ app/ *empty meteor project
-├─ create-bundle.js *build script
-└─ post-bundle.js *required asset
-util/ *folder inside your app
-└─ meteor/ *folder for meteor stuff
-   ├─ polyfill.js
-   └─ meteor-client.js *generated
+``` directory
+📂 .meteor-client
+   📁 app
+   📄 create-bundle.js
+   📄 post-bundle.js
+📂 util
+   📂 meteor
+      📄 polyfill.js
+      📄 meteor-client.js
 ```
 
 **Let's get started!** Create a folder to house the bundler and make a blank meteor app inside.
@@ -113,22 +113,16 @@ npm install --dev execa
 In your `package.json` add a new script:
 
 ```javascript
-"scripts"
-:
-{
-...
-	"meteor-client-bundle"
-:
-	"node .meteor-client/create-bundle.js"
+"scripts": {
+    ...
+	"meteor-client-bundle": "node .meteor-client/create-bundle.js"
 }
 ```
 
 And run it...
 
 ```javascript
-npm
-run
-meteor - client - bundle
+npm run meteor-client-bundle
 ```
 
 In your root component, import the polyfill and the meteor client:
