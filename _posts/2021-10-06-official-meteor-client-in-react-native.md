@@ -1,7 +1,7 @@
 ---
 layout: "post"
 title: "Official meteor client in react native"
-categories: react native, javascript, meteor
+categories: meteor, react native, javascript
 ---
 
 When building a Meteor app for deployment, Meteor generates a js bundle that you can run anywhere. Using this knowledge, we can make use of the official, battle-tested client instead of the 3rd party one from npm.
@@ -18,8 +18,6 @@ Meteor.call('Test', Random.id(), (err, res) => {
 
 > Importing meteor within a React Native project seems like madness!
 
-[comment]: <> (In my particular use case, I've made the decision to limit the scope of my bundler to only output official meteor code, including none of my isomorphic JS code at all. This makes it so you only have to regenerate the bundle once per meteor version.)
-
 ## Table of contents
 
 - [Setup and build the meteor client](#setup-and-build-meteor-client)
@@ -30,11 +28,10 @@ Meteor.call('Test', Random.id(), (err, res) => {
 
 ## Prior work
 
-This blog post is based off of the work of Urigo and his [meteor-client-bundler](https://blog.meteor.com/leverage-the-power-of-meteor-with-any-client-side-framework-bfb909141008) and has been made more efficient through use of better polyfills and a smaller, simpler, more readily modified set of scripts.
+This blog post is based off of the work of Urigo and his [meteor-client-bundler](https://blog.meteor.com/leverage-the-power-of-meteor-with-any-client-side-framework-bfb909141008) and has been made more efficient by better polyfills and more readily modified scripts.
 
-## Setup and build meteor client
-
-Here's a quick overview of the folder structure involved in the whole process:
+## Quick overview of the folder structure
+You can see below that there is a meteor-client folder, inside which is a folder for a stub of a meteor project, called app. The file create-bundle.js is the primary script which will run the meteor bundler and copy the output to a place within your react-native project directory. There is also post-bundle.js which is an asset used by create-bundle.js. Inside your utils folder in your project you will be copying in the polyfill.js file which will seamlessly translate web API's to React Native API's. 
 
 ``` directory
 📂 .meteor-client
@@ -47,6 +44,7 @@ Here's a quick overview of the folder structure involved in the whole process:
       📄 meteor-client.js
 ```
 
+## Setup and build meteor client
 **Let's get started!** Create a folder to house the bundler and make a blank meteor app inside.
 
  ``` javascript

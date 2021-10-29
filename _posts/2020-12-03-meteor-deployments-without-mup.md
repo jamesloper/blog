@@ -11,7 +11,7 @@ I love [mup](http://meteor-up.com/) and have been using it for years. It's the s
 
 <!--more-->
 
-> This guide was updated for Meteor 2.3 / Meteor 2.4, which upgraded Node to v14. Also added info on future upgrades.
+> This guide was updated for Meteor 2.3 to 2.5, which have Node pinned at v14. Also added info on future upgrades.
 
 ## Advantages of deploying manually
 
