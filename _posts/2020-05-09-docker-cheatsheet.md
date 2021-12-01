@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Docker host setup on Ubuntu 18 cheat sheet"
+title:  "Docker cheat sheet"
 categories: ubuntu, it, docker, linux
 modified: 2021-03-06
 ---
@@ -16,12 +16,16 @@ adduser ubuntu && usermod -aG sudo ubuntu
 ```
 
 ## Install latest Docker Engine
-The one in apt is not actually docker, so `sudo apt remove docker` if you accidentally added it!
+Pro tip: The one in apt is not actually docker, so `sudo apt remove docker` if you accidentally added it!
+
 ``` bash
 curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh
 ```
 
-To enable Docker Engine HTTP access, edit the config file at `sudo nano /lib/systemd/system/docker.service` and change this line to add the tcp arg:
+To enable Docker Engine HTTP access, edit the config file and add the tcp arg:
+```bash
+sudo nano /lib/systemd/system/docker.service
+```
 ``` bash
 ExecStart=/usr/bin/dockerd -H fd:// -H tcp://127.0.0.1:5555
 ```
@@ -30,7 +34,7 @@ ExecStart=/usr/bin/dockerd -H fd:// -H tcp://127.0.0.1:5555
 sudo service docker restart
 ```
 
-Note this is bound to localhost, so use SSH to proxy your laptop to port 5555. You could use 0.0.0.0 but that would allow anyone to manipulate your machine!
+Note that 127.0.0.1 allows access only from localhost, so use SSH to proxy your laptop to port 5555. You could use 0.0.0.0 but that would allow anyone to manipulate your machine!
 
 ## SSH Config
 Edit the config at `sudo nano ~/.ssh/config` and add this section:
