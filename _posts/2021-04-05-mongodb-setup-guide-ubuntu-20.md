@@ -16,6 +16,7 @@ While hosted mongodb solutions exist, they aren't for everyone. Scaling, securit
 4. [Adding a secondary](#adding-a-secondary)
 5. [Enable swap](#enable-swap)
 6. [Simple MongoDB backups with mongodump](#simple-mongodb-backups-with-mongodump)
+7. [Diagnostics cheat sheet](#diagnostics-cheat-sheet)
 
 ## Getting started
 
@@ -252,3 +253,12 @@ find hourly/* -mtime +1 -exec rm {} \;
 ```
 
 This script creates a new backup and zips it, and deposits it in the hourly folder, then deletes any hourly backups that are older than a day. You can make this run hourly with `crontab -e`
+
+## Diagnostics cheat sheet
+- Clear logs with `echo "" > /var/log/mongodb/mongod.log`
+- Get logs with `tail /var/log/mongodb/mongod.log`
+- Edit config at `nano /etc/mongod.conf`
+- Key file should be 600 permissions
+- mongodb user should own `/var/log/mongodb`
+- Unlink socket with `rm /tmp/mongodb-27017.sock`
+- Start mongod service with `service mongod start`
