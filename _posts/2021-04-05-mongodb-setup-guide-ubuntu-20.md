@@ -1,6 +1,6 @@
 ---
-layout: post 
-title:  "MongoDB setup guide for Ubuntu 20"
+layout: "post"
+title: "MongoDB setup guide for Ubuntu 20"
 categories: ubuntu, it, mongo, ssl
 ---
 <img src="/assets/mongodb-ssl.png" alt="MongoDB SSL" class="banner"/>
@@ -24,19 +24,13 @@ In this guide, the primary will be `db.example.com`. Start by logging in and per
 
 ``` bash
 ssh ubuntu@db.example.com
-sudo apt update && apt upgrade
-```
-
-Install MongoDB:
-
-``` bash
-wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
-echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-sudo apt update
+wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+sudo apt update && sudo apt upgrade
 sudo apt install -y mongodb-org
 ```
 
-**Optional:** Create a data directory. You'll want to do this if you've mounted an XFS volume so that the database doesn't reside on the boot drive. This is a good practice use on cloud providers!
+**Optional:** Create a data directory. You'll want to do this so that the database doesn't reside on the boot drive. This is a good practice! XFS is the filesystem of choice for mongodb data directories.
 
 ``` bash
 mkdir /mnt/db/mongodb
@@ -45,17 +39,20 @@ chown -R mongodb:mongodb /mnt/db/mongodb
 
 Create a barebones configuration just to get it functioning. Edit `/etc/mongod.conf`.
 
-``` conf
+``` yaml
 storage:
   dbPath: /mnt/db/mongodb
+  
 net:
   bindIp: 0.0.0.0
+  
 replication:
   replSetName: rs0
   oplogSizeMB: 100
 ```
 
-`dbPath` should be set to the path you made, or you can just remove the whole storage section if you are going to use the default.. `0.0.0.0` makes your server accessible via the web.
+- `dbPath` should be set to the path you made. Or you can just remove the whole storage section if you are going to use the default.
+- `0.0.0.0` makes your server accessible via the web.
 
 Restart `mongod` and register it with `systemctl` to start when your server boots:
 
@@ -68,7 +65,7 @@ At this point you can connect to the db, but it's also wide open for attackers t
 
 ## Create the admin user
 
-In this section, you will configure your database to only accept username & password authentication. Create an `admin`
+In this section, you will configure your database to only accept username & password authentication. While we are in here we might as well take care of initializing the replica set as well. Using your existing SSH session, connect to your database and create an `admin`
 user:
 
 ``` bash
@@ -78,9 +75,9 @@ rs.initiate()
 use admin
 
 db.createUser({
-  user: "admin",
-  pwd: "password",
-  roles: [ { role: "root", db: "admin" } ]
+  user: 'admin',
+  pwd: 'password',
+  roles: [{role: 'root', db: 'admin'}]
 })
 ```
 
@@ -255,6 +252,7 @@ find hourly/* -mtime +1 -exec rm {} \;
 This script creates a new backup and zips it, and deposits it in the hourly folder, then deletes any hourly backups that are older than a day. You can make this run hourly with `crontab -e`
 
 ## Diagnostics cheat sheet
+
 - Clear logs with `echo "" > /var/log/mongodb/mongod.log`
 - Get logs with `tail /var/log/mongodb/mongod.log`
 - Edit config at `nano /etc/mongod.conf`
