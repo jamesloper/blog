@@ -6,7 +6,7 @@ modified: 2021-03-06
 ---
 <img src="/assets/mozjpeg.png" alt="MozJPEG" class="banner"/>
 
-I recently had to make a Node script that would interface with the command line program `cjpeg`. I will show you how to install that on both your development laptop and on the Ubuntu server it will ultimately be deployed to.
+I recently had to make a Node script that would make use of MozJPEG. I will show you how to install it on both a development laptop and on the Ubuntu server the product will ultimately be deployed to.
 
 <!--more-->
 
@@ -16,17 +16,12 @@ MozJPEG is a high efficiency JPEG converter that boasts higher visual quality an
 
 ## Install MozJPEG on macOS with brew
 
-Brew is where you will find the latest mozjpeg binaries. If you don't have brew yet, [download it here](https://brew.sh/).
+Brew is where you will find the latest mozjpeg binaries. If you don't have brew yet, [download it here](https://brew.sh/). Brew will install cjpeg and djpeg into /usr/local/Cellar/mozjpeg
 
 ``` bash
 brew install mozjpeg
 ```
-If cjpeg isn't found after installing, you can add it and djpeg with...
 
-``` bash
-ln -s /usr/local/Cellar/mozjpeg/4.0.0/bin/cjpeg /usr/local/bin/cjpeg
-ln -s /usr/local/Cellar/mozjpeg/4.0.0/bin/djpeg /usr/local/bin/djpeg
-```
 
 ## Install MozJPEG on Ubuntu from source
 The developers did an excellent job with the makefile. Just make sure you've installed all the necessary tools and libraries.
