@@ -118,9 +118,9 @@ SERVER="ubuntu@example.jamesloper.com"
 # check cached build directory
 log "Building meteor app"
 useCache="n"
-[ -d "/tmp/$1" ] && read -p "Use cached build? [y/n]: " useCache
+[ -d "/tmp/$PROJECT" ] && read -p "Use cached build? [y/n]: " useCache
 if [ $useCache != "y" ]; then
-  meteor build /tmp/$1 --architecture os.linux.x86_64
+  meteor build /tmp/$PROJECT --architecture os.linux.x86_64
 fi
 
 log "Uploading app & settings"
