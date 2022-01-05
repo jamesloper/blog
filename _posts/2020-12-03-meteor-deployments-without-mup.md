@@ -194,11 +194,12 @@ To ensure your sites start up when the server starts up, execute `pm2 startup` a
 Future versions of Meteor occasionally bump up the version of Node. If you're wondering, you can check the Meteor Node version with `meteor node --version`. Since we are not dealing with docker containers, if you use this approach you will have to operationalize your upgrade process. That process is as follows:
 
 1. Upgrade all your meteor projects locally and ensure they all work on the latest version of Meteor/Node.
-2. ssh into your server, take your websites offline, and update node.
-   ``` bash
-
-pm2 stop all sudo apt update sudo apt upgrade sudo reboot
-
+2. ssh into your server, take your websites offline, and update node:
+``` bash
+pm2 stop all 
+sudo apt update 
+sudo apt upgrade sudo reboot
 ```
+
 3. Re-deploy all your meteor apps!
 4. Re-check that startup is still enabled with `pm2 startup`
