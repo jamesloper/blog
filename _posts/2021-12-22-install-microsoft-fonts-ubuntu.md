@@ -1,7 +1,7 @@
 ---
 layout: "post"
 title: "Install Microsoft fonts in Ubuntu"
-categories: ubuntu, javascript
+categories: "guide, ubuntu"
 ---
 
 Need to generate a PDF using the Arial font? Ubuntu doesn't bundle proprietary software to avoid licensing issues, however you can easily install the Microsoft suite of fonts with one simple command.

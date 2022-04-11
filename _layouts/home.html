@@ -11,3 +11,19 @@ layout: default
     </li>
     {% endfor %}
 </ul>
+
+<div class="sidebar">
+    <div id="search-container">
+        <input type="search" id="search-input" placeholder="Search..." class="search">
+        <ul id="results-container" class="related-posts"></ul>
+    </div>
+
+    <script src="/scripts/search.js" type="text/javascript"></script>
+    <script>
+		SimpleJekyllSearch({
+			searchInput: document.getElementById('search-input'),
+			resultsContainer: document.getElementById('results-container'),
+			json: '/search.json',
+		});
+    </script>
+</div>

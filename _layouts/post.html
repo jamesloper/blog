@@ -3,39 +3,54 @@ layout: default
 ---
 
 <article>
-<h1>{{page.title}}</h1>
-{{content}}
+    <h1>{{page.title}}</h1>
+    {{content}}
 
-<aside class="meta">Posted on {{page.date | date: "%B %-d, %Y"}}</aside>
+    <aside class="meta">Posted on {{page.date | date: "%B %-d, %Y"}}</aside>
 </article>
 
 {% assign maxRelated = 5 %}
 {% assign minCommonTags = 1 %}
 {% assign maxRelatedCounter = 0 %}
 
-<div class="related-posts">
-	<h3>Related posts...</h3>
+<div class="sidebar">
+    <div class="sidebar-group">
+        <div class="james-avatar">🫥</div>
+        <h3 class="james">James Loper</h3>
+        <div class="james-followers">800M Followers</div>
+        <div class="james-bio">
+            Software Engineer<br>
+            Full Stack / Back-end Developer<br/>
+            hux.com
+        </div>
+        <a class="james-follow" href="https://www.instagram.com/jamesloper/" target="_blank">Instagrams</a>
+    </div>
 
-	{% for post in site.posts %}
-		{% assign sameTagCount = 0 %}
-		{% assign commonTags = '' %}
+    <div class="related-posts">
+        <h3>Related</h3>
 
-		{% for category in post.categories %}
-			{% if post.url != page.url %}
-				{% if page.categories contains category %}
-					{% assign sameTagCount = sameTagCount | plus: 1 %}
-				{% endif %}
-			{% endif %}
-		{% endfor %}
+        {% for post in site.posts %}
+        {% assign sameTagCount = 0 %}
+        {% assign commonTags = '' %}
 
-		{% if sameTagCount >= minCommonTags %}
-			<div>
-				<a href="{{site.baseurl}}{{post.url}}">{{post.title}}</a>
-			</div>
-			{% assign maxRelatedCounter = maxRelatedCounter | plus: 1 %}
-			{% if maxRelatedCounter >= maxRelated %}
-				{% break %}
-			{% endif %}
-		{% endif %}
-	{% endfor %}
+        {% for category in post.categories %}
+        {% if post.url != page.url %}
+        {% if page.categories contains category %}
+        {% assign sameTagCount = sameTagCount | plus: 1 %}
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+
+        {% if sameTagCount >= minCommonTags %}
+        <div>
+            <a href="{{site.baseurl}}{{post.url}}">{{post.title}}</a>
+        </div>
+        {% assign maxRelatedCounter = maxRelatedCounter | plus: 1 %}
+        {% if maxRelatedCounter >= maxRelated %}
+        {% break %}
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+    </div>
+
 </div>
