@@ -33,8 +33,8 @@ sudo apt install -y mongodb-org
 **Optional:** Create a data directory. You'll want to do this so that the database doesn't reside on the boot drive. This is a good practice! XFS is the filesystem of choice for mongodb data directories.
 
 ``` bash
-mkdir /mnt/db/mongodb
-chown -R mongodb:mongodb /mnt/db/mongodb
+sudo mkdir /mnt/db/mongodb
+sudo chown -R mongodb:mongodb /mnt/db/mongodb
 ```
 
 Create a barebones configuration just to get it functioning. Edit `/etc/mongod.conf`.
@@ -86,7 +86,19 @@ Edit `/etc/mongod.conf` again! Specify a security policy. This one is absolutely
 ``` yaml
 security:
   authorization: "enabled"
+  keyFile: /data/key
 ```
+
+## Create key file
+This step is kind of a song and dance but you just have to do it to appease the mongo gods.
+
+``` bash
+sudo touch /data/key
+sudo chmod 400 /data/key
+sudo nano /data/key
+```
+And just put some random string in this file!
+
 
 Restart mongod:
 

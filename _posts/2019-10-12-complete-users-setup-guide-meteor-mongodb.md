@@ -56,4 +56,7 @@ MONGO_URL=mongodb://app:password@db.example.com/app?ssl=true
 MONGO_OPLOG_URL=mongodb://oplog:password@db.example.com/local?ssl=true&authSource=admin
 ```
 
+## Note about MongoDB 5
+I have experienced some bugginess with startup, which seems to be fixed by adding `directConnection=true`
+
 That's it! We now have the two URLs needed to connect our Meteor app with our database.
