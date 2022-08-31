@@ -76,9 +76,9 @@ article .meta {margin-top:10px;}
 .james-follow {padding:5px 18px; border-radius:100px; background:#27e; color:#fff; text-decoration:none; display:inline-block; box-shadow:1px 1px 1px #000;}
 
 @media (prefers-color-scheme: dark) {
-	body {color:#fff; background:#111;}
+	body {color:#fff; background:#000;}
 	article p {color:#aaa;}
-	.sidebar {background:#212222;}
+	.sidebar {background:#206;}
 }
 
 .search {border:1px solid #333; background:#fff; width:100%; padding:10px; outline:none;}

@@ -4,6 +4,8 @@ title: "Fastest way to calculate distance between coordinates"
 categories: javascript, web, algorithm
 ---
 
+<img src="/assets/haversine.png" alt="Latitude & Longitude Diagram" class="banner"/>
+
 I'm always facing the problem of calculating the distance between two points over the surface of the Earth. So let's dive into the various ways you can do that.
 
 <!--more-->
