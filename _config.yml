@@ -1,12 +1,10 @@
 title: James Loper
 email: james@hux.com
 description: Personal site of James Loper
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://jamesloper.com" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: ""
+url: "https://jamesloper.com"
 twitter_username: jamesloper
-github_username:  jamesloper
-
-# Build settings
+github_username: jamesloper
 excerpt_separator: <!--more-->
 markdown: kramdown
 theme: minima
@@ -15,7 +13,6 @@ plugins:
 exclude:
   - Gemfile
   - Gemfile.lock
-
 permalink: /:title
-include: [".well-known"]
+include: [ ".well-known" ]
 highlighter: rouge
