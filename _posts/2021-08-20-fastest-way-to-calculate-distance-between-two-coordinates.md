@@ -6,13 +6,13 @@ categories: javascript, algorithm
 
 <img src="/assets/haversine.png" alt="Latitude & Longitude Diagram" class="banner"/>
 
-I'm always facing the problem of calculating the distance between two points over the surface of the Earth. So let's dive into the haversine and see what we can do to speed it up, and even examine the life-altering philosophy of such endeavors.
+I'm always facing the problem of calculating the distance between two points on the surface of the Earth. Most of my readers will already be aware of the Haversine formula, so let's dive in and see how many earth shattering speed enhancements we can make.
 
 <!--more-->
 
-## The one you know, good old haversine
+## Good old haversine 
 
-Haversine is a pretty solid way to calculate distances. Although it assumes the earth is a sphere, it sacrifices very little and reaches a good level of speed. Despite it being the more performant among the top distance algorithms, the haversine still involves 7 computationally expensive trigonometric functions (4 Sin, 2 Cos, 1 Atan), Pows and two square roots and looks like this:
+Haversine is a pretty solid way to calculate distances. Although it assumes the earth is a sphere, it sacrifices very little and reaches a good level of speed. Despite it being the more performant among the top distance algorithms, the haversine still involves 7 computationally expensive trigonometric functions (4 sines, 2 cosines, 1 arc tangent, 2 powers of two, and 2 square roots) and looks like this:
 
 ``` javascript
 const R = 6378.137;
@@ -53,7 +53,7 @@ export const getDistance = (a, b) => {
 
 ## Reaching the end-game, the sloppy haversine
 
-After finding the fast haversine formula, I could not stand still. For my use case I knew there was one more way to push the formula even further. To do this, I revisited our good friend trigonometry. By now we know that haversine exists to accommodate the earth's spherical math. However when we are looking close to the earth's surface it no longer appears as a sphere and instead looks flat. So if we can find a factor to multiply by the longitude delta, and a factor to multiply by the latitude delta, we can use trigonometry as if we are dealing with a flat plane. This is what is known as a projection which is when you flatten the latitude and longitude into x and y coordinates that represent kilometers! That code is this magnificent sloppy boy:
+After finding the fast haversine formula, I could not stand still. I knew there was one more way to push the formula even further by revisiting our good friend trigonometry. By now we know that haversine exists to accommodate the earth's spherical math. However when we are looking close to the earth's surface it no longer appears as a sphere and instead looks flat. So if we can find a factor to multiply by the longitude delta, and a factor to multiply by the latitude delta, we can use trigonometry as if we are dealing with a flat plane. This is what is known as a projection which is when you flatten the latitude and longitude into x and y coordinates that represent kilometers. That code is this magnificent sloppy boy:
 
 ``` javascript
 const kRad = Math.PI / 180;
@@ -69,7 +69,7 @@ export const getDistance = (a, b) => {
 
 ## Going even further for a specific use case 
 
-Usually we want to calculate the distance of a fixed origin to many separate points, for instance the distances from your current location to a number of POI's. In the sloppy haversine, the variable `kx`, which is the factor to multiply the `x` coordinate by, will not change unless the first point of reference changes. So, we can make a closure that reuses the cosine, so that each individual comparison uses only **one square root call**:
+Usually we want to calculate the distance of your current location to many other locations, so your current location will be the same for each calculation. In the sloppy haversine, the variable `kx`, which is the factor to multiply the `x` coordinate by, will not change unless the first location changes. We can make a closure that reuses the cosine, so that each individual comparison uses only **one square root call**:
 
 ``` javascript
 const kRad = Math.PI / 180;
@@ -85,6 +85,6 @@ export const ruler = (a) => {
 
 ## Removing the square root
 
-Hilariously, if you are only comparing distances and not displaying them, there is no need for the square root. Simply comparing the result of `(dx * dx) + (dy * dy)` will do. With the last math call gone, we can plainly see that with enough work, we can avoid doing any work, which is kind of my life philosophy.
+Hilariously, if you are only comparing distances and not displaying them, there is no need for the square root. Simply comparing the result of `(dx * dx) + (dy * dy)` will do. And with the last math call gone, we can plainly see here that with just a little work, we can avoid doing any work, which is kind of my life philosophy. 
 
 So, we can conclude that haversine is very generalized, and you should choose algorithms knowing how they work, not just blindly importing them!
