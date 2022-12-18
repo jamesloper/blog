@@ -3,6 +3,7 @@ layout: "post"
 title: "Fix MacOS mds_stores taking 100% cpu"
 categories: macos, it
 ---
+<img src="/assets/mds-stores.jpg" alt="mds_stores" class="banner"/>
 
 When mds_stores takes 100% of cpu it means it's scanning and indexing a directory with a lot of files in it. In
 programming, typically node_modules is the culprit.
