@@ -4,9 +4,20 @@ title: "Official meteor client in react native"
 categories: meteor, react native, javascript
 ---
 
-When building a Meteor app for deployment, Meteor generates a js bundle that you can run anywhere. Using this knowledge, we can make use of the official, battle-tested client instead of the 3rd party one from npm.
+<img src="/assets/meteor-react-native.png" alt="meteor and react native" class="banner"/>
+
+When developing a React Native app with a meteor backend, you may be tempted to make use of the meteor client found on npm. However, that is not the best way!
 
 <!--more-->
+
+## How not to implement a Meteor backend in React Native
+
+When we search for a package that can integrate a Meteor backend into a React Native project, we are presented with several options, but no official package. These packages all seem to work at first, but once you dive deeper you discover differences from the official client, including bugs. Crucially, none of the packages follow Meteor DDP to spec, or differ from the official implementation. The way quiessence (one of meteor's internal mechanisms) events fire, and out-of-order steps in the method call pipeline can cause bugs that are usually race conditions. 
+In contrast, the meteor official code is frequently updated, inherently supports the latest features, and is battle tested and is in widespread use. 
+
+## The solution
+
+When building a Meteor app for deployment, Meteor generates a js bundle. Using this knowledge, we can make use of the official, battle-tested client, and in doing so, make React Native just a little tiny bit less shitty.
 
 ```javascript
 import { Random } from 'meteor/random';
