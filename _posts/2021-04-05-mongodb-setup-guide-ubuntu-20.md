@@ -1,7 +1,7 @@
 ---
 layout: "post"
 title: "MongoDB setup guide for Ubuntu 20"
-categories: ubuntu, it, mongo, ssl
+categories: ubuntu it mongo ssl
 ---
 <img src="/assets/mongodb-ssl.png" alt="MongoDB SSL" class="banner"/>
 
@@ -11,12 +11,13 @@ While hosted mongodb solutions exist, they aren't for everyone. Scaling, securit
 ## Quick links
 
 1. [Getting started](#getting-started)
-2. [Create the admin user](#create-the-admin-user)
-3. [Enable SSL](#enable-ssl)
-4. [Adding a secondary](#adding-a-secondary)
-5. [Enable swap](#enable-swap)
-6. [Simple MongoDB backups with mongodump](#simple-mongodb-backups-with-mongodump)
-7. [Diagnostics cheat sheet](#diagnostics-cheat-sheet)
+2. [Enable automatic startup mongod server on server boot](#enable-automatic-startup-mongod-server-on-server-boot)
+3. [Create the admin user](#create-the-admin-user)
+4. [Enable SSL](#enable-ssl)
+5. [Adding a secondary](#adding-a-secondary)
+6. [Enable swap](#enable-swap)
+7. [Simple MongoDB backups with mongodump](#simple-mongodb-backups-with-mongodump)
+8. [Diagnostics cheat sheet](#diagnostics-cheat-sheet)
 
 ## Getting started
 
@@ -54,10 +55,17 @@ replication:
 - `dbPath` should be set to the path you made. Or you can just remove the whole storage section if you are going to use the default.
 - `0.0.0.0` makes your server accessible via the web.
 
-Restart `mongod` and register it with `systemctl` to start when your server boots:
+Restart `mongod`:
 
 ``` bash
 sudo service mongod restart
+```
+
+## Enable automatic startup mongod server on server boot
+
+Register it with `systemctl` to start when your server boots
+
+``` bash
 sudo systemctl enable mongod
 ```
 

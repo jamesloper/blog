@@ -1,7 +1,7 @@
 ---
 layout: "post"
 title: "Setup mjpg-streamer on Ubuntu Server 20"
-categories: ubuntu, it, linux, streaming
+categories: ubuntu it linux streaming
 modified: 2021-03-06
 ---
 

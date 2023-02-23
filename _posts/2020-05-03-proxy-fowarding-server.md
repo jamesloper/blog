@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "A proxy forwarding server in just a few lines of code"
-categories: javascript, web, it, networking
+categories: javascript web it networking
 modified: 2021-03-06
 ---
 <img src="/assets/proxy.png" alt="Proxy" class="banner"/>

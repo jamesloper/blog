@@ -1,7 +1,7 @@
 ---
 layout: "post"
 title: "NGINX cheatsheet for Ubuntu Server 20"
-categories: ubuntu, it, networking, nginx
+categories: ubuntu it networking nginx
 ---
 
 It's no secret I love NGINX. I use it in all my projects.

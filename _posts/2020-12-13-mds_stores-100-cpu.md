@@ -1,7 +1,7 @@
 ---
 layout: "post"
 title: "Fix MacOS mds_stores taking 100% cpu"
-categories: macos, it
+categories: macos it
 ---
 <img src="/assets/mds-stores.jpg" alt="mds_stores" class="banner"/>
 

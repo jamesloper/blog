@@ -1,7 +1,7 @@
 ---
 layout: "post"
 title: "Official meteor client in react native"
-categories: meteor, react native, javascript
+categories: meteor react-native javascript
 ---
 
 <img src="/assets/meteor-react-native.png" alt="meteor and react native" class="banner"/>

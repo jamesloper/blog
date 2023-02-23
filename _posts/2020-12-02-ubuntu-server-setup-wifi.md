@@ -1,7 +1,7 @@
 ---
 layout: "post"
 title: "Setup WiFi on Ubuntu Server 20"
-categories: ubuntu, it, networking
+categories: ubuntu it networking
 modified: 2021-03-06
 ---
 

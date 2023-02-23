@@ -1,7 +1,7 @@
 ---
 layout: post 
 title: "My hackathon submission: Emissions Queen"
-categories: digitalocean, hackathon, mongo, meteor
+categories: digitalocean hackathon mongo meteor
 ---
 
 <img src="/assets/queen.png" alt="Emissions Queen" class="banner"/>

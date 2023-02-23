@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Complete users setup guide for Meteor and MongoDB"
-categories: mongo, javascript, meteor, it
+categories: mongo javascript meteor it
 ---
 
 <img src="/assets/meteor-mongodb.png" alt="Meteor + MongoDB" class="banner"/>

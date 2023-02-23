@@ -1,7 +1,7 @@
 ---
 layout: "post"
 title: "Meteor deployments without mup"
-categories: "meteor, ubuntu, javascript"
+categories: "meteor ubuntu javascript"
 modified: "2021-06-30"
 ---
 

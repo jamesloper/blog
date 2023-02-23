@@ -1,7 +1,7 @@
 ---
 layout: "post"
 title: "How to tell if a port is in use in Ubuntu"
-categories: "guide, ubuntu"
+categories: guide ubuntu it
 ---
 
 <img src="/assets/port.png" alt="port" class="banner"/>

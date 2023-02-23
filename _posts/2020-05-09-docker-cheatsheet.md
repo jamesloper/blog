@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Docker cheat sheet"
-categories: ubuntu, it, docker, linux
+categories: ubuntu it docker linux
 modified: 2021-03-06
 ---
 

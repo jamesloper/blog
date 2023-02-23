@@ -1,7 +1,7 @@
 ---
 layout: "post"
 title: "Install Microsoft fonts in Ubuntu"
-categories: "guide, ubuntu"
+categories: guide ubuntu it
 ---
 <img src="/assets/fonts.png" alt="Microsoft Fonts" class="banner"/>
 

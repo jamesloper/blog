@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "How to run a server behind a firewall without port forwarding"
-categories: ubuntu, linux, it, networking, ssh
+categories: ubuntu linux it networking ssh
 modified: 2021-03-06
 ---
 

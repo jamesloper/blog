@@ -1,7 +1,7 @@
 ---
 layout: "post"
 title: "How to set a custom reset password handler in Meteor"
-categories: meteor, javascript, web
+categories: meteor javascript web
 ---
 
 I figured out how to override the default reset password handler and send the password reset email via CustomerIO.

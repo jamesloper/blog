@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "How to remove canonical's motd-news"
-categories: ubuntu, it
+categories: ubuntu it
 ---
 
 <img src="/assets/motd.png" alt="MOTD" class="banner"/>
