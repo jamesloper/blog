@@ -17,6 +17,7 @@ adduser ubuntu && usermod -aG sudo ubuntu
 ## Install latest NGINX
 
 ``` bash
+sudo apt-get install software-properties-common
 sudo add-apt-repository ppa:nginx/stable
 sudo apt-get update
 sudo apt install nginx
