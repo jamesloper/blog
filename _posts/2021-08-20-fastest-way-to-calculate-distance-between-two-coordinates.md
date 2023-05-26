@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Fastest way to calculate distance between coordinates"
-categories: javascript geojson algorithm
+categories: javascript gps location algorithm
 ---
 
 <img src="/assets/haversine.png" alt="Latitude & Longitude Diagram" class="banner"/>

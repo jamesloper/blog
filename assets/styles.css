@@ -77,7 +77,7 @@ article .meta {margin-top:10px;}
 
 @media (prefers-color-scheme: dark) {
 	body {color:#fff; background:#000;}
-	article p {color:#aaa;}
+	article p {color:#ccc;}
 }
 
 .search {border:1px solid #333; background:#fff; width:100%; padding:10px; outline:none;}
