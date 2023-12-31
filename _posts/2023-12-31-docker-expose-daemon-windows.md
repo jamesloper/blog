@@ -21,6 +21,7 @@ No need to mess with Firewall, netsh portproxy, or any of that nonsense.
 1. Install the Tailscale Docker extension
 2. Enable the setting "Expose daemon on tcp://localhost:2375 without TLS" in Docker Desktop
 3. Copy the IP address from the newly added Docker Machine (This is the Virtual Machine Docker is running under, not the Windows host)
-4. Test the connection by running `docker -H tcp://[HOST_IP]:2375 ps`
+4. Add `"hosts": ["tcp://0.0.0.0:2375"]` to the Docker Machine configuration in Settings.
+5. Test the connection by running `docker -H tcp://[HOST_IP]:2375 ps`
 
 We can plainly see how solid of a solution this is. Not only is it insanely simple and easy to use, you are now able to remotely access the docker daemon even from outside of your LAN. Incredible!
