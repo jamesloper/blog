@@ -124,6 +124,7 @@ if [ $useCache != "y" ]; then
 fi
 
 log "Uploading app & settings"
+ssh $SERVER "mkdir -p $1"
 scp -pr /tmp/$PROJECT/* $SERVER:$1
 scp -pr .deploy/$1/* $SERVER:$1
 

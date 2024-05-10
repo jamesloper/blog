@@ -32,7 +32,7 @@ touch .hushlogin
 ``` bash
 curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh
 sudo bash nodesource_setup.sh
-sudo apt-get install -y nodejs
+sudo apt-get install -y nodejs jq
 sudo npm install -g pm2
 pm2 startup
 ```
