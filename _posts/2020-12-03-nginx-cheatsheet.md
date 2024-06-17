@@ -88,5 +88,5 @@ server {
 
 ``` bash
 sudo apt install certbot python3-certbot-nginx
-certbot --nginx -d db.example.com
+sudo certbot --nginx -d db.example.com
 ```
