@@ -27,7 +27,7 @@ curl -fsSL https://tailscale.com/install.sh | sh
 touch .hushlogin
 ```
 
-## Install Node 20 & PM2
+## For Meteor Apps
 
 ``` bash
 curl -sL https://deb.nodesource.com/setup_20.x -o nodesource_setup.sh
