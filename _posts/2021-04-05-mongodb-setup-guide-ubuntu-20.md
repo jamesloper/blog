@@ -25,10 +25,10 @@ In this guide, the primary will be `db.example.com`. Start by logging in and per
 
 ``` bash
 ssh ubuntu@db.example.com
-wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
-echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+sudo apt-get install gnupg curl
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
 sudo apt update && sudo apt upgrade
-sudo apt install -y mongodb-org
+sudo apt-get install -y mongodb-org
 ```
 
 **Optional:** Create a data directory. You'll want to do this so that the database doesn't reside on the boot drive. This is a good practice! XFS is the filesystem of choice for mongodb data directories.
