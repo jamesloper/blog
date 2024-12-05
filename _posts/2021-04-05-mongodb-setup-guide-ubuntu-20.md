@@ -77,7 +77,7 @@ In this section, you will configure your database to only accept username & pass
 user:
 
 ``` bash
-mongo
+mongosh
 use local
 rs.initiate()
 use admin

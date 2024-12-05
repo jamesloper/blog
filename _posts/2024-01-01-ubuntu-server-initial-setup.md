@@ -7,13 +7,23 @@ categories: ubuntu server
 Here is the song & dance I do every time I start a new Ubuntu server. Nice cheat sheet for me to refer back to.
 <!--more-->
 
-## Create non-root user
+## Create non-root user & enable SSH
 
+If "ubuntu" user doesn't exist, create it:
 ``` bash
 adduser ubuntu
 usermod -aG sudo ubuntu
 rsync --archive --chown=ubuntu:ubuntu ~/.ssh /home/ubuntu
 ```
+
+Enable SSH: Set a password for the user and edit the SSH config file
+``` bash
+passwd ubuntu
+nano /etc/ssh/sshd_config
+```
+
+Remove the line "Import" blah blah blah
+Uncomment `AllowPasswordAuthentication yes`
 
 ## Install Tailscale
 
